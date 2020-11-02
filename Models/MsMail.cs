@@ -22,8 +22,8 @@ namespace WebApplication1.Models
 
         public MsMail()
         {
-            this.Email = "tokosslol1990@gmail.com";
-            this.Password = "Tokoss1990";
+            this.Email = "";
+            this.Password = "";
             /*
             this.Email = "info@niovar.solutions";
             this.Password = "kA2@fFHetR";
