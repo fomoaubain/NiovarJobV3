@@ -1,0 +1,472 @@
+﻿
+@{
+    ViewBag.Title = "louerEmployer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>louerEmployer</h2>
+
+<!-- Our Candidate List -->
+<section class="our-faq bgc-fa">
+    <div class="container  mt50">
+        <div class="row">
+            <div class="col-lg-3 col-xl-3 dn-smd mt10">
+                <div class="faq_search_widget mb30">
+                    <h4 class="fz20 mb15">Catégorie d'emploi</h4>
+                    <div class="candidate_revew_select">
+                        <select class="browser-default custom-select domaine" onchange="filter()" name="Typ_id" id="">
+                            <option value="" selected>choisir</option>
+                            @foreach (WebApplication1.Models.Types types in ViewBag.listTypes)
+                            {
+                                <option value="@types.id">@types.libelle</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div class="faq_search_widget mb30">
+                    <h4 class="fz20 mb15">Titre d'emploi </h4>
+                    <div class="candidate_revew_select">
+                        <select class="browser-default custom-select categoriesSearch" onchange="filter()" name="Cat_id" id="">
+                            <option value="" selected>choisir</option>
+                            @foreach (WebApplication1.Models.Categorie categorie in ViewBag.listCategorie)
+                            {
+                                <option value="@categorie.id">@categorie.libelle</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="cl_latest_activity mb30">
+                    <h4 class="fz20 mb15">Année d'experience</h4>
+                    <div class="ui_kit_whitchbox">
+                        <div class="custom-control custom-switch">
+                            <input type="radio" name="anneeExp" value="" class="custom-control-input" id="a2">
+                            <label class="custom-control-label" for="a2">Aucun choix</label>
+                        </div>
+                        @foreach (WebApplication1.Models.AnneeExp item in ViewBag.listAnneeExp)
+                        {
+                            <div class="custom-control custom-switch">
+                                <input type="radio" name="anneeExp" value="@item.libelle" class="custom-control-input" id="@item.id">
+                                <label class="custom-control-label" for="@item.id">@item.libelle</label>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-9 col-xl-9 ">
+
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="col-sm-12 col-lg-12">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-12 mb-2">
+                                    <div class="candidate_job_alart_btn">
+                                        <h4 class="fz20 mb15 ">Liste des freelancer </h4>
+                                        <button class="btn btn-thm btns dn db-991 float-right">Afficher le filtre</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="cl_latest_activity mb30">
+                                        <h5 class="fz20 mb15">Pays</h5>
+                                        <div class="candidate_revew_select">
+                                            <select name="pays" class="countries browser-default custom-select country " id="countryId" onchange="filter()">
+                                                <option value="">Selectionner le pays</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="cl_latest_activity mb30">
+                                        <h5 class="fz20 mb15">Province</h5>
+                                        <div class="candidate_revew_select">
+                                            <select name="province" class="states browser-default custom-select state " id="stateId" onchange="filter()">
+                                                <option value="">Selectionner la province</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="cl_latest_activity mb30">
+                                        <h5 class="fz20 mb15">Ville</h5>
+                                        <div class="candidate_revew_select">
+                                            <select name="ville" class="cities browser-default custom-select city   " id="cityId" onchange="filter()">
+                                                <option value="">Selectionner la ville</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content_details">
+                            <div class="details">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span></span><i>×</i></a>
+
+                                <div class="faq_search_widget mb30">
+                                    <h4 class="fz20 mb15">Catégorie d'emploi</h4>
+                                    <div class="candidate_revew_select">
+                                        <select class="browser-default custom-select domaine2" onchange="filter()" name="Typ_id" id="">
+                                            <option value="" selected>choisir</option>
+                                            @foreach (WebApplication1.Models.Types types in ViewBag.listTypes)
+                                            {
+                                                <option value="@types.id">@types.libelle</option>
+                                            }
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="faq_search_widget mb30">
+                                    <h4 class="fz20 mb15">Titre d'emploi</h4>
+                                    <div class="candidate_revew_select">
+
+                                        <select class="browser-default custom-select categoriesSearch2" onchange="filter()" name="Cat_id" id="">
+                                            <option value="" selected>choisir</option>
+                                            @foreach (WebApplication1.Models.Categorie categorie in ViewBag.listCategorie)
+                                            {
+                                                <option value="@categorie.id">@categorie.libelle</option>
+                                            }
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="cl_latest_activity mb30">
+                                    <h4 class="fz20 mb15">Année d'experience</h4>
+                                    <div class="ui_kit_whitchbox">
+                                        <div class="custom-control custom-switch">
+                                            <input type="radio" name="anneeExp2" value="" class="custom-control-input" id="a1">
+                                            <label class="custom-control-label" for="a1">Aucun choix</label>
+                                        </div>
+                                        @foreach (WebApplication1.Models.AnneeExp item in ViewBag.listAnneeExp)
+                                        {
+                                            <div class="custom-control custom-switch">
+                                                <input type="radio" name="anneeExp2" value="@item.libelle" class="custom-control-input" id="check@(item.id)">
+                                                <label class="custom-control-label" for="check@(item.id)">@item.libelle</label>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12" id="job-list">
+                        @if (ViewBag.listFreelancer != null)
+                        {
+                            foreach (WebApplication1.Models.Inscrire item in ViewBag.listFreelancer)
+                            {
+                                <div class="col-lg-12">
+                                    <div class="candidate_list_view">
+                                        <div class="thumb">
+                                            <img class="img-fluid rounded-circle" height="100px" width="100px" src="~/Assets/images/team/avatar.png" alt="c1.jpg">
+                                            <div class="cpi_av_rating"><span></span></div>
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="title">CDT0@(item.id)</h4>
+                                            <p>@item.titreEmploi</p>
+                                            <ul class="review_list">
+                                            </ul>
+                                            <ul class="address_list">
+                                                <li class="list-inline-item"><a href="#"><h4>Adresse</h4> <span class="flaticon-location-pin"></span> @item.pays,  @item.province, @item.ville</a></li>
+                                                <li class="list-inline-item"><a href="#"><h4>Année expérience </h4> <span class="flaticon-price"></span> @item.anneeExperience</a></li>
+
+                                            </ul>
+                                        </div>
+                                        <a class="btn btn-transparent float-right fn-lg" href="@Url.Action("cvCandidatLocation", "Locations", new { id=item.id , page=0 })">Voir CV <span class="flaticon-right-arrow"></span></a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class=" col-md-12 col-lg-12">
+                                <h3 class="text-center font-weight-bold">Aucun candidat trouvé !</h3>
+                            </div>
+                        }
+
+                    </div>
+
+
+
+                    <div class="col-lg-12 " id="paginateionContent">
+                        <div class="mbp_pagination">
+                            <ul class="page_navigation">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item"><a class="page-link" href="#">...</a></li>
+                                <li class="page-item"><a class="page-link" href="#">45</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next <span class="flaticon-right-arrow"></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="~/Scripts/custom.js"></script>
+<script type="text/javascript" src="~/Scripts/select2.min.js"></script>
+<link rel="stylesheet" href="~/Content/select2.min.css">
+
+
+<style>
+    .select2-dropdown {
+        top: 22px !important;
+        left: 8px !important;
+    }
+
+    .link-class:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<script>
+        $(".domaine").select2({
+            placeholder: "Choisir la categorie",
+            allowClear: true
+        });
+        $(".domaine2").select2({
+            placeholder: "Choisir la categorie",
+            allowClear: true
+        });
+
+        $(".categoriesSearch").select2({
+            placeholder: "Choisir le titre d'emploi",
+            allowClear: true
+        });
+        $(".categoriesSearch2").select2({
+            placeholder: "Choisir le titre d'emploi",
+            allowClear: true
+        });
+        $(".country").select2({
+            placeholder: "Choisir le pays",
+            allowClear: true
+        });
+
+        $(".state").select2({
+            placeholder: "Choisir la province",
+            allowClear: true
+        });
+
+        $(".city").select2({
+            placeholder: "Choisir la ville",
+            allowClear: true
+        });
+// initialise les valeur lorque la vu ne retourne pas la ville , province , pays
+    var valuePays = null;
+    var valueProvince = null;
+    var valueVille = null;
+
+
+
+          function setActivePageBnt(index, page) {
+            return (index == page) ? 'active' : '';
+        }
+        function setDisabledBnt(index, page) {
+            return (index == page) ? 'disabled' : '';
+        }
+        function createPaginationComponent(count, Currentpage, limit) {
+            var html = '<div class="mbp_pagination">' +
+                            '<ul class="page_navigation">'+
+                                '<li class="page-item ' + setDisabledBnt(1, Currentpage) + '">'+
+                                    '<a onclick="filter(' + (Currentpage-1) + ')" class="page-link" href = "javascript::void();" tabindex = "-1" aria - disabled="true" > '+
+                                        '<span class="flaticon-left-arrow" ></span> Previous</a > '+
+                                '</li>';
+                    var nb = Math.round(count / limit);
+                    for (var page = 1; page <= nb; page++) {
+                        html += '<li class="page-item ' + setActivePageBnt(page, Currentpage) + '"><a onclick="filter(' + page + ')" data-value="' + page + '" id="page_btn" class="page-link" href="javascript::void();">' + page + '</a></li>';
+
+                        }
+                        html += '<li class="page-item ' + setDisabledBnt(nb, Currentpage) + '">' +
+                                    '<a onclick="filter(' + (Currentpage + 1) + ')" class="page-link" href="javascript::void();">Next <span class="flaticon-right-arrow"></span></a>' +
+                                '</li>' +
+                            '</ul> ' +
+                        '</div>';
+            return html;
+        }
+
+        $(document).ready(function () {
+         //alert('gvjhv');
+            $("#paginateionContent").html(createPaginationComponent(@ViewBag.count, 1, @ViewBag.limit));
+        });
+
+        var anneeExp = "";
+        $(document).on("change", "input[type=radio][name=anneeExp]", function () {
+            anneeExp = this.value;
+            filter();
+        });
+
+        $(document).on("change", "input[type=radio][name=anneeExp2]", function () {
+            anneeExp = this.value;
+            filter();
+        });
+
+        function filter(page = 1) {
+            //recuperation des variables
+
+            var pays = '';
+            if ($('.countries').val() != '') {
+                pays = $('.countries').val();
+            }
+
+            var province = '';
+            if ($('.states').val() != '') {
+                province = $('.states').val();
+            }
+
+            var ville = '';
+            if ($('.cities').val() != '') {
+                ville = $('.cities').val();
+            }
+
+
+
+            var categoriesSearch = '';
+            if ($('.categoriesSearch2').val() != '') {
+                categoriesSearch = $('.categoriesSearch2').val();
+            }
+
+            if ($('.categoriesSearch').val() != '') {
+                categoriesSearch = $('.categoriesSearch').val();
+            }
+
+            var domaine = '';
+            if ($('.domaine2').val() != '') {
+                domaine = $('.domaine2').val();
+            }
+
+            if ($('.domaine').val() != '') {
+                domaine = $('.domaine').val();
+            }
+
+            console.log("categoriesSearch = " + categoriesSearch);
+            console.log("anneeExp = " + anneeExp);
+            console.log("domaine = " + domaine);
+            console.log("page = " + page);
+            console.log("pays = " + pays);
+            console.log("province = " + province);
+            console.log("ville = " + ville);
+
+            $('#job-list').html('<p style="text-align: center; font-weight: bold; font-size: larger;">Recherche en cour ...</p>');
+            $("#paginateionContent").html("");
+
+         
+
+            $.ajax({
+                type: 'GET',
+                url: 'filtreLouerEmployer?&anneeExp=' + anneeExp + "&categoriesSearch=" + categoriesSearch + "&domaine=" + domaine + "&pays=" + pays + "&province=" + province + "&ville=" + ville + "&page=" + page,
+                dataType: 'json',
+
+                success: function (data) {
+                    $('#job-list').html('');
+                    console.log(data);
+                    if (data.datas.length == 0) {
+                        $('#job-list').html('<p style="text-align: center; font-weight: bold; font-size: larger;">Aucun resultat trouvé</p>');
+                        $("#paginateionContent").html("");
+                        return;
+                    }
+                    $.each(data.datas, function (key, item) {
+                        console.log("item = " + item);
+                        createRow(item);
+                    });
+                    $("#paginateionContent").html(createPaginationComponent(data.count, page, data.limit));
+                },
+                error: function (emp) {
+                    $('#job-list').append('<li class="list-group-item link-class"> Aucun resultat disponible </li>');
+                }
+            });
+        }
+
+        function createRow(item) {
+
+            var html = '<div class="col-lg-12">' +
+                '<div class="candidate_list_view">' +
+                '<div class="thumb">' +
+                '<img class="img-fluid rounded-circle" src="../Assets/images/team/c1.jpg"  alt="c1.jpg">' +
+                '<div class="cpi_av_rating"><span></span></div>' +
+                '</div>' +
+                '<div class="content">' +
+                '<h4 class="title"> CDT0'+ item.id + '</h4>' +
+                '<p>' + item.titreEmploi + '</p>' +
+                '<ul class="review_list">' +
+
+                ' </ul>' +
+                '<ul class="address_list">' +
+                '<li class="list-inline-item"><a href="#"><h4>Adresse</h4> <span class="flaticon-location-pin"></span>' + item.pays + ',' + item.province + ',' + item.ville + '</a></li>' +
+                '<li class="list-inline-item"><a href="#"><h4>Année expérience </h4> <span class="flaticon-price"></span>' + item.anneeExperience + '</a></li>' +
+
+                ' </ul>' +
+                ' </div>' +
+                ' <a class="btn btn-transparent float-right fn-lg" href="@Url.Action("cvCandidatLocation", "Locations")?id=' + item.id +'&page=0">Voir CV <span class="flaticon-right-arrow"></span></a>' +
+                '</div>' +
+                '</div>';
+
+            $('#job-list').append(html);
+        }
+
+
+        // affiche les titre emplois en fonction de la catégorie choisi
+        $(".domaine").on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+            var id = this.value;
+            findTitreEmploi(id);
+        });
+
+        $(".domaine2").on('change', function (e) {
+            var optionSelected = $("option:selected", this);
+            var id = this.value;
+
+            findTitreEmploi(id);
+        });
+
+        function findTitreEmploi(val) {
+             var stateOptions = " <option selected  value=''> choisir  titre emploi </option>";
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetAllTitreEmploi", "Offre")',
+            data: { "id": val },
+            dataType: 'json',
+            success: function (data) {
+                console.log("tablaeu:" + data);
+                $.each(data, function (i, titreEmploi) {
+                    stateOptions += "<option value='"
+                        + titreEmploi.id +
+                        "'>"
+                        + titreEmploi.libelle +
+                        "</option>";
+                });
+                $('.categoriesSearch').html(stateOptions);
+                $('.categoriesSearch2').html(stateOptions);
+            },
+            error: function (xhr, status, error) {
+                //var err = eval("(" + xhr.responseText + ")");
+               // alert("error :"+ error );
+
+          stateOptions += "<option value=''>" +
+                    "Aucune donné trouvé</option>";
+                $('.categoriesSearch').html(stateOptions);
+                $('.categoriesSearch2').html(stateOptions);
+            }
+        });
+    }
+
+
+</script>

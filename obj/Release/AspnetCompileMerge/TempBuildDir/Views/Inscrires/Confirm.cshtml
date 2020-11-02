@@ -1,0 +1,69 @@
+﻿@model WebApplication1.Models.Inscrire
+@{
+
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<!-- Our LogIn Register -->
+
+<section class="our-error bgc-fa">
+    <div class="container">
+        <div  class=" col-lg-12 text-right m-5">
+            @Html.ActionLink("Se connecter", "Login")
+        </div>
+        <div class="row  justify-content-center">
+            <div class="col-sm-12 col-lg-6">
+                <div class="sign_up_form">
+                    <div class="heading">
+                        <h3 class="text-center"> @ViewBag.Message</h3>
+                    </div>
+
+                    @if (ViewBag.Etat != null)
+                    {
+                        if (ViewBag.Etat == 0)
+                        {
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(model => model.id)
+                                        <hr>
+
+                                        <input type="submit" class="btn btn-log btn-block btn-dark" value="CONFIRMER ">
+                                    }
+
+                                </div>
+                            </div>
+                        }
+                        else if (ViewBag.Etat == 1)
+                        {
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                    <hr>
+                                    <a  href="@Url.Action("Login", "Inscrires")" class="btn btn-log btn-block btn-dark">Se connecté </a>
+                                </div>
+                            </div>
+                        }
+                        else if (ViewBag.Etat == 2)
+                        {
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                    <hr>
+                                    <a href="~/Inscrires/Create" class="btn btn-log btn-block btn-dark"> Créer un compte </a>
+                                </div>
+                            </div>
+
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

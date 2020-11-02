@@ -1,0 +1,129 @@
+﻿@model WebApplication1.Models.Inscrire
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<!-- Our LogIn Register -->
+
+<section class="our-error bgc-fa">
+    <div class="container">
+        <div class="row  justify-content-center">
+            <div class="col-sm-12 col-lg-6">
+                <div class="sign_up_form">
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="ui_kit_message_box" id="message2">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <p class="h6">@ViewBag.Message </p>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="heading">
+                        <h3 class="text-center">Créer un compte</h3>
+                        <p class="text-center">J'ai deja un compte  <a class="text-thm" href="~/Inscrires/Login">Me connecter</a></p>
+                    </div>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+
+                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" onclick="changeNameLabel1()" role="tab" aria-controls="pills-home" aria-selected="true"> Candidat</a>
+                            </li>
+                            <li class="nav-item">
+
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" onclick="changeNameLabel2()" role="tab" aria-controls="pills-profile" aria-selected="false"> Client</a>
+                            </li>
+                        </ul>
+
+                        <input type="hidden" id="choice" value="candidat" name="type">
+
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                                <div class="form-horizontal">
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                    <div class="form-group">
+                                        <label id="label1" class="control-label col-md-12"> Login </label>
+                                        <label id="label2" class="control-label col-md-12" style="display:none"> Nom de la compagnie </label>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.login, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.cpassword, htmlAttributes: new { @class = "control-label col-md-8" })
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.cpassword, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.cpassword, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <div class="col-md-offset-2 col-md-12">
+                                            <input type="submit" class="btn btn-log btn-block btn-dark" value="Creer compte ">
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+       
+    });
+
+    function changeNameLabel2() {
+        document.getElementById('choice').value = 'client';
+        $("#label2").show();
+        $("#label1").hide();
+    }
+
+    function changeNameLabel1() {
+        document.getElementById('choice').value = 'candidat';
+        $("#label1").show();
+        $("#label2").hide();
+    }
+
+</script>

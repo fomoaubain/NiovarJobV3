@@ -1,0 +1,338 @@
+﻿@model WebApplication1.Models.Location
+@{
+    ViewBag.Title = "contratLocationClient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    WebApplication1.Models.Inscrire client = (WebApplication1.Models.Inscrire)ViewBag.client;
+
+    WebApplication1.Models.Inscrire candidat = (WebApplication1.Models.Inscrire)ViewBag.candidat;
+}
+    <style>
+        .payment-button {
+            display: block;
+            background: #666ee8;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+            border: 0;
+            font-weight: 700;
+            width: 100%;
+            height: 40px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .success {
+            border: solid green 1px;
+        }
+
+        .error {
+            border: solid red 1px;
+        }
+    </style>
+    <section class="">
+        <div class="our-dashbord dashbord ">
+            <div class="container">
+                <div class="row">
+                    @{
+                        Html.RenderPartial("Partial_menu_client");
+                    }
+
+                    <div class="col-lg-8 col-xl-9">
+                        <div class=" container-fluid">
+
+                            <div class="small-container">
+                                <div class="inner-header text-center">
+                                    <h1>Contrat de Location pour travail</h1>
+                                </div>
+                                <div class="inner-content">
+                                    <h4 class=" text-center">1. Les parties soussignées:</h4>
+                                    <p>
+                                        La Société: @client.nom  <br>
+                                        demeurant / établi(e) et ayant son siège social à : @client.adresse, @client.ville, @client.pays <br>
+                                        représenté(e) par : Mr / Mme @client.nomRepresentant  de @client.nom  ci-après désigné(e) l’employeur;
+                                    </p>
+                                    <h4 class=" text-center">  et</h4>
+                                    <p>
+                                        Madame / Monsieur  <span class="font-weight-bold"> @candidat.nom </span> demeurant à <span class="font-weight-bold">
+                                            @client.adresse
+                                        </span> ci-après désigné(e) „le / la salarié(e)“; ont conclu le présent CONTRAT DE TRAVAIL.
+                                        </span>
+                                        <h4 class=" text-center">2. Date d’entrée de service </h4>
+
+                                        <h4 class=" text-center">3. Nature de l'emploi occupé et description des fonctions / tâches assignées  </h4>
+                                    <p>
+                                        Le/la salarié(e) est engagé(e) en qualité de :<span class="font-weight-bold">
+                                            @client.titreEmploi
+                                            <br>
+
+                                            L'employeur se réserve le droit d'affecter le/la salarié(e) à une autre fonction et ce, selon les
+                                            besoins de l'employeur et en considération de la formation et des qualifications du/de la
+                                            salarié(e).
+                                    </p>
+                                    <h4 class=" text-center">4. Lieu de travail   </h4>
+                                    <p>
+                                        Le lieu de travail est <span class="font-weight-bold"> @client.ville  </span>, <span class="font-weight-bold">
+                                     @client.ville,  @client.province,  @client.pays
+                                       </span>. <br> <br>
+                                        Ou à défaut de lieu de travail fixe ou prédominant: Le salarié sera occupé à divers endroits et
+                                        plus particulièrement à l’étranger ainsi qu'au siège ou, le cas échéant, au domicile de
+                                        l’employeur;
+                                    </p>
+
+                                    <h4 class=" text-center"> 5. Durée et horaire de travail    </h4>
+                                    <p>
+                                        La durée de travail est de <span class="font-weight-bold">
+                                            @Model.heureTravail
+                                        </span>  heures par jours exclus les heures de pauses, réparties sur <span class="font-weight-bold">
+                                            @Model.periode
+                                        </span>  jours
+                                        ouvrables.
+                                    </p>
+
+                                    <h4 class=" text-center">   6. Salaire   </h4>
+                                    <p>
+                                        Le salaire initial brut est fixé à <span class="font-weight-bold"> @(Model.remuneration) $ </span>  à l’indice du dollars canadien. Il sera payé à la fin de
+                                        de la période de travail, déduction faite des charges sociales et fiscales prévues par la loi.
+                                    </p>
+
+                                    <p class="mt-4">
+                                        Le présent contrat de travail est régi par le Code du travail et/ou par les dispositions de la
+                                        convention collective applicable à l’entreprise.
+                                    </p>
+
+                                    <p class="mt-4">
+                                        NB: Un versement de 35 % du salaire sera versé immediatement afin de confirmer le contrat et entrer en pocession du travailleur.
+                                    </p>
+                                    <p class="mt-1">
+                                        <input type="checkbox" id="checkboxState"> J'ai lu et j'accepte les termes du contrat
+                                    </p>
+
+                                    @if (Model.avisCandidat == 2 && Model.avisClient == 0)
+                                    {
+                                        <button onclick="confirmContrat(@Model.id)" class="btn btn-primary"><span>Confimer les termes du contrat</span></button> <br> <br>
+                                    }
+                                    else if (Model.avisCandidat == 2 && Model.avisClient == 2)
+                                    {
+                                        <p class="btn btn-success"><span>Contrat accepter et approuver  par l'employeur  </span></p>
+                                        <br> <br>
+
+                                        <p>Date signature du candidat : @Model.dateSgnClt</p>
+
+                                    }
+                                    else if (Model.avisClient == 3)
+                                    {
+                                        <p class="btn btn-warning"><span>contrat rejeter</span></p> <br> <br>
+
+                                    }
+                                    <br>
+                                    <button class="btn btn-danger" onclick="rejeterContrat(@Model.id,3)"><span>rejeter cette demande/contrat </span></button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="sectionPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Paiement</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="col-sm-12 col-lg-12" id="">
+                            <div class="row  justify-content-center" style="margin-top: 10px;">
+                                <p class="text-center">En proccedant au payment des 35% de @Model.remuneration $ qui s'élève à (@(Model.remuneration * 35 / 100)) $ de la rénumeration dont vous acceptez les termes du contrat.</p><br />
+                            </div>
+                            <form method="POST" action="" id="payment-form" style="margin-top: 60px;">
+                                <h2 class="text-center"><a title="retour aux candidatures" href="@Url.Action("Abonnement", "Offre")"><i class="fa fa-backward"></i></a> Informations du paiement</h2>
+                                @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    <label for="card-name">Nom </label>
+                                    <input type="text" class="form-control" name="Name" placeholder="Card name" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="card-number">Numéro du compte</label>
+                                    <div id="card-number"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="card-cvc">Cvc</label>
+                                            <div id="card-cvc"></div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="card-exp"> Exp</label>
+                                            <div id="card-exp"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin: 15px; color: red;" id="card-errors" role="alert"> </div>
+                                <button type="submit" class="payment-button"><i style="font-size: 20px;" class="fa fa-cc-stripe"></i> Pay now @(Model.remuneration*35/100) $</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+     // fonction qui rejette l'accord du client pour le contrat
+    function rejeterContrat(id,val) {
+
+        if (document.getElementById('checkboxState').checked) {
+
+          var url = "@Url.Action("confirmContratLocation", "Locations")" + "?id=" + id + "&val=" + val +"&type=client";
+
+            console.log("url= " +url);
+
+            window.location.href = url;
+
+        } else {
+            alert("Veuillez confirmez les termes du contrat");
+        }
+
+    }
+
+
+    // fonction qui confirme l'accord du candidat pour le contrat
+    function confirmContrat(id) {
+
+        if (document.getElementById('checkboxState').checked) {
+
+            $('#sectionPayment').modal('show');
+        } else {
+            $('#sectionPayment').modal('hide');
+            alert("Veuillez confirmez les termes du contrat");
+
+        }
+
+    }
+
+
+
+    // Create a Stripe client.
+    var stripe = Stripe('pk_test_51Gx6jgIK0UhIWHGbQ9En381vmZHqP6V5SYYFmaqtk4uUmlYXTXtym4U9Lkrs0EUjBIUk3eKNgkYgWDyB49cjZ5t70081Zf54F0');
+
+    // Create an instance of Elements.
+    var elements = stripe.elements();
+
+    // Custom styling can be passed to options when creating an Element.
+    // (Note that this demo uses a wider set of styles than the guide below.)
+    var style = {
+        base: {
+            color: '#32325d',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+                color: '#aab7c4'
+            },
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+        }
+    };
+
+    // Create an instance of the card Element.
+    var card = elements.create('cardNumber', {
+        classes: {
+            base: "form-control",
+            focus: "success",
+            invalid: "error"
+        },
+        style: style
+    });
+    var cvc = elements.create('cardCvc', {
+        classes: {
+            base: "form-control",
+            focus: "success",
+            invalid: "error"
+        },
+        style: style
+    });
+    var exp = elements.create('cardExpiry', {
+        classes: {
+            base: "form-control",
+            focus: "success",
+            invalid: "error"
+        },
+        style: style
+    });
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    card.mount('#card-number');
+    cvc.mount('#card-cvc');
+    exp.mount('#card-exp');
+
+    // Handle real-time validation errors from the card Element.
+    card.on('change', function (event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+    // Handle form submission.
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        stripe.createToken(card).then(function (result) {
+            if (result.error) {
+                // Inform the user if there was an error.
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server.
+                stripeTokenHandler(result.token);
+            }
+        });
+    });
+
+    function stripeTokenHandler(token) {
+        var form = document.getElementById('payment-form');
+        var hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'stripeToken');
+        hiddenInput.setAttribute('value', token.id);
+        form.appendChild(hiddenInput);
+
+        var hiddenInputId = document.createElement('input');
+        hiddenInputId.setAttribute('type', 'hidden');
+        hiddenInputId.setAttribute('name', 'idLocation');
+        hiddenInputId.setAttribute('value', @Model.id );
+
+
+        form.appendChild(hiddenInputId);
+        form.submit();
+    }
+
+
+</script>

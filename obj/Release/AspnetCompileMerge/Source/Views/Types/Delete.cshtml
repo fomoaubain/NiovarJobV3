@@ -1,0 +1,53 @@
+﻿@model WebApplication1.Models.Types
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h3>êtes vous sûr de vouloir suprimer ?</h3>
+<div>
+    <!-- Page Content -->
+    <div class="content container-fluid">
+        <div class="row">
+            <div class="col-md-12 ">
+
+                <form>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label> Libelle <span class="text-danger"></span></label>
+                                <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.libelle)" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Crée le </label>
+                                <input class="form-control " value="@Html.DisplayFor(model => model.created)" type="text" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Image</label> <br>
+                                <img src="~/Fichier/@Model.image" width="40" height="40" class="align-self-start mr-3 rounded-circle" alt="e1.png">
+                            </div>
+                        </div>
+                    </div>
+                 
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Suprimer" class="btn btn-primary" /> |
+            @Html.ActionLink("Retour à la liste", "Index")
+        </div>
+    }
+</div>

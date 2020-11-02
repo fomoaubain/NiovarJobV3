@@ -1,0 +1,67 @@
+﻿@model WebApplication1.Models.Bibliotheque
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Bibliotheque</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.libelle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.libelle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.chemin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.chemin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.archived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.archived)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

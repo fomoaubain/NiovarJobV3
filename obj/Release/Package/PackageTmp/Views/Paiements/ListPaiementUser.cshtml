@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "ListPaiementUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Our Dashbord -->
+    <section>
+        <div class="our-dashbord dashbord ">
+            <div class="container">
+                <div class="row">
+                    @{
+                        Html.RenderPartial("Partial_menu_client");
+                    }
+
+                    <div class="col-sm-12 col-lg-8 col-xl-9">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <h4 class="mb30">Liste de mes transactions </h4>
+                            </div>
+                            <div class="col-12">
+
+                                <div class="col-lg-12">
+                                    <div class="cnddte_fvrt_job candidate_job_reivew style2">
+                                        <div class="text-center"> <h4>Historique paiement frais de recrutement d'employé </h4> </div>
+                                        <div class="table-responsive job_review_table">
+                                            <table class="table">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th scope="col">Libelle</th>
+                                                        <th scope="col">Montant </th>
+                                                        <th scope="col">Avance</th>
+                                                        <th scope="col">Reste</th>
+                                                        <th scope="col">Etat</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @foreach (WebApplication1.Models.Paiement item in ViewBag.listPaiement)
+                                                    {
+
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <h4>Paiement des frais pour l'employé : @item.Postuler.Inscrire.login</h4>
+                                                                <ul>
+                                                                    <li class="list-inline-item"><a href="#"><span class="flaticon-event"> payer le : @item.created</span></a></li>
+                                                                </ul>
+                                                            </th>
+                                                            <td><span class="color-black22"> @item.montant $</span></td>
+                                                            <td><span class="color-black22"> @item.avance $</span></td>
+                                                            <td><span class="color-black22"> @item.reste $</span></td>
+
+                                                            <td>
+
+                                                                @if (item.reste <= 0)
+                                                                {
+                                                                    <p class="badge bg-success text-white">Paiement Ok</p>
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p class="badge bg-warning text-white"> Paiement incomplet</p>
+
+                                                                }
+
+                                                            </td>
+
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                    <div class="col-lg-12 mt50">
+                                        <div class="cnddte_fvrt_job candidate_job_reivew style2">
+                                            <div class="text-center"> <h4>Historique paiement frais de location d'employé </h4> </div>
+                                            <div class="table-responsive job_review_table">
+                                                <table class="table">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th scope="col">Libelle</th>
+                                                            <th scope="col">Montant </th>
+                                                            <th scope="col">Avance</th>
+                                                            <th scope="col">Reste</th>
+                                                            <th scope="col">Etat</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @foreach (WebApplication1.Models.FraisLocation item in ViewBag.listFraisLocation)
+                                                        {
+
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    <h4>Paiement des frais de location pour le candidat N0: CDT0@(item.Ins_id)</h4>
+                                                                    <ul>
+                                                                        <li class="list-inline-item"><a href="#"><span class="flaticon-event"> payer le : @item.created</span></a></li>
+                                                                    </ul>
+                                                                </th>
+                                                                <td><span class="color-black22"> @item.montant $</span></td>
+                                                                <td><span class="color-black22"> @item.avance $</span></td>
+                                                                <td><span class="color-black22"> @item.reste $</span></td>
+
+                                                                <td>
+
+                                                                    @if (item.reste <= 0)
+                                                                    {
+                                                                        <p class="badge bg-success text-white">Paiement Ok</p>
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <p class="badge bg-warning text-white"> Paiement incomplet</p>
+
+                                                                    }
+
+                                                                </td>
+
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+    </section>

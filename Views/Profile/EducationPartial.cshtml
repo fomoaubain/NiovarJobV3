@@ -1,0 +1,78 @@
+
+@model WebApplication1.Models.CvListObject
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nouvelle éducation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("SaveEducation", "Profile", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+               
+                    <div class="form-group">
+                        <label class="control-label col-md-6">Date de début</label>
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="date" name="dateDebut"  class="form-control dateDebut" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-6">Date de fin</label>
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="date" name="dateFin" class="form-control dateFin" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="hidden" name="education.periode"  class="form-control periode" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.education.etablissement,"Etablissement d'enseignement", htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.education.etablissement, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.education.etablissement, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.education.diplome,"Diplôme obtenu", htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.education.diplome, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.education.diplome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.education.description,"Description", htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.education.description, new { @rows = "4", @class = "form-control", @placeholder = "veuillez saisir ici" })
+                            @Html.ValidationMessageFor(model => model.education.description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="submit" value="Ajouter" class="btn c"/>
+                        </div>
+                    </div>
+                </div>
+                }
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+

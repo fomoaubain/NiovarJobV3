@@ -1,0 +1,63 @@
+﻿@model IEnumerable<WebApplication1.Models.StatutEmploi>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="page-title">Liste des statut formation du système</h3>
+        </div>
+        <div class="col-sm-12 text-right">
+            <a href="~/StatutEmplois/Create" class=" btn-sm btn-primary">Ajouter</a>
+        </div>
+    </div>
+</div>
+<!-- /Page Header -->
+
+<div class="card-body">
+
+    <div class="table-responsive">
+        <table class="datatable table table-stripped mb-0">
+            <thead>
+                <tr>
+                    <th>Libéllé </th>
+                    <th>Date création</th>
+                    <th>Opération</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.libelle)
+                        </td>
+                    
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.created)
+                        </td>
+                        <td>
+                            <a title="Edit" href="@Url.Action("Edit", "StatutEmplois", new { id = item.id })" class="btn btn-sm btn-outline-primary">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a title="Details" href="@Url.Action("Details", "StatutEmplois", new { id = item.id })" class="btn btn-sm btn-outline-info">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a title="Delete" href="@Url.Action("Delete", "StatutEmplois", new { id = item.id })" class="btn btn-sm btn-outline-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

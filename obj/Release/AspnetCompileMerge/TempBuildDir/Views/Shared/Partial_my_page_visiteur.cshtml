@@ -1,0 +1,96 @@
+﻿
+@model WebApplication1.Models.Inscrire
+
+<style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .fb-profile img.fb-image-lg {
+        z-index: 0;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .fb-image-profile {
+        margin: -150px 10px 0px 50px;
+        z-index: 9;
+        width: 20%;
+    }
+
+    @@media (max-width:768px) {
+
+        .fb-profile-text > h1 {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .fb-image-profile {
+            margin: -45px 10px 0px 25px;
+            z-index: 9;
+            width: 20%;
+        }
+    }
+</style>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<div class="fb-profile">
+    @if (ViewBag.imageFond != null)
+    {
+        <img align="left" class="fb-image-lg" id="previewImg" src="~/Fichier/@ViewBag.imageFond" height="200px" alt="Profile image example" />
+
+    }
+    else
+    {
+        if (ViewBag.couleurFond != null)
+        {
+            <div class="w-100" style="height:220px; background-color:@ViewBag.couleurFond;"> </div>
+
+        }
+        else
+        {
+            <div class="w-100" style="height:220px; background-color:#cc6328;"> </div>
+
+        }
+
+    }
+
+    @if (Model.profil != null)
+    {
+        <img align="left" class="fb-image-profile thumbnail" src="~/Fichier/@Model.profil" height="220px" alt="Profile image example" />
+
+    }
+    else
+    {
+        <img align="left" class="fb-image-profile thumbnail" src="~/Assets/images/team/s1.jpg" alt="Profile image example" />
+
+    }
+    <div class="fb-profile-text">
+        <h3 class="font-weight-bold">@Model.nom</h3>
+        <p class="h4 font-weight-bolder">
+            @Model.nomRepresentant   <span class="h5">    Nous suivre : </span>
+            <a href="#" style="color:steelblue;"><i class="fa fa-facebook "></i></a>
+            <a href="#" style="color:steelblue;"><i class="fa fa-twitter"></i></a>
+            <a href="#" style="color:steelblue;"><i class="fa fa-linkedin"></i></a>
+        </p>
+
+    </div>
+</div>
+
+<!-- Inner Page Breadcrumb -->
+
+<nav aria-label="breadcrumb" class="mt-5">
+    <ol class="breadcrumb text-center center-block">
+        <li class="mt-4 mr-4  title"><a href="@Url.Action("AproposHome","Home", new { id=ViewBag.idInsc })" class=" mt20 h5 btn-sm btn-@(ViewBag.Title=="AproposHome" ? "warning" : "primary" ) font-weight-bolder">A propos</a></li>
+        <li class="mt-4 mr-4 title"><a href="@Url.Action("MaGalerieHome","Home", new { id=ViewBag.idInsc })" class=" mt20  h5  btn-sm btn-@(ViewBag.Title=="MaGalerieHome" ? "warning" : "primary" )  font-weight-bolder">Galerie</a></li>
+        <li class="mt-4 mr-4 title"><a href="@Url.Action("MesAvisHome","Home", new { id=ViewBag.idInsc })" class="mt20 h5 btn-sm btn-@(ViewBag.Title=="MesAvisHome" ? "warning" : "primary" ) font-weight-bolder">Avis</a></li>
+        <li class="mt-4 mr-4 title"><a href="@Url.Action("MyPageOffre","Home", new { id=ViewBag.idInsc })" class="mt20 h5 btn-sm btn-@(ViewBag.Title=="MyPageOffre" ? "warning" : "primary" ) font-weight-bolder">Offres d'emploi </a></li>
+        <!--  <li class=" mr-4 title "><a href="~/Pages/pageQuestionReponse" class="h5 btn-sm btn-@(ViewBag.Title=="pageQuestionReponse" ? "warning" : "primary" ) font-weight-bolder">Question/Réponses</a></li>-->
+        <li class="mt-4 mr-4 title "><a href="@Url.Action("PourquoiPostulerHome","Home", new { id=ViewBag.idInsc })" class="mt20 h5 btn-sm btn-@(ViewBag.Title=="PourquoiPostulerHome" ? "warning" : "primary" ) font-weight-bolder">Pourquoi postuler </a></li>
+    </ol>
+    </nav>

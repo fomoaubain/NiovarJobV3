@@ -1,0 +1,63 @@
+﻿@model WebApplication1.Models.Galerie
+@{
+    ViewBag.Title = "MaGalerieHome";
+
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    WebApplication1.Models.Inscrire inscrire = ViewBag.inscrire;
+
+    WebApplication1.Models.Page page = ViewBag.page;
+
+    ViewBag.imageFond = page.profilPage;
+    ViewBag.couleurFond = page.couleurFond;
+
+    ViewBag.idInsc = page.Ins_id;
+
+    List<WebApplication1.Models.Galerie> listGalerie = ViewBag.listGalerie;
+}
+
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+<div class="container">
+    @{
+        Html.RenderPartial("Partial_my_page_visiteur", inscrire);
+    }
+
+    <div class="col-md-12">
+            <hr class="mt-2 mb-5">
+
+            <div class="row ">
+
+                @if (listGalerie.Count > 0)
+                {
+                    foreach (WebApplication1.Models.Galerie item in ViewBag.listGalerie)
+                    {
+                        <div class="col-lg-3 col-md-4 col-6">
+                            <div class="col-md-12">
+                                <p class="text-center font-weight-bold text-black">@item.libelle  </p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a href="#" class="d-block mb-4 h-100">
+                                        <img class="img-fluid img-thumbnail h-25 " src="~/Fichier/@item.image" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-center">Aucune image enregistrer </p>
+                }
+
+            </div>
+
+     
+    </div>
+
+</div>
+
+

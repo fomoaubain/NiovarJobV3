@@ -1,0 +1,431 @@
+﻿@model WebApplication1.Models.Postuler
+@{
+    ViewBag.Title = "DetailsOffreHome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    WebApplication1.Models.Inscrire compagnie = ViewBag.compagnie;
+
+    decimal idInscrire = Model.Ins_id;
+    if (Model.Job.immediat.Equals("true")) { idInscrire = compagnie.id; }
+}
+    <section >
+        <div class="container">
+            <section class="bgc-fa  mbt45">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-xl-9">
+                            <div class="candidate_personal_info style2">
+                                <div class="thumb text-center">
+                                    @if (Model.Job.immediat.Equals("true"))
+                                    {
+                                        <img class="img-fluid rounded" src="~/Assets/images/logo2.png" width="195" height="150" alt="1.jpg"><br><br>
+                                    }
+                                    else if (Model.Inscrire.profil != null)
+                                    {
+                                        <img class="img-fluid rounded" src="~/Fichier/@Model.Inscrire.profil" width="195" style="height:150px;" alt="cl1.jpg"><br><br>
+
+                                    }
+                                    else
+                                    {
+                                        <img class="img-fluid rounded" src="~/Assets/images/team/offreEmplois.png" width="195" height="150" alt="1.jpg"><br><br>
+                                    }
+
+                                    @if (!Model.Job.immediat.Equals("direct"))
+                                    {
+                                        <a class="mt25" href="@Url.Action("AproposHome", "Home", new { id=idInscrire})">Visiter notre page <span class="flaticon-right-arrow pl10"></span></a>
+                                    }
+
+
+                                </div>
+
+                                <div class="details">
+                                    <small class="text-thm2">@Model.Job.heureTravail</small>
+                                    <h3>@Model.Job.titre</h3>
+                                    <p>
+                                        Publié le @Model.Job.created par
+                                        @if (Model.Job.immediat.Equals("true"))
+                                        {<a class="text-thm" href="#"> par NiovarJobs</a>}
+                                        else if (Model.Job.immediat.Equals("direct"))
+                                        {
+                                           <a class="text-thm" href="#">Compagnie : @Model.Inscrire.nom</a>
+                                        }
+                                        else
+                                        { <a class="text-thm" href="#"> par @Model.Inscrire.nom</a>}
+                                    </p>
+                                    <ul class="address_list">
+                                        <li class="list-inline-item"><a href="#"><span class="flaticon-location-pin"></span> Bothell, @Model.Job.ville</a></li>
+                                        <li class="list-inline-item">
+                                            <span href="#">
+                                                <span class="flaticon-price"></span>
+                                                @if (Model.Job.immediat.Equals("true"))
+                                                {<span> @(Convert.ToDecimal(Model.Job.remunerationN)/2) $ par semaine</span>}
+                                                else
+                                                {
+                                                    if (Model.Job.negociable == 0)
+                                                    {
+                                                        <span> @(Model.Job.remuneration/2) $ par semaine</span>
+                                                    }
+                                                    else if (Model.Job.negociable == 1)
+                                                    { <span>Salaire à négocier</span>}
+                                                    else
+                                                    {
+                                                        <span> @(Model.Job.salaireAnnuel) $ par année</span>
+                                                    }
+                                                }
+                                                </a>
+</li>
+                                    </ul>
+                                   
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xl-3">
+                            <div class="candidate_personal_overview style2">
+                                @if(@Model.Job.immediat.Equals("direct")){
+                                <a class="btn btn-block btn-thm mb15" href="@Url.Action("postulerDirectement","Home", new { id=Model.Inscrire.id, idJob=Model.Job.id })">Postuler directement <span class="flaticon-right-arrow pl10"></span></a>
+
+                                }else{
+                                <a class="btn btn-block btn-thm mb15" href="@Url.Action("postuler","Home", new { id=Model.Job.id })">Postuler maintenant <span class="flaticon-right-arrow pl10"></span></a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Candidate Personal Info Details-->
+            <section class="bgc-white pb30">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-xl-8">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="candidate_about_info style2">
+                                        <h4 class="fz20 mb30">Description de l'offre</h4>
+                                        <p class="mb30"> @Html.Raw(Model.Job.description)</p>
+
+                                        <h4 class="fz20 mb30">Taches et responsabilité:</h4>
+
+                                        <p>  @Html.Raw(Model.Job.responsabilite)</p>
+
+
+                                        <h4 class="fz20 mb30">Compétences requises</h4>
+                                        <p> @Html.Raw(Model.Job.exigence) </p>
+
+                                        <h4 class="fz20 mb30">Diplômes nécessaire</h4>
+
+                                        @foreach (WebApplication1.Models.DiplomeJob data in ViewBag.listDiplomeJob)
+                                        {
+                                            <p><span class="flaticon-right-arrow text-thm2"></span> @data.Diplome.libelle </p>
+                                        }
+
+                                        <h4 class="fz20 mb30">Avantages sociaux</h4>
+                                        @foreach (WebApplication1.Models.AvantageSociauxJob data in ViewBag.listAvantageSociauxJob)
+                                        {
+                                            <p><span class="flaticon-right-arrow text-thm2"></span> @data.AvantageSociaux.libelle </p>
+                                        }
+
+                                        <h4 class="fz20 mb30">Lieu exacte de l'emploi</h4>
+                                        <p class="fwb">
+                                            Pays :<span class="color-green">@Model.Job.pays </span>
+                                            Province : <span class="color-green">@Model.Job.province </span>
+                                            Ville :  <span class="color-green">@Model.Job.ville </span>
+                                        </p>
+                                        @if (Model.Job.masquerEmplacement == 1)
+                                        {
+                                            <p class="fwb">
+                                                Code postal :
+                                                <span class="color-green">
+                                                    @Model.Job.codePostal
+                                                </span>
+                                            </p>
+
+                                            <p class="fwb">
+                                                Adresse postal :
+                                                <span class="color-green">
+                                                    @Model.Job.adressePostal
+                                                </span>
+                                            </p>
+                                        }
+
+
+                                    </div>
+                                    <div class="row personer_information_company">
+                                        <div class="col-sm-6 col-lg-6">
+                                            <div class="icon text-thm"><span class="flaticon-line-chart text-thm2"></span></div>
+                                            <div class="details">
+                                                <p>Jour de Travail</p>
+                                                <p>@Model.Job.jourTravail</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-lg-4">
+                                            <div class="icon text-thm"><span class="flaticon-24-hours-support text-thm2"></span></div>
+                                            <div class="details">
+                                                <p>Quart de travail</p>
+                                                <p>@Model.Job.QuartTravail1.libelle</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-lg-4">
+                                            <div class="icon text-thm"><span class="flaticon-controls text-thm2"></span></div>
+                                            <div class="details">
+                                                <p>Statut de la formation</p>
+                                                <p> @Model.Job.StatutEmploi.libelle</p>
+                                            </div>
+                                        </div>
+                                        @if (Model.Job.immediat.Equals("false"))
+                                        {
+                                            <div class="col-sm-6 col-lg-6">
+                                                <div class="icon text-thm"><span class="flaticon-24-hours-support text-thm2"></span></div>
+                                                <div class="details">
+                                                    <p>Date entrée en poste</p>
+                                                    @if (Model.Job.dateEntre != null)
+                                                    {
+                                                        <p> @Model.Job.dateEntre</p>
+                                                    }
+                                                    else
+                                                    {<p>Dès que possible</p>}
+
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-sm-4 col-lg-4">
+                                                <div class="icon text-thm"><span class="flaticon-24-hours-support text-thm2"></span></div>
+                                                <div class="details">
+                                                    <p>Date début</p>
+                                                    <p> @Model.Job.dateDebut</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-lg-4">
+                                                <div class="icon text-thm"><span class="flaticon-24-hours-support text-thm2"></span></div>
+                                                <div class="details">
+                                                    <p>Date fin</p>
+                                                    <p> @Model.Job.dateFin</p>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        <div class="col-sm-12 col-lg-12">
+                                            <p class="fwb">Connaissances de la langue :<span class="color-green"> @Model.Job.Langue.libelle </span></p>
+                                        </div>
+                                        <div class="col-sm-4 col-lg-4">
+                                            <div class="icon text-thm"><span class="flaticon-businessman-paper-of-the-application-for-a-job text-thm2"></span></div>
+                                            <div class="details">
+                                                <p>Niveau oral</p>
+                                                @foreach (WebApplication1.Models.NiveauLangue data in ViewBag.listNiveauLangue)
+                                                {
+                                                    if (data.id == Model.Job.niveauOrale)
+                                                    {
+                                                        <p>@data.libelle</p>
+                                                    }
+
+                                                }
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-lg-4">
+                                            <div class="icon text-thm"><span class="flaticon-businessman-paper-of-the-application-for-a-job text-thm2"></span></div>
+                                            <div class="details">
+                                                <p>Niveau écrire</p>
+                                                @foreach (WebApplication1.Models.NiveauLangue data in ViewBag.listNiveauLangue)
+                                                {
+                                                    if (data.id == Model.Job.niveauEcrire)
+                                                    {
+                                                        <p>@data.libelle</p>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-lg-12">
+                                            @if (Model.Job.equipeEmploi != null && Model.Job.equipeEmploi.Equals("1"))
+                                            {
+
+                                                <p class="fwb">
+                                                    Equité en emploi :
+                                                    <span class="">
+                                                        "Cet employeur souscrit au principe d'équité en applique un programme d'accès à l'égalité
+                                                        en emploi pour les femmes, les autochtones, les minorités visibles,
+                                                        les minorités ethniques et les personnes handicapées"
+                                                    </span>
+                                                </p>
+                                            }
+
+                                            @if (Model.Job.immediat.Equals("direct"))
+                                            {
+                                                <p class="fwb">
+                                                    Comment postulé :
+                                                    <span class="">
+                                                        voyer votre candidature à cette adresse : <span class="color-green"> @Model.Inscrire.email </span>
+                                                    </span>
+                                                </p>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 text-right mt20">
+                                        @if (@Model.Job.immediat.Equals("direct"))
+                                        {
+                                            <a class="btn btn-block btn-thm mb15" href="@Url.Action("postulerDirectement","Home", new { id=Model.Inscrire.id , idJob=Model.Job.id })">Postuler directement <span class="flaticon-right-arrow pl10"></span></a>
+
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-block btn-thm mb15" href="@Url.Action("postuler","Home", new { id=Model.Job.id })">Postuler maintenant <span class="flaticon-right-arrow pl10"></span></a>
+                                        }
+                                    </div>
+                                        <div class="col-lg-12">
+                                            <div class="my_resume_eduarea">
+                                                <h4 class="title mb20">Offres similaires</h4>
+                                            </div>
+                                        </div>
+                                        @if (ViewBag.listSimilaire == null)
+                                        {
+                                            <div class="col-lg-12 text-center">
+                                                <h4 class="text-blue mb10">Aucune offres similaires disponible !</h4>
+                                            </div>
+                                        }
+                                        else
+                                        {
+
+                                            foreach (WebApplication1.Models.Postuler item in ViewBag.listSimilaire)
+                                            {
+                                                <div class="col-lg-12">
+                                                    <div class="fj_post style2 one">
+                                                        <div class="details">
+                                                            <h5 class="job_chedule text-thm2">@item.Job.heureTravail</h5>
+                                                            <div class="thumb fn-smd">
+                                                                @if (item.Job.immediat.Equals("true"))
+                                                                {
+                                                                    <img class="img-fluid" src="~/Assets/images/logo2.png" width="120" height="122" alt="1.jpg">
+                                                                }
+                                                                else if (item.Inscrire.profil != null)
+                                                                {
+                                                                    <img class="img-fluid" src="~/Fichier/@item.Inscrire.profil" width="120" height="122" alt="1.jpg">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img class="img-fluid" src="~/Assets/images/team/offreEmplois.png" width="120" height="122" alt="1.jpg">
+                                                                }
+                                                            </div>
+                                                            <h4>@item.Job.titre</h4>
+                                                            <p>
+                                                                Posté le @item.Job.created par
+                                                                @if (item.Job.immediat.Equals("true"))
+                                                                {<a class="text-thm" href="#"> par NiovarJobs</a>}
+                                                                else
+                                                                { <a class="text-thm" href="#"> par @item.Inscrire.nom</a>}
+                                                            </p>
+                                                            <ul class="featurej_post">
+                                                                <li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">@item.Job.ville</a></li>
+                                                                <li class="list-inline-item">
+                                                                    <span class="flaticon-price pl20"></span>
+                                                                    @if (item.Job.immediat.Equals("true"))
+                                                                    {<a href="#"> @(Convert.ToDecimal(item.Job.remunerationN)/2) $ par semaine</a>}
+                                                                    else
+                                                                    {
+                                                                        if (item.Job.negociable == 0)
+                                                                        {
+                                                                            <a href="#"> @(item.Job.remuneration/2) $ par semaine</a>
+                                                                        }
+                                                                        else if (item.Job.negociable == 1)
+                                                                        { <a href="#"> Salaire à négocier</a>}
+                                                                        else
+                                                                        {
+                                                                            <a href="#"> @(item.Job.salaireAnnuel) $ par annnée</a>
+                                                                        }
+                                                                    }
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <a class="favorit" href="@Url.Action("DetailsOffreHome", "Home", new { id=item.Job.id })"><span class="flaticon-eye"></span></a>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xl-4">
+                            <h4 class="fz20 mb30">Information sur l'offre</h4>
+                            <div class="candidate_working_widget style2 bgc-fa">
+                                <div class="icon text-thm"><span class="flaticon-money"></span></div>
+                                <div class="details">
+                                    <p class="color-black22">Salaire offert</p>
+                                    @if (Model.Job.immediat.Equals("true"))
+                                    {<p> @Model.Job.remunerationN $ par quinzaine</p>}
+                                else
+                                {
+                                    if (Model.Job.negociable == 0)
+                                    {
+                                        <p> @Model.Job.remuneration $ par quinzaine</p>
+                                    }
+                                    else if (Model.Job.negociable == 1)
+                                    { <p> Salaire à négocier</p>}
+                                    else
+                                    {
+                                        <p> @(Model.Job.salaireAnnuel) $ par annnée</p>
+                                    }
+
+                                }
+
+                                </div>
+                             
+                                    <div class="icon text-thm"><span class="flaticon-24-hours-support text-thm2"></div>
+                                    <div class="details">
+                                        <p class="color-black22">Date entrée en poste</p>
+                                        @if (Model.Job.dateEntre != null)
+                                        {
+                                            <p> @Model.Job.dateEntre</p>
+                                        }
+                                        else
+                                        {<p>Dès que possible</p>}
+
+                                    </div>
+                                
+
+                   
+                            
+
+                                <div class="icon text-thm"><span class="flaticon-controls"></span></div>
+                                <div class="details">
+                                    <p class="color-black22">Categorie de l'offre</p>
+
+                                    @if (Model.Job.Cat_id != null)
+                                    {
+                                        <p>@Model.Job.Categorie.Types.libelle</p>
+                                    }
+                                    else
+                                    { <p>Aucune</p>}
+
+                                </div>
+                                <div class="icon text-thm"><span class="flaticon-gender"></span></div>
+                                <div class="details">
+                                    <p class="color-black22">Type d'offre</p>
+                                    <p>@Model.Job.TypeOffre.libelle</p>
+                                </div>
+                                <div class="icon text-thm"><span class="flaticon-mortarboard"></span></div>
+                                <div class="details">
+                                    <p class="color-black22">Experience</p>
+                                    <p>@Model.Job.margeExperience</p>
+                                </div>
+                                <div class="icon text-thm"><span class="flaticon-mortarboard"></span></div>
+                                <div class="details">
+                                    <p class="color-black22">Niveau d'étude</p>
+                                    <p>@Model.Job.NiveauScolarite.libelle</p>
+                                </div>
+                                <div class="icon text-thm"><span class="flaticon-paper"></span></div>
+                                <div class="details">
+                                    <p class="color-black22">Type de contrat</p>
+                                    <p>@Model.Job.Contrat.libelle</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        
+    </section>
+

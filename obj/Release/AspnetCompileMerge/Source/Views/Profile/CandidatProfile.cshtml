@@ -1,0 +1,401 @@
+﻿@model WebApplication1.Models.Inscrire
+@{
+    ViewBag.Title = "Profile";
+    WebApplication1.Models.InsAbonne lastAsbonnement = (WebApplication1.Models.InsAbonne) ViewBag.lastAsbonnement;
+}
+<!-- Our Dashbord -->
+    <section>
+        <div class="our-dashbord dashbord ">
+            <div class="container">
+                <div class="row">
+                    @{
+                        Html.RenderPartial("Partial_menu_candidat");
+                    }
+                    <div class="col-sm-12 col-lg-8 col-xl-9">
+                        @using (Html.BeginForm("CandidatProfile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="my_profile_form_area employer_profile">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="col-md-4" style="margin-bottom :5px;">
+                                            @if (Session["profil"] == null || Session["profil"].Equals(""))
+                                            {
+                                                <img height="100" class=" mr-3 rounded-circle" id="previewImg" src="~/Assets/images/team/avatar.png" />
+
+                                            }
+                                            else
+                                            {
+                                                <img height="100" class=" mr-3 rounded-circle" id="previewImg" src="~/Fichier/@Session["profil"]" style="height:80px; width:80px;" />
+
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group my_profile_input ">
+                                            @if (ViewBag.ErrorFile != null)
+                                            {<p class="badge-danger badge text-white"> @ViewBag.ErrorFile </p><br>}
+                                            @Html.LabelFor(model => model.profil, "Choisir votre profil  (extention valide : png, jpg) ", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-12" style="overflow: hidden;">
+                                                @Html.EditorFor(model => model.profil, new { htmlAttributes = new { @id = "imgInput", @accept = "profil/x-png,profil/gif,profil/jpeg", @type = "file" } })
+                                                @Html.ValidationMessageFor(model => model.profil, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="my_profile_thumb_edit"></div>
+                                    </div>
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.id)
+
+                                    <div class="col-md-6 col-lg-6 ">
+                                        <div class=" my_profile_select_box form-group">
+                                            <label for="formGroupExampleInput1">Choisir votre catégorie ou domaine  d'activité </label><br>
+                                            <div class="col-md-12">
+                                                <select class="browser-default custom-select" name="domaine" id="categorie">
+                                                    <option value="">choisir catégorie</option>
+                                                    @foreach (WebApplication1.Models.Types types in ViewBag.listTypes)
+                                                    {
+                                                        <option value="@types.id" @(Convert.ToDecimal(Model.domaine) == @types.id ? "selected" : "")>@types.libelle</option>
+                                                    }
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6  ">
+                                        <div class="my_profile_select_box form-group">
+                                            <label for="formGroupExampleInput1">Choisir votre titre d'emploi </label><br>
+                                            <div class="col-md-12">
+                                                <select class="browser-default custom-select" name="categorie" id="titreEmploi">
+                                                    @if (Model.categorie != null)
+                                                    {
+                                                        foreach (WebApplication1.Models.Categorie categorie in ViewBag.listCategorie)
+                                                        {
+                                                            if (Model.categorie != null)
+                                                            {
+                                                                if (categorie.id == Convert.ToDecimal(Model.categorie))
+                                                                {
+                                                                    <option value="@categorie.id" selected>@categorie.libelle</option>
+                                                                }
+                                                            }
+
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="" selected>Sélectionner la catégorie</option>
+                                                    }
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="form-group my_profile_input ">
+                                            @Html.LabelFor(model => model.nom, "Nom ", htmlAttributes: new { @class = "control-label col-md-8" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.nom, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.nom, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="form-group my_profile_input ">
+                                            @Html.LabelFor(model => model.emailProf, "Courriel", htmlAttributes: new { @class = "control-label col-md-8" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.emailProf, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.emailProf, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="form-group my_profile_input ">
+                                            @Html.LabelFor(model => model.phone, " Télephone", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="form-group my_profile_input ">
+                                            @Html.LabelFor(model => model.codePostal, "Code postal", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.codePostal, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.codePostal, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="my_profile_input form-group">
+                                            @Html.LabelFor(model => model.website, "Site web (facultatif)", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.website, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.website, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="my_resume_textarea mt20">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.description, "Description de la structure (facultatif)", htmlAttributes: new { @class = "control-label col-md-12" })
+                                                <div class="col-md-12">
+                                                    @Html.TextAreaFor(model => model.description, new { @row = "9", @class = "form-control", @placeholder = "veuillez saisir ici" })
+                                                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <h4 class="fz18 mb20 ml15">Infos Personnels</h4>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="my_profile_input form-group">
+                                            @Html.LabelFor(model => model.titreEmploi, "Profession", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.titreEmploi, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.titreEmploi, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="my_profile_input form-group">
+                                            @Html.LabelFor(model => model.anneeExperience, "Année d'expérience ", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="candidate_revew_select">
+                                                <select class="browser-default custom-select" name="anneeExperience">
+                                                    <option value="" disabled>choisir l'annee d'experience</option>
+                                                    @foreach (WebApplication1.Models.AnneeExp anneeExp in ViewBag.listAnneeExp)
+                                                    {
+                                                        <option value="@anneeExp.libelle" @(Model.anneeExperience == @anneeExp.libelle ? "selected" : "")>@anneeExp.libelle</option>
+
+                                                    }
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="my_profile_input form-group">
+                                            @Html.LabelFor(model => model.salaireSouhaiter, "Salaire horaire souhaiter", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.salaireSouhaiter, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.salaireSouhaiter, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-12">
+                                        <h4 class="fz18 mb20 ml15">Réseau Sociaux</h4>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="my_profile_input form-group">
+                                            @Html.LabelFor(model => model.facebook, "Facebook (facultatif)", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.facebook, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.facebook, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="my_profile_input form-group">
+                                            @Html.LabelFor(model => model.linkedin, "Linkedin (facultatif)", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.linkedin, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.linkedin, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <h4 class="fz18 mb20 ml15"> Contacts</h4>
+                                    </div>
+
+
+                                    <div class="col-lg-4">
+                                        <div class="my_profile_select_box form-group">
+                                            @Html.LabelFor(model => model.pays, "Pays", htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-12">
+                                                <select name="pays" class="browser-default custom-select country" id="">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="my_profile_select_box form-group">
+                                            @Html.LabelFor(model => model.province, "Province", htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-12">
+                                                <select name="province" class="browser-default custom-select state" id="">
+                                                    @if (Model.province != null)
+                                                    {
+                                                        <option value="@(Model.province)" selected> @Model.province</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="">Selectionner la province</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="my_profile_select_box form-group">
+                                            @Html.LabelFor(model => model.ville, "Ville", htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-12">
+                                                <select name="ville" class="browser-default custom-select city" id="">
+                                                    @if (Model.ville != null)
+                                                    {
+                                                        <option value="@(Model.ville)" selected> @Model.ville</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="">Selectionner la ville</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="my_resume_textarea mt20">
+                                            @Html.LabelFor(model => model.adresse, "Adresse permanent", htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-12">
+                                                @Html.TextAreaFor(model => model.adresse, new { @row = "2", @class = "form-control", @placeholder = "veuillez saisir ici" })
+                                                @Html.ValidationMessageFor(model => model.adresse, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-lg-12 mt10 text-center">
+                                        <div class="my_profile_input">
+                                            <input type="submit" class="btn btn-lg btn-thm" value="Sauvegarder">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+
+
+            </div>
+            </div>
+
+    </section>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="~/Scripts/custom.js"></script>
+
+<script type="text/javascript" src="~/Scripts/select2.min.js"></script>
+<link rel="stylesheet" href="~/Content/select2.min.css">
+
+
+
+
+
+<style type="text/css">
+    .select2-dropdown {
+        top: 22px !important;
+        left: 8px !important;
+    }
+</style>
+
+<script>
+
+     var valuePays = '@Model.pays';
+    var valueProvince = '@Model.province';
+    var valueVille = '@Model.ville';
+
+    $("#categorie").select2({
+        placeholder: "Choisir la categorie",
+        allowClear: true
+    });
+
+    $("#titreEmploi").select2({
+        placeholder: "Choisir  titre d'emploi",
+        allowClear: true
+    });
+    $(".country").select2({
+        placeholder: "Choisir le pays",
+        allowClear: true
+    });
+
+    $(".state").select2({
+        placeholder: "Choisir la province",
+        allowClear: true
+    });
+
+    $(".city").select2({
+        placeholder: "Choisir la ville",
+        allowClear: true
+    });
+     $("#categorie").on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+        var id = this.value;
+        var stateOptions = " <option selected  value=''> choisir  titre emploi </option>";
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetAllTitreEmploi", "Offre")',
+            data: { "id": id },
+            dataType: 'json',
+            success: function (data) {
+                console.log("tablaeu:" + data);
+                $.each(data, function (i, titreEmploi) {
+                    stateOptions += "<option value='"
+                        + titreEmploi.id +
+                        "'>"
+                        + titreEmploi.libelle +
+                        "</option>";
+                });
+                $('#titreEmploi').html(stateOptions);
+            },
+            error: function (emp) {
+                stateOptions += "<option value=''>" +
+                    "Aucune donné trouvé</option>";
+                $('#titreEmploi').html(stateOptions);
+            }
+        });
+    });
+</script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#imgInput").change(function () {
+            readURL(this);
+        });
+    });
+
+    function closeSplash() {
+        $('#splashMsg').removeClass('bounceInRight').addClass("bounceOutRight");
+    }
+    /*
+     * source : l'id ou la classe qui écoute l'evenement
+     * imgPreviw : le src qui recoit l'affichage
+     * desc : le texte descriptif de l'image
+     *
+     */
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#previewImg').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

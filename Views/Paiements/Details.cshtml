@@ -1,0 +1,107 @@
+﻿@model WebApplication1.Models.Paiement
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Paiement</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.libelle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.libelle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.montant)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.montant)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.avance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.avance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reste)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reste)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.etat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.etat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.archived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.archived)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Job.titre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Job.titre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postuler.libelle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postuler.libelle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

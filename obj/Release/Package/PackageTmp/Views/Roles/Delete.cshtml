@@ -1,0 +1,47 @@
+﻿@model WebApplication1.Models.Role
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h3>Voulez vous vraiment supprimer ce Role ?</h3>
+<div>
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+        <div class="row">
+            <div class="col-md-12 ">
+
+                <form>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label> Libelle <span class="text-danger"></span></label>
+                                <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.libelle)" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Crée le </label>
+                                <input class="form-control " value="@Html.DisplayFor(model => model.created)" type="text" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="suprimer" class=" btn-sm btn-primary" /> |
+            <a href="~/Roles/Index" class=" btn-sm btn-primary">Retour à la liste</a>
+        </div>
+    }
+</div>

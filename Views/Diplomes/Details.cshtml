@@ -1,0 +1,42 @@
+﻿@model WebApplication1.Models.Diplome
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+        <div class="row">
+            <div class="col-md-6 ">
+
+                <form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label> Libelle <span class="text-danger"></span></label>
+                                <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.libelle)" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Date de création</label> <br>
+                                <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.created)" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p>
+                        @Html.ActionLink("Retour à la liste", "Index")
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+</div>
+

@@ -1,0 +1,99 @@
+﻿@model WebApplication1.Models.Page
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Page</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.profilPage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profilPage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.profil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aPropos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aPropos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pourquoiPostuler)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pourquoiPostuler)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nomPage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nomPage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.archived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.archived)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inscrire.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inscrire.type)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

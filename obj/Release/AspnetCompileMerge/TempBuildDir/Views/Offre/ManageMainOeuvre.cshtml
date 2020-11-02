@@ -1,0 +1,149 @@
+﻿
+@{
+    ViewBag.Title = "ManageMainOeuvre";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Our Dashbord -->
+<section>
+    <div class="our-dashbord dashbord ">
+        <div class="container">
+            <div class="row">
+                @{
+                    Html.RenderPartial("Partial_menu_client");
+                }
+                <div class="col-sm-12 col-lg-8 col-xl-9">
+                    <div class="row">
+
+                        <div class="col-lg-12 text-center">
+                            <h4 class="mb30">Mes demandes de location de main d'oeuvre</h4>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                            <div class="icon_boxs">
+                                <div class="icon"><span class="flaticon-work"></span></div>
+                                <div class="details"><h4>@ViewBag.nbreLocationActive Demande location active(s)</h4></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                            <div class="icon_boxs">
+                                <div class="icon"><span class="flaticon-work"></span></div>
+                                <div class="details"><h4>@ViewBag.nbreLocationInactive Demande location Inactive(s)</h4></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                            <div class="icon_boxs">
+                                <div class="icon style2"><span class="flaticon-resume"></span></div>
+                                <div class="details"><h4>@ViewBag.nbreInteresser candidat intéréssé(s)</h4></div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="cnddte_fvrt_job candidate_job_reivew style2">
+                                <div class="table-responsive job_review_table">
+                                    <table class="table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Titre de l'offre</th>
+                                                <th scope="col">Nombre de  postulant(s)</th>
+                                                <th scope="col">etat</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (WebApplication1.Models.Postuler item in ViewBag.listResult)
+                                            {
+
+                                                <tr>
+                                                    <th scope="row">
+                                                        <h4>@item.Job.titre</h4>
+                                                        <p><span class="flaticon-location-pin"></span> @item.Job.pays, @item.Job.province, @item.Job.ville</p>
+                                                        <ul>
+                                                            <li class="list-inline-item"><a href="#"><span class="flaticon-event"> Publié le: </span></a></li>
+                                                            <li class="list-inline-item"><a class="color-black22" href="#">@item.Job.created</a></li>
+                                                            @if (item.Job.immediat.Equals("false"))
+                                                            {
+                                                                <li class="list-inline-item"><a href="#"><span class="flaticon-event"> Date de Entée en poste : </span></a></li>
+                                                                <li class="list-inline-item">
+                                                                    @if (item.Job.dateEntre != null)
+                                                                    {
+                                                                        <a class="color-black22" href="#">@item.Job.dateEntre</a>
+                                                                    }
+                                                                    else
+                                                                    { <a class="color-black22" href="#">Dès que possible</a>}
+
+                                                                </li>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <li class="list-inline-item"><a href="#"><span class="flaticon-event"> Date début: </span></a></li>
+                                                                <li class="list-inline-item"><a class="color-black22" href="#">@item.Job.dateDebut</a></li>
+                                                                <li class="list-inline-item"><a href="#"><span class="flaticon-event"> Date fin: </span></a></li>
+                                                                <li class="list-inline-item"><a class="color-black22" href="#">@item.Job.dateFin</a></li>
+                                                            }
+
+                                                        </ul>
+                                                    </th>
+                                                    <td>
+                                                        @if (item.Job.immediat.Equals("false"))
+                                                        {
+                                                            <a class="btn-sm btn-warning" href="@Url.Action("ListPostulant", "Offre", new { id=item.Job.id })" data-toggle="tooltip" data-placement="bottom" title="Voir la liste" style="font-size:10px"><span class="color-black22"> @item.nbreApply</span> Application(s)</a>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="btn-sm btn-warning" href="@Url.Action("ListPostulant", "Offre", new { id=item.Job.id })" data-toggle="tooltip" data-placement="bottom" title="Voir la liste" style="font-size:10px"><span class="color-black22"> @item.nbreAccept</span> Application(s)</a>
+
+                                                        }
+                                                    </td>
+
+                                                    <td>
+                                                        @if (item.etatCandidat.Equals("0"))
+                                                        {<p class="btn-sm btn-danger text-white" data-toggle="tooltip" data-placement="bottom" style="font-size:10px">non résolus</p>}
+
+                                                        else if (item.etatCandidat.Equals("2"))
+                                                        {<p class="btn-sm btn-success text-white" data-toggle="tooltip" data-placement="bottom" style="font-size:10px">résolus</p>}
+
+                                                    </td>
+
+                                                    @if (item.Job.status == 1)
+                                                    {
+                                                        <td class="text-thm2">
+                                                            <a class="btn-sm btn-success" href="@Url.Action("EditStatus", "Offre", new { id=item.Job.id, actionName="ManageMainOeuvre" })" data-toggle="tooltip" data-placement="bottom" title="desactiver cette offre">Active</a>
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="color-red">
+                                                            <a class="btn-sm btn-danger" href="@Url.Action("EditStatus", "Offre", new { id=item.Job.id, actionName="ManageMainOeuvre" })" data-toggle="tooltip" data-placement="bottom" title="activer cette offre">   Inactif</a>
+                                                        </td>
+                                                    }
+
+                                                    <td>
+                                                        <ul class="view_edit_delete_list">
+                                                            <li class="list-inline-item"><a href="@Url.Action("DetailsOffre", "Offre", new { id=item.Job.id })" data-toggle="tooltip" data-placement="bottom" title="View"><span class="flaticon-eye"></span></a></li>
+
+                                                            <!--<li class="list-inline-item"><a href="@Url.Action("EditPublicationOffre", "Offre", new { id=item.Job.id })" data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="flaticon-edit"></span></a></li>-->
+
+                                                            <li class="list-inline-item"><a href="@Url.Action("deleteOffre", "Offre", new { id=item.Job.id, actionName="ManageMainOeuvre" })" data-toggle="tooltip" data-placement="bottom" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+

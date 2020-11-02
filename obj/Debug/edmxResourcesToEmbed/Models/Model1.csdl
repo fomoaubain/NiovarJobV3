@@ -1,0 +1,1330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NiovarJobModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Abonnement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="titre" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="montant" Type="Double" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="nbrePost" Type="Int32" />
+    <Property Name="illimite" Type="Int32" />
+    <NavigationProperty Name="InsAbonne" Relationship="Self.FK_INSABONN_ASSOCIATI_ABONNEME" FromRole="Abonnement" ToRole="InsAbonne" />
+  </EntityType>
+  <EntityType Name="AnneeExp">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CatAnneeExp" Relationship="Self.FK_CATANNEE_ASSOCIATI_ANNEEEXP" FromRole="AnneeExp" ToRole="CatAnneeExp" />
+  </EntityType>
+  <EntityType Name="AssocLangueNiveau">
+    <Key>
+      <PropertyRef Name="Lan_id" />
+      <PropertyRef Name="Niv_id" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Lan_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Niv_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Langue" Relationship="Self.FK_ASSOCLAN_ASSOCIATI_LANGUE" FromRole="AssocLangueNiveau" ToRole="Langue" />
+    <NavigationProperty Name="NiveauLangue" Relationship="Self.FK_ASSOCLAN_ASSOCIATI_NIVEAULA" FromRole="AssocLangueNiveau" ToRole="NiveauLangue" />
+  </EntityType>
+  <EntityType Name="Autre">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="etablissement" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="fonction" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="periode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <NavigationProperty Name="Inscrire" Relationship="Self.FK_AUTRE_ASSOCIATI_INSCRIRE" FromRole="Autre" ToRole="Inscrire" />
+  </EntityType>
+  <EntityType Name="AvantageSociaux">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="image" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AvantageSociauxJob" Relationship="Self.FK_AVANTAGE_ASSOCIATI_AVANTAGE" FromRole="AvantageSociaux" ToRole="AvantageSociauxJob" />
+  </EntityType>
+  <EntityType Name="AvantageSociauxJob">
+    <Key>
+      <PropertyRef Name="Job_id" />
+      <PropertyRef Name="Ava_id" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Job_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Ava_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AvantageSociaux" Relationship="Self.FK_AVANTAGE_ASSOCIATI_AVANTAGE" FromRole="AvantageSociauxJob" ToRole="AvantageSociaux" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_AVANTAGE_ASSOCIATI_JOB" FromRole="AvantageSociauxJob" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Avis">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Pag_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="libelle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="iduser" Type="Int32" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Page" Relationship="Self.FK_AVIS_ASSOCIATI_PAGE" FromRole="Avis" ToRole="Page" />
+    <Property Name="nbreEtoile" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CatAnneeExp">
+    <Key>
+      <PropertyRef Name="Cat_id" />
+      <PropertyRef Name="Ann_id" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Cat_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Ann_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="prixHoraire" Type="Int32" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AnneeExp" Relationship="Self.FK_CATANNEE_ASSOCIATI_ANNEEEXP" FromRole="CatAnneeExp" ToRole="AnneeExp" />
+    <NavigationProperty Name="Categorie" Relationship="Self.FK_CATANNEE_ASSOCIATI_CATEGORI" FromRole="CatAnneeExp" ToRole="Categorie" />
+  </EntityType>
+  <EntityType Name="Categorie">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Typ_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="image" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <NavigationProperty Name="CatAnneeExp" Relationship="Self.FK_CATANNEE_ASSOCIATI_CATEGORI" FromRole="Categorie" ToRole="CatAnneeExp" />
+    <NavigationProperty Name="Types" Relationship="Self.FK_CATEGORI_ASSOCIATI_TYPES" FromRole="Categorie" ToRole="Types" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_JOB_ASSOCIATI_CATEGORI" FromRole="Categorie" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Contrat">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_JOB_ASSOCIATI_CONTRAT" FromRole="Contrat" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Diplome">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="DiplomeJob" Relationship="Self.FK_DIPLOMEJ_ASSOCIATI_DIPLOME" FromRole="Diplome" ToRole="DiplomeJob" />
+  </EntityType>
+  <EntityType Name="DiplomeJob">
+    <Key>
+      <PropertyRef Name="Job_id" />
+      <PropertyRef Name="Dip_id" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Job_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Dip_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Diplome" Relationship="Self.FK_DIPLOMEJ_ASSOCIATI_DIPLOME" FromRole="DiplomeJob" ToRole="Diplome" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_DIPLOMEJ_ASSOCIATI_JOB" FromRole="DiplomeJob" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Job_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Pos_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="type" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="libelle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="chemin" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="etat" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Postuler" Relationship="Self.FK_DOCUMENT_ASSOCIATI_POSTULER" FromRole="Document" ToRole="Postuler" />
+  </EntityType>
+  <EntityType Name="Education">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="etablissement" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="diplome" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="periode" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <NavigationProperty Name="Inscrire" Relationship="Self.FK_EDUCATIO_ASSOCIATI_INSCRIRE" FromRole="Education" ToRole="Inscrire" />
+  </EntityType>
+  <EntityType Name="Experience">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="etablissement" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="fonction" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="periode" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <NavigationProperty Name="Inscrire" Relationship="Self.FK_EXPERIEN_ASSOCIATI_INSCRIRE" FromRole="Experience" ToRole="Inscrire" />
+  </EntityType>
+  <EntityType Name="File">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="type" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="chemin" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Inscrire" Relationship="Self.FK_FILE_ASSOCIATI_INSCRIRE" FromRole="File" ToRole="Inscrire" />
+  </EntityType>
+  <EntityType Name="FraisLocation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Ins_id2" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Loc_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="montant" Type="Double" />
+    <Property Name="avance" Type="Double" />
+    <Property Name="reste" Type="Double" />
+    <Property Name="type" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="etat" Type="Int32" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="userId" Type="Int32" />
+    <NavigationProperty Name="Location" Relationship="Self.FK_FRAISLOC_ASSOCIATI_LOCATION" FromRole="FraisLocation" ToRole="Location" />
+  </EntityType>
+  <EntityType Name="Galerie">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Pag_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="image" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Page" Relationship="Self.FK_GALERIE_ASSOCIATI_PAGE" FromRole="Galerie" ToRole="Page" />
+  </EntityType>
+  <EntityType Name="Information">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="lettre" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="competence" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <NavigationProperty Name="Inscrire" Relationship="Self.FK_INFORMAT_ASSOCIATI_INSCRIRE" FromRole="Information" ToRole="Inscrire" />
+  </EntityType>
+  <EntityType Name="InsAbonne">
+    <Key>
+      <PropertyRef Name="Ins_id" />
+      <PropertyRef Name="Abo_id" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Abo_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="dateDebut" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="dateFin" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="etat" Type="Int32" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="nbrePost" Type="Int32" />
+    <NavigationProperty Name="Abonnement" Relationship="Self.FK_INSABONN_ASSOCIATI_ABONNEME" FromRole="InsAbonne" ToRole="Abonnement" />
+    <NavigationProperty Name="Inscrire" Relationship="Self.FK_INSABONN_ASSOCIATI_INSCRIRE" FromRole="InsAbonne" ToRole="Inscrire" />
+  </EntityType>
+  <EntityType Name="Inscrire">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="nom" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="login" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="website" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="facebook" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="linkedin" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="pays" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="ville" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="adresse" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="longitude" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="lat" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="titreEmploi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="anneeExperience" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="salaireSouhaiter" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="salaireNegocier" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="profil" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="etat" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="cpassword" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="emailProf" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="categorie" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="domaine" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="codePostal" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="nomRepresentant" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="prenomRepresentant" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="numeroPoste" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="province" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="countryCode" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="allowNotification" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="allowNewsletter" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Autre" Relationship="Self.FK_AUTRE_ASSOCIATI_INSCRIRE" FromRole="Inscrire" ToRole="Autre" />
+    <NavigationProperty Name="Education" Relationship="Self.FK_EDUCATIO_ASSOCIATI_INSCRIRE" FromRole="Inscrire" ToRole="Education" />
+    <NavigationProperty Name="Experience" Relationship="Self.FK_EXPERIEN_ASSOCIATI_INSCRIRE" FromRole="Inscrire" ToRole="Experience" />
+    <NavigationProperty Name="File" Relationship="Self.FK_FILE_ASSOCIATI_INSCRIRE" FromRole="Inscrire" ToRole="File" />
+    <NavigationProperty Name="Information" Relationship="Self.FK_INFORMAT_ASSOCIATI_INSCRIRE" FromRole="Inscrire" ToRole="Information" />
+    <NavigationProperty Name="InsAbonne" Relationship="Self.FK_INSABONN_ASSOCIATI_INSCRIRE" FromRole="Inscrire" ToRole="InsAbonne" />
+    <NavigationProperty Name="Location" Relationship="Self.FK_LOCATION_ASSOCIATI_INSCRIRE" FromRole="Inscrire" ToRole="Location" />
+    <NavigationProperty Name="Page" Relationship="Self.FK_PAGE_ASSOCIATI_INSCRIRE" FromRole="Inscrire" ToRole="Page" />
+    <NavigationProperty Name="Postuler" Relationship="Self.FK_POSTULER_ASSOCIATI_INSCRIRE" FromRole="Inscrire" ToRole="Postuler" />
+    <NavigationProperty Name="Suivre" Relationship="Self.FK_SUIVRE_PEUT_SUIV_INSCRIRE" FromRole="Inscrire" ToRole="Suivre" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Niv_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Typ_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Lan_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Con_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Qua_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Sta_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Cat_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="titre" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="dateEntre" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="ville" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="nbreEmploye" Type="Int32" />
+    <Property Name="heureTravail" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="heureTravailJour" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="jourTravail" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="remuneration" Type="Double" />
+    <Property Name="totalHeureTravail" Type="Int32" />
+    <Property Name="margeExperience" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="typeJob" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="etat" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="niveauEtude" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="responsabilite" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="exigence" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="autre" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="pays" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="immediat" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="province" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="remunerationN" Type="Double" />
+    <Property Name="countryCode" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="avantageSociaux" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="equipeEmploi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="codePostal" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="adressePostal" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="masquerEmplacement" Type="Int32" />
+    <Property Name="quartTravail" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="DateEntreValeur" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="dateDebut" Type="DateTime" Precision="3" />
+    <Property Name="dateFin" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AvantageSociauxJob" Relationship="Self.FK_AVANTAGE_ASSOCIATI_JOB" FromRole="Job" ToRole="AvantageSociauxJob" />
+    <NavigationProperty Name="Categorie" Relationship="Self.FK_JOB_ASSOCIATI_CATEGORI" FromRole="Job" ToRole="Categorie" />
+    <NavigationProperty Name="Contrat" Relationship="Self.FK_JOB_ASSOCIATI_CONTRAT" FromRole="Job" ToRole="Contrat" />
+    <NavigationProperty Name="DiplomeJob" Relationship="Self.FK_DIPLOMEJ_ASSOCIATI_JOB" FromRole="Job" ToRole="DiplomeJob" />
+    <NavigationProperty Name="Langue" Relationship="Self.FK_JOB_ASSOCIATI_LANGUE" FromRole="Job" ToRole="Langue" />
+    <NavigationProperty Name="NiveauScolarite" Relationship="Self.FK_JOB_ASSOCIATI_NIVEAUSC" FromRole="Job" ToRole="NiveauScolarite" />
+    <NavigationProperty Name="QuartTravail1" Relationship="Self.FK_JOB_ASSOCIATI_QUARTTRA" FromRole="Job" ToRole="QuartTravail" />
+    <NavigationProperty Name="StatutEmploi" Relationship="Self.FK_JOB_ASSOCIATI_STATUTEM" FromRole="Job" ToRole="StatutEmploi" />
+    <NavigationProperty Name="TypeOffre" Relationship="Self.FK_JOB_ASSOCIATI_TYPEOFFR" FromRole="Job" ToRole="TypeOffre" />
+    <NavigationProperty Name="Postuler" Relationship="Self.FK_POSTULER_ASSOCIATI_JOB" FromRole="Job" ToRole="Postuler" />
+    <Property Name="niveauOrale" Type="Int32" />
+    <Property Name="niveauEcrire" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Langue">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AssocLangueNiveau" Relationship="Self.FK_ASSOCLAN_ASSOCIATI_LANGUE" FromRole="Langue" ToRole="AssocLangueNiveau" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_JOB_ASSOCIATI_LANGUE" FromRole="Langue" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="Ins_id" />
+      <PropertyRef Name="Ins_id2" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Ins_id2" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="periode" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="heureTravail" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="montant" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="signClient" Type="Int32" />
+    <Property Name="signCandidat" Type="Int32" />
+    <Property Name="remuneration" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="dateSgnClt" Type="DateTime" Precision="3" />
+    <Property Name="dateSgnCdt" Type="DateTime" Precision="3" />
+    <Property Name="avisClient" Type="Int32" />
+    <Property Name="avisCandidat" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="etat" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="dateDebut" Type="DateTime" Precision="3" />
+    <Property Name="dateFin" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="FraisLocation" Relationship="Self.FK_FRAISLOC_ASSOCIATI_LOCATION" FromRole="Location" ToRole="FraisLocation" />
+    <NavigationProperty Name="Inscrire" Relationship="Self.FK_LOCATION_ASSOCIATI_INSCRIRE" FromRole="Location" ToRole="Inscrire" />
+    <Property Name="type" Type="Int32" />
+  </EntityType>
+  <EntityType Name="NiveauLangue">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AssocLangueNiveau" Relationship="Self.FK_ASSOCLAN_ASSOCIATI_NIVEAULA" FromRole="NiveauLangue" ToRole="AssocLangueNiveau" />
+  </EntityType>
+  <EntityType Name="NiveauScolarite">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_JOB_ASSOCIATI_NIVEAUSC" FromRole="NiveauScolarite" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Page">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="profilPage" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="profil" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="aPropos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="pourquoiPostuler" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="nomPage" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Avis" Relationship="Self.FK_AVIS_ASSOCIATI_PAGE" FromRole="Page" ToRole="Avis" />
+    <NavigationProperty Name="Galerie" Relationship="Self.FK_GALERIE_ASSOCIATI_PAGE" FromRole="Page" ToRole="Galerie" />
+    <NavigationProperty Name="Inscrire" Relationship="Self.FK_PAGE_ASSOCIATI_INSCRIRE" FromRole="Page" ToRole="Inscrire" />
+    <NavigationProperty Name="Question" Relationship="Self.FK_QUESTION_ASSOCIATI_PAGE" FromRole="Page" ToRole="Question" />
+    <NavigationProperty Name="Suivre" Relationship="Self.FK_SUIVRE_EST_SUIVI_PAGE" FromRole="Page" ToRole="Suivre" />
+    <Property Name="couleurFond" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Paiement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Job_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Pos_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="montant" Type="Double" />
+    <Property Name="avance" Type="Double" />
+    <Property Name="reste" Type="Double" />
+    <Property Name="type" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="etat" Type="Int32" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="userId" Type="Int32" />
+    <NavigationProperty Name="Postuler" Relationship="Self.FK_PAIEMENT_ASSOCIATI_POSTULER" FromRole="Paiement" ToRole="Postuler" />
+  </EntityType>
+  <EntityType Name="Parametre">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="valeur" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Postuler">
+    <Key>
+      <PropertyRef Name="Ins_id" />
+      <PropertyRef Name="Job_id" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Job_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="datePostule" Type="DateTime" Precision="3" />
+    <Property Name="heurePostule" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="remuneration" Type="Double" />
+    <Property Name="etatAdmin" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="etat" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="etatClient" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="etatCandidat" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="approbation" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="signatures" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="situationTravail" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="dateEmbauche" Type="DateTime" Precision="3" />
+    <Property Name="dateSignatures" Type="DateTime" Precision="3" />
+    <Property Name="dateEntrevue" Type="DateTime" Precision="3" />
+    <Property Name="heure" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="responsableEntrevue" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="duree" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="outils" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="signatureClient" Type="Int32" />
+    <Property Name="dateSignClient" Type="DateTime" Precision="3" />
+    <Property Name="compagnyId" Type="Int32" />
+    <NavigationProperty Name="Document" Relationship="Self.FK_DOCUMENT_ASSOCIATI_POSTULER" FromRole="Postuler" ToRole="Document" />
+    <NavigationProperty Name="Inscrire" Relationship="Self.FK_POSTULER_ASSOCIATI_INSCRIRE" FromRole="Postuler" ToRole="Inscrire" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_POSTULER_ASSOCIATI_JOB" FromRole="Postuler" ToRole="Job" />
+    <NavigationProperty Name="Paiement" Relationship="Self.FK_PAIEMENT_ASSOCIATI_POSTULER" FromRole="Postuler" ToRole="Paiement" />
+  </EntityType>
+  <EntityType Name="QuartTravail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_JOB_ASSOCIATI_QUARTTRA" FromRole="QuartTravail" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Pag_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="libelle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="iduser" Type="Int32" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Page" Relationship="Self.FK_QUESTION_ASSOCIATI_PAGE" FromRole="Question" ToRole="Page" />
+    <NavigationProperty Name="Reponse" Relationship="Self.FK_REPONSE_ASSOCIATI_QUESTION" FromRole="Question" ToRole="Reponse" />
+  </EntityType>
+  <EntityType Name="Reponse">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Que_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="libelle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="iduser" Type="Int32" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Question" Relationship="Self.FK_REPONSE_ASSOCIATI_QUESTION" FromRole="Reponse" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Utilisateur" Relationship="Self.FK_UTILISAT_ASSOCIATI_ROLE" FromRole="Role" ToRole="Utilisateur" />
+  </EntityType>
+  <EntityType Name="StatutEmploi">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_JOB_ASSOCIATI_STATUTEM" FromRole="StatutEmploi" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Suivre">
+    <Key>
+      <PropertyRef Name="Ins_id" />
+      <PropertyRef Name="Pag_id" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Ins_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Pag_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Inscrire" Relationship="Self.FK_SUIVRE_PEUT_SUIV_INSCRIRE" FromRole="Suivre" ToRole="Inscrire" />
+    <NavigationProperty Name="Page" Relationship="Self.FK_SUIVRE_EST_SUIVI_PAGE" FromRole="Suivre" ToRole="Page" />
+  </EntityType>
+  <EntityType Name="TypeOffre">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_JOB_ASSOCIATI_TYPEOFFR" FromRole="TypeOffre" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Types">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="image" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Categorie" Relationship="Self.FK_CATEGORI_ASSOCIATI_TYPES" FromRole="Types" ToRole="Categorie" />
+  </EntityType>
+  <EntityType Name="Utilisateur">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Rol_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="archived" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="allowNotification" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="allowNewsletter" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_UTILISAT_ASSOCIATI_ROLE" FromRole="Utilisateur" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_INSABONN_ASSOCIATI_ABONNEME">
+    <End Role="Abonnement" Type="Self.Abonnement" Multiplicity="1" />
+    <End Role="InsAbonne" Type="Self.InsAbonne" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Abonnement">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="InsAbonne">
+        <PropertyRef Name="Abo_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CATANNEE_ASSOCIATI_ANNEEEXP">
+    <End Role="AnneeExp" Type="Self.AnneeExp" Multiplicity="1" />
+    <End Role="CatAnneeExp" Type="Self.CatAnneeExp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AnneeExp">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CatAnneeExp">
+        <PropertyRef Name="Ann_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ASSOCLAN_ASSOCIATI_LANGUE">
+    <End Role="Langue" Type="Self.Langue" Multiplicity="1" />
+    <End Role="AssocLangueNiveau" Type="Self.AssocLangueNiveau" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Langue">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="AssocLangueNiveau">
+        <PropertyRef Name="Lan_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ASSOCLAN_ASSOCIATI_NIVEAULA">
+    <End Role="NiveauLangue" Type="Self.NiveauLangue" Multiplicity="1" />
+    <End Role="AssocLangueNiveau" Type="Self.AssocLangueNiveau" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NiveauLangue">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="AssocLangueNiveau">
+        <PropertyRef Name="Niv_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AUTRE_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Autre" Type="Self.Autre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Autre">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AVANTAGE_ASSOCIATI_AVANTAGE">
+    <End Role="AvantageSociaux" Type="Self.AvantageSociaux" Multiplicity="1" />
+    <End Role="AvantageSociauxJob" Type="Self.AvantageSociauxJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AvantageSociaux">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="AvantageSociauxJob">
+        <PropertyRef Name="Ava_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AVANTAGE_ASSOCIATI_JOB">
+    <End Role="Job" Type="Self.Job" Multiplicity="1" />
+    <End Role="AvantageSociauxJob" Type="Self.AvantageSociauxJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="AvantageSociauxJob">
+        <PropertyRef Name="Job_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AVIS_ASSOCIATI_PAGE">
+    <End Role="Page" Type="Self.Page" Multiplicity="1" />
+    <End Role="Avis" Type="Self.Avis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Page">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Avis">
+        <PropertyRef Name="Pag_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CATANNEE_ASSOCIATI_CATEGORI">
+    <End Role="Categorie" Type="Self.Categorie" Multiplicity="1" />
+    <End Role="CatAnneeExp" Type="Self.CatAnneeExp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorie">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CatAnneeExp">
+        <PropertyRef Name="Cat_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CATEGORI_ASSOCIATI_TYPES">
+    <End Role="Types" Type="Self.Types" Multiplicity="1" />
+    <End Role="Categorie" Type="Self.Categorie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Types">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Categorie">
+        <PropertyRef Name="Typ_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOB_ASSOCIATI_CATEGORI">
+    <End Role="Categorie" Type="Self.Categorie" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorie">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="Cat_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOB_ASSOCIATI_CONTRAT">
+    <End Role="Contrat" Type="Self.Contrat" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrat">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="Con_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DIPLOMEJ_ASSOCIATI_DIPLOME">
+    <End Role="Diplome" Type="Self.Diplome" Multiplicity="1" />
+    <End Role="DiplomeJob" Type="Self.DiplomeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Diplome">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DiplomeJob">
+        <PropertyRef Name="Dip_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DIPLOMEJ_ASSOCIATI_JOB">
+    <End Role="Job" Type="Self.Job" Multiplicity="1" />
+    <End Role="DiplomeJob" Type="Self.DiplomeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DiplomeJob">
+        <PropertyRef Name="Job_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DOCUMENT_ASSOCIATI_POSTULER">
+    <End Role="Postuler" Type="Self.Postuler" Multiplicity="1" />
+    <End Role="Document" Type="Self.Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Postuler">
+        <PropertyRef Name="Ins_id" />
+        <PropertyRef Name="Job_id" />
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="Ins_id" />
+        <PropertyRef Name="Job_id" />
+        <PropertyRef Name="Pos_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EDUCATIO_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Education" Type="Self.Education" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Education">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EXPERIEN_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Experience" Type="Self.Experience" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Experience">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FILE_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="File" Type="Self.File" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="File">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FRAISLOC_ASSOCIATI_LOCATION">
+    <End Role="Location" Type="Self.Location" Multiplicity="1" />
+    <End Role="FraisLocation" Type="Self.FraisLocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="Ins_id" />
+        <PropertyRef Name="Ins_id2" />
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="FraisLocation">
+        <PropertyRef Name="Ins_id" />
+        <PropertyRef Name="Ins_id2" />
+        <PropertyRef Name="Loc_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GALERIE_ASSOCIATI_PAGE">
+    <End Role="Page" Type="Self.Page" Multiplicity="1" />
+    <End Role="Galerie" Type="Self.Galerie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Page">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Galerie">
+        <PropertyRef Name="Pag_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INFORMAT_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Information" Type="Self.Information" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Information">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INSABONN_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="InsAbonne" Type="Self.InsAbonne" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="InsAbonne">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LOCATION_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Location" Type="Self.Location" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Location">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PAGE_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Page" Type="Self.Page" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Page">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_POSTULER_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Postuler" Type="Self.Postuler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Postuler">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SUIVRE_PEUT_SUIV_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Suivre" Type="Self.Suivre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Suivre">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOB_ASSOCIATI_LANGUE">
+    <End Role="Langue" Type="Self.Langue" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Langue">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="Lan_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOB_ASSOCIATI_NIVEAUSC">
+    <End Role="NiveauScolarite" Type="Self.NiveauScolarite" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NiveauScolarite">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="Niv_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOB_ASSOCIATI_QUARTTRA">
+    <End Role="QuartTravail" Type="Self.QuartTravail" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuartTravail">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="Qua_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOB_ASSOCIATI_STATUTEM">
+    <End Role="StatutEmploi" Type="Self.StatutEmploi" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatutEmploi">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="Sta_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOB_ASSOCIATI_TYPEOFFR">
+    <End Role="TypeOffre" Type="Self.TypeOffre" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOffre">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="Typ_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_POSTULER_ASSOCIATI_JOB">
+    <End Role="Job" Type="Self.Job" Multiplicity="1" />
+    <End Role="Postuler" Type="Self.Postuler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Postuler">
+        <PropertyRef Name="Job_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QUESTION_ASSOCIATI_PAGE">
+    <End Role="Page" Type="Self.Page" Multiplicity="1" />
+    <End Role="Question" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Page">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="Pag_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SUIVRE_EST_SUIVI_PAGE">
+    <End Role="Page" Type="Self.Page" Multiplicity="1" />
+    <End Role="Suivre" Type="Self.Suivre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Page">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Suivre">
+        <PropertyRef Name="Pag_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PAIEMENT_ASSOCIATI_POSTULER">
+    <End Role="Postuler" Type="Self.Postuler" Multiplicity="1" />
+    <End Role="Paiement" Type="Self.Paiement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Postuler">
+        <PropertyRef Name="Ins_id" />
+        <PropertyRef Name="Job_id" />
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Paiement">
+        <PropertyRef Name="Ins_id" />
+        <PropertyRef Name="Job_id" />
+        <PropertyRef Name="Pos_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REPONSE_ASSOCIATI_QUESTION">
+    <End Role="Question" Type="Self.Question" Multiplicity="1" />
+    <End Role="Reponse" Type="Self.Reponse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Reponse">
+        <PropertyRef Name="Que_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UTILISAT_ASSOCIATI_ROLE">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Utilisateur">
+        <PropertyRef Name="Rol_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NiovarJobEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Abonnement" EntityType="Self.Abonnement" />
+    <EntitySet Name="AnneeExp" EntityType="Self.AnneeExp" />
+    <EntitySet Name="AssocLangueNiveau" EntityType="Self.AssocLangueNiveau" />
+    <EntitySet Name="Autre" EntityType="Self.Autre" />
+    <EntitySet Name="AvantageSociaux" EntityType="Self.AvantageSociaux" />
+    <EntitySet Name="AvantageSociauxJob" EntityType="Self.AvantageSociauxJob" />
+    <EntitySet Name="Avis" EntityType="Self.Avis" />
+    <EntitySet Name="CatAnneeExp" EntityType="Self.CatAnneeExp" />
+    <EntitySet Name="Categorie" EntityType="Self.Categorie" />
+    <EntitySet Name="Contrat" EntityType="Self.Contrat" />
+    <EntitySet Name="Diplome" EntityType="Self.Diplome" />
+    <EntitySet Name="DiplomeJob" EntityType="Self.DiplomeJob" />
+    <EntitySet Name="Document" EntityType="Self.Document" />
+    <EntitySet Name="Education" EntityType="Self.Education" />
+    <EntitySet Name="Experience" EntityType="Self.Experience" />
+    <EntitySet Name="File" EntityType="Self.File" />
+    <EntitySet Name="FraisLocation" EntityType="Self.FraisLocation" />
+    <EntitySet Name="Galerie" EntityType="Self.Galerie" />
+    <EntitySet Name="Information" EntityType="Self.Information" />
+    <EntitySet Name="InsAbonne" EntityType="Self.InsAbonne" />
+    <EntitySet Name="Inscrire" EntityType="Self.Inscrire" />
+    <EntitySet Name="Job" EntityType="Self.Job" />
+    <EntitySet Name="Langue" EntityType="Self.Langue" />
+    <EntitySet Name="Location" EntityType="Self.Location" />
+    <EntitySet Name="NiveauLangue" EntityType="Self.NiveauLangue" />
+    <EntitySet Name="NiveauScolarite" EntityType="Self.NiveauScolarite" />
+    <EntitySet Name="Page" EntityType="Self.Page" />
+    <EntitySet Name="Paiement" EntityType="Self.Paiement" />
+    <EntitySet Name="Parametre" EntityType="Self.Parametre" />
+    <EntitySet Name="Postuler" EntityType="Self.Postuler" />
+    <EntitySet Name="QuartTravail" EntityType="Self.QuartTravail" />
+    <EntitySet Name="Question" EntityType="Self.Question" />
+    <EntitySet Name="Reponse" EntityType="Self.Reponse" />
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="StatutEmploi" EntityType="Self.StatutEmploi" />
+    <EntitySet Name="Suivre" EntityType="Self.Suivre" />
+    <EntitySet Name="TypeOffre" EntityType="Self.TypeOffre" />
+    <EntitySet Name="Types" EntityType="Self.Types" />
+    <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" />
+    <AssociationSet Name="FK_INSABONN_ASSOCIATI_ABONNEME" Association="Self.FK_INSABONN_ASSOCIATI_ABONNEME">
+      <End Role="Abonnement" EntitySet="Abonnement" />
+      <End Role="InsAbonne" EntitySet="InsAbonne" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CATANNEE_ASSOCIATI_ANNEEEXP" Association="Self.FK_CATANNEE_ASSOCIATI_ANNEEEXP">
+      <End Role="AnneeExp" EntitySet="AnneeExp" />
+      <End Role="CatAnneeExp" EntitySet="CatAnneeExp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ASSOCLAN_ASSOCIATI_LANGUE" Association="Self.FK_ASSOCLAN_ASSOCIATI_LANGUE">
+      <End Role="Langue" EntitySet="Langue" />
+      <End Role="AssocLangueNiveau" EntitySet="AssocLangueNiveau" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ASSOCLAN_ASSOCIATI_NIVEAULA" Association="Self.FK_ASSOCLAN_ASSOCIATI_NIVEAULA">
+      <End Role="NiveauLangue" EntitySet="NiveauLangue" />
+      <End Role="AssocLangueNiveau" EntitySet="AssocLangueNiveau" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AUTRE_ASSOCIATI_INSCRIRE" Association="Self.FK_AUTRE_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Autre" EntitySet="Autre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AVANTAGE_ASSOCIATI_AVANTAGE" Association="Self.FK_AVANTAGE_ASSOCIATI_AVANTAGE">
+      <End Role="AvantageSociaux" EntitySet="AvantageSociaux" />
+      <End Role="AvantageSociauxJob" EntitySet="AvantageSociauxJob" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AVANTAGE_ASSOCIATI_JOB" Association="Self.FK_AVANTAGE_ASSOCIATI_JOB">
+      <End Role="Job" EntitySet="Job" />
+      <End Role="AvantageSociauxJob" EntitySet="AvantageSociauxJob" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AVIS_ASSOCIATI_PAGE" Association="Self.FK_AVIS_ASSOCIATI_PAGE">
+      <End Role="Page" EntitySet="Page" />
+      <End Role="Avis" EntitySet="Avis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CATANNEE_ASSOCIATI_CATEGORI" Association="Self.FK_CATANNEE_ASSOCIATI_CATEGORI">
+      <End Role="Categorie" EntitySet="Categorie" />
+      <End Role="CatAnneeExp" EntitySet="CatAnneeExp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CATEGORI_ASSOCIATI_TYPES" Association="Self.FK_CATEGORI_ASSOCIATI_TYPES">
+      <End Role="Types" EntitySet="Types" />
+      <End Role="Categorie" EntitySet="Categorie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOB_ASSOCIATI_CATEGORI" Association="Self.FK_JOB_ASSOCIATI_CATEGORI">
+      <End Role="Categorie" EntitySet="Categorie" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOB_ASSOCIATI_CONTRAT" Association="Self.FK_JOB_ASSOCIATI_CONTRAT">
+      <End Role="Contrat" EntitySet="Contrat" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DIPLOMEJ_ASSOCIATI_DIPLOME" Association="Self.FK_DIPLOMEJ_ASSOCIATI_DIPLOME">
+      <End Role="Diplome" EntitySet="Diplome" />
+      <End Role="DiplomeJob" EntitySet="DiplomeJob" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DIPLOMEJ_ASSOCIATI_JOB" Association="Self.FK_DIPLOMEJ_ASSOCIATI_JOB">
+      <End Role="Job" EntitySet="Job" />
+      <End Role="DiplomeJob" EntitySet="DiplomeJob" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DOCUMENT_ASSOCIATI_POSTULER" Association="Self.FK_DOCUMENT_ASSOCIATI_POSTULER">
+      <End Role="Postuler" EntitySet="Postuler" />
+      <End Role="Document" EntitySet="Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EDUCATIO_ASSOCIATI_INSCRIRE" Association="Self.FK_EDUCATIO_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Education" EntitySet="Education" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EXPERIEN_ASSOCIATI_INSCRIRE" Association="Self.FK_EXPERIEN_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Experience" EntitySet="Experience" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FILE_ASSOCIATI_INSCRIRE" Association="Self.FK_FILE_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="File" EntitySet="File" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FRAISLOC_ASSOCIATI_LOCATION" Association="Self.FK_FRAISLOC_ASSOCIATI_LOCATION">
+      <End Role="Location" EntitySet="Location" />
+      <End Role="FraisLocation" EntitySet="FraisLocation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GALERIE_ASSOCIATI_PAGE" Association="Self.FK_GALERIE_ASSOCIATI_PAGE">
+      <End Role="Page" EntitySet="Page" />
+      <End Role="Galerie" EntitySet="Galerie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INFORMAT_ASSOCIATI_INSCRIRE" Association="Self.FK_INFORMAT_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Information" EntitySet="Information" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INSABONN_ASSOCIATI_INSCRIRE" Association="Self.FK_INSABONN_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="InsAbonne" EntitySet="InsAbonne" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LOCATION_ASSOCIATI_INSCRIRE" Association="Self.FK_LOCATION_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Location" EntitySet="Location" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PAGE_ASSOCIATI_INSCRIRE" Association="Self.FK_PAGE_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Page" EntitySet="Page" />
+    </AssociationSet>
+    <AssociationSet Name="FK_POSTULER_ASSOCIATI_INSCRIRE" Association="Self.FK_POSTULER_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Postuler" EntitySet="Postuler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SUIVRE_PEUT_SUIV_INSCRIRE" Association="Self.FK_SUIVRE_PEUT_SUIV_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Suivre" EntitySet="Suivre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOB_ASSOCIATI_LANGUE" Association="Self.FK_JOB_ASSOCIATI_LANGUE">
+      <End Role="Langue" EntitySet="Langue" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOB_ASSOCIATI_NIVEAUSC" Association="Self.FK_JOB_ASSOCIATI_NIVEAUSC">
+      <End Role="NiveauScolarite" EntitySet="NiveauScolarite" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOB_ASSOCIATI_QUARTTRA" Association="Self.FK_JOB_ASSOCIATI_QUARTTRA">
+      <End Role="QuartTravail" EntitySet="QuartTravail" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOB_ASSOCIATI_STATUTEM" Association="Self.FK_JOB_ASSOCIATI_STATUTEM">
+      <End Role="StatutEmploi" EntitySet="StatutEmploi" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOB_ASSOCIATI_TYPEOFFR" Association="Self.FK_JOB_ASSOCIATI_TYPEOFFR">
+      <End Role="TypeOffre" EntitySet="TypeOffre" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_POSTULER_ASSOCIATI_JOB" Association="Self.FK_POSTULER_ASSOCIATI_JOB">
+      <End Role="Job" EntitySet="Job" />
+      <End Role="Postuler" EntitySet="Postuler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QUESTION_ASSOCIATI_PAGE" Association="Self.FK_QUESTION_ASSOCIATI_PAGE">
+      <End Role="Page" EntitySet="Page" />
+      <End Role="Question" EntitySet="Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SUIVRE_EST_SUIVI_PAGE" Association="Self.FK_SUIVRE_EST_SUIVI_PAGE">
+      <End Role="Page" EntitySet="Page" />
+      <End Role="Suivre" EntitySet="Suivre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PAIEMENT_ASSOCIATI_POSTULER" Association="Self.FK_PAIEMENT_ASSOCIATI_POSTULER">
+      <End Role="Postuler" EntitySet="Postuler" />
+      <End Role="Paiement" EntitySet="Paiement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REPONSE_ASSOCIATI_QUESTION" Association="Self.FK_REPONSE_ASSOCIATI_QUESTION">
+      <End Role="Question" EntitySet="Question" />
+      <End Role="Reponse" EntitySet="Reponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UTILISAT_ASSOCIATI_ROLE" Association="Self.FK_UTILISAT_ASSOCIATI_ROLE">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Utilisateur" EntitySet="Utilisateur" />
+    </AssociationSet>
+    <EntitySet Name="Bibliotheque" EntityType="NiovarJobModel.Bibliotheque" />
+  </EntityContainer>
+  <EntityType Name="Bibliotheque">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="chemin" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="archived" Type="Int32" />
+  </EntityType>
+</Schema>

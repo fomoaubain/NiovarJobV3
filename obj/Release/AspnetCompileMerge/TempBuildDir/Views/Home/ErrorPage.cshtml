@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "ErrorPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (Session["sessionConnect"] !=null &&  Session["sessionConnect"].Equals("panel")) {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+}
+
+<!-- Our Error Page -->
+<section class="our-error bgc-fa">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 text-center">
+                <div class="error_page newsletter_widget">
+                   
+                    <h4 class="mt10"> @ViewBag.message</h4>
+                    <p> </p>
+                   
+                </div>
+                <a class="text-thm mt25" href="~/Home/Index">Retouner à l'acceuil<span class="flaticon-right-arrow pl10"></span></a>
+            </div>
+        </div>
+    </div>
+</section>
+

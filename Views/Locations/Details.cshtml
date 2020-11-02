@@ -1,0 +1,87 @@
+﻿@model WebApplication1.Models.Location
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Location</h4>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label> Date de début <span class="text-danger"></span></label>
+                    <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.dateDebut)" readonly>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label> Date de fin <span class="text-danger"></span></label>
+                    <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.dateFin)" readonly>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label> Nombre de jours <span class="text-danger"></span></label>
+                    <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.periode)" readonly>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Heure de travail</label>
+                    <input class="form-control " value="@Model.heureTravail" type="text" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Description<span class="text-danger"></span></label>
+                    <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.description)" readonly>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Taux horaire</label>
+                    <input class="form-control " value="@Model.montant" type="text" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Salaire proposé par le client <span class="text-danger"></span></label>
+                    <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.remuneration)" readonly>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Salaire à payer au candidat moin @ViewBag.pourcentage %</label>
+                    <input class="form-control " value="@( Convert.ToDouble(Model.remuneration) * (100-ViewBag.pourcentage)/ 100)" type="text" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>créer le : <span class="text-danger"></span></label>
+                    <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.created)" readonly>
+                </div>
+            </div>
+
+        </div>
+
+        <p>
+
+            @Html.ActionLink("Retour  à la liste", "Index")
+        </p>
+    </div>
+</div>
+

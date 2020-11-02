@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WebApplication1.Models.Role>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="page-title">Liste des Roles</h3>
+        </div>
+        <div class="col-sm-12 text-right">
+            <a href="~/Roles/Create" class=" btn-sm btn-primary">Ajouter</a>
+        </div>
+    </div>
+</div>
+<!-- /Page Header -->
+
+<div class="card-body">
+
+    <div class="table-responsive">
+        <table class="datatable table table-stripped mb-0">
+            <thead>
+                <tr>
+                    <th>Libéllé Role</th>
+                    <th>Date création</th>
+                    <th>Opération</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.libelle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.created)
+                        </td>
+                        <td>
+                            @Html.ActionLink("suprimer", "Delete", new { id = item.id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

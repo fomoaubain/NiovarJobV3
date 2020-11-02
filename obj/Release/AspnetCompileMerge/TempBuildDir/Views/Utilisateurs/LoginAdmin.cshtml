@@ -1,0 +1,121 @@
+﻿
+@model WebApplication1.Models.Utilisateur
+@{
+  
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="Smarthr - Bootstrap Admin Template">
+    <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
+    <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+    <meta name="robots" content="noindex, nofollow">
+    <title>NiovarJobs</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Assets/images/logo2.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/AssetsAdmin/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="~/AssetsAdmin/css/font-awesome.min.css">
+
+    <!-- Lineawesome CSS -->
+    <link rel="stylesheet" href="~/AssetsAdmin/css/line-awesome.min.css">
+
+
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="~/AssetsAdmin/css/style.css">
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="~/AssetsAdmin/js/html5shiv.min.js"></script>
+        <script src="~/AssetsAdmin/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Account Logo -->
+        <div class="account-logo mt-4">
+            <a href="~/Admin/Index"><img src="~/Assets/images/logo2.png"  alt="Dreamguy's Technologies"  style="width:161px; height:80;"></a>
+        </div>
+        <!-- /Account Logo -->
+
+        <div class="account-box">
+            <div class="account-wrapper">
+                <h3 class="account-title">Login</h3>
+                <p class="account-subtitle">Connexion au panel d'administration</p>
+                @if (ViewBag.Message != null)
+                {
+                    <div class="ui_kit_message_box" id="message2">
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            @ViewBag.Message
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                }
+                <!-- Account Form -->
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-8" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-8" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" name="rememberMe" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                        <a class="tdu text-thm float-right" href="#" style="color:chocolate">Mot de passe oublié ?</a>
+                    </div>
+
+                    <div class="form-group text-center">
+                    <input type="submit" class="btn btn-primary btn-block" value="Se connecté" style=" background-color: chocolate; border: none;">
+                    </div>
+                }
+                <!-- /Account Form -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- /Main Wrapper -->
+    <!-- jQuery -->
+    <script src="~/AssetsAdmin/js/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="~/AssetsAdmin/js/popper.min.js"></script>
+    <script src="~/AssetsAdmin/js/bootstrap.min.js"></script>
+
+
+    <!-- Custom JS -->
+    <script src="~/AssetsAdmin/js/app.js"></script>
+
+
+
+
+</body>
+</html>

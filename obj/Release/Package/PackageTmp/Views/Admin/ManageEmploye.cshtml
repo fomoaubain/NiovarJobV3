@@ -1,0 +1,115 @@
+﻿@model WebApplication1.Models.Postuler
+@{
+    ViewBag.Title = "ManageEmploye";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>Liste des employés  </h2>
+
+<div class="card-body">
+
+    <div class="table-responsive">
+        <table class="datatable table table-stripped mb-0">
+            <thead>
+                <tr>
+                    <th>
+                        Nom Employé
+                    </th>
+                    <th>
+                        Courriel
+                    </th>
+                    <th>
+                        Etat
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                @foreach (WebApplication1.Models.Postuler item in ViewBag.listEmployes)
+                {
+                    <tr>
+                        <td>
+                            @item.Inscrire.login
+                        </td>
+
+                        <td>
+                            @item.Inscrire.email
+                        </td>
+
+                        <td>
+                            @if (item.situationTravail.Equals("1"))
+                            {
+                                <button onclick="changeStatusPoste(@item.id,2)" href="@Url.Action("contratTravailAdmin", "Admin", new { id=item.id, idIns=item.Inscrire.id,  idJob=item.Job.id })" class="badge bg-inverse-warning" data-toggle="tooltip" data-placement="bottom" title="Mettre en poste cette employé"><span>Mettre en poste </span></button>
+
+                            }
+                            else if (item.situationTravail.Equals("2"))
+                            {
+                                <button onclick="changeStatusPoste(@item.id,0)" href="@Url.Action("contratTravailAdmin", "Admin", new { id=item.id, idIns=item.Inscrire.id,  idJob=item.Job.id })" class="badge bg-inverse-success" title="Enlever en poste" data-toggle="tooltip" data-placement="bottom"><span>En poste</span></button>
+                            }
+                        </td>
+                        <td>
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="@Url.Action("cvResumeAdmin", "Admin", new { id=item.Inscrire.id })" data-toggle="tooltip" data-placement="bottom" title="consulter le cv du candidat"><span class="color-black22"> </span> Voir CV</a>
+                                    <a class="dropdown-item" href="@Url.Action("documentsCandidat", "Admin", new { id=item.Inscrire.id })"> Voir les documents</a>
+                                    <a class="dropdown-item" href="@Url.Action("detailsOffreAdmin", "Admin", new { id=item.Job.id })"> Voir l'offre</a>
+                                    <a class="dropdown-item" href="@Url.Action("Details", "Inscrires", new { id = item.Inscrire.id })"> profil employé</a>
+
+                                    @if (item.etatCandidat.Equals("2") && item.etatClient.Equals("2"))
+                                    {
+                                        <a class="dropdown-item" href="@Url.Action("talonPaieAdmin", "Admin", new { idPost=item.id,  idIns=item.Inscrire.id,  idJob=item.Job.id   })" data-toggle="tooltip" data-placement="bottom" title="Envoyer talon de paie"><span class="color-black22"> </span>Talon de paie</a>
+                                    }
+
+                                    @if (item.etatCandidat.Equals("2") && item.etatClient.Equals("2"))
+                                    {
+                                        <a class="dropdown-item" href="@Url.Action("contratTravailAdmin", "Admin", new { id=item.id, idIns=item.Inscrire.id,  idJob=item.Job.id })" data-toggle="tooltip" data-placement="bottom" title="consulter le contrat de travail"><span class="color-black22"> </span>Contrat de travail</a>
+                                    }
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+
+   
+     // changer l'etat de la situation de travail d'un candidat
+    function changeStatusPoste(id, val) {
+
+        if (val == '' || val == null || val == undefined) {
+            return;
+        }
+
+        if (id == '' || id == null || id == undefined) {
+            return;
+        }
+
+        var url = "@Url.Action("changeStatusPoste", "Admin")" + "?id=" + id + "&val=" + val;
+
+        console.log("url= " +url);
+
+        window.location.href = url;
+
+    }
+
+
+</script>

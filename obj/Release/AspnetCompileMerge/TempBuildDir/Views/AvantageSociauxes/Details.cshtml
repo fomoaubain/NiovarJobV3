@@ -1,0 +1,54 @@
+﻿@model WebApplication1.Models.AvantageSociaux
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>Détails</h2>
+
+<div>
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+        <div class="row">
+            <div class="col-md-6 ">
+
+                <form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label> Libelle <span class="text-danger"></span></label>
+                                <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.libelle)" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label> Libelle <span class="text-danger"></span></label>
+                                <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.libelle)" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Date de création</label> <br>
+                                <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.created)" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Image</label> <br>
+                                <img src="~/Fichier/@Model.image" width="40" height="40" class="align-self-start mr-3 rounded-circle" alt="e1.png">
+                            </div>
+                        </div>
+                    </div>
+
+                    <p>
+                        @Html.ActionLink("Retour à la liste", "Index")
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+</div>

@@ -1,0 +1,321 @@
+﻿
+@{
+    ViewBag.Title = "ManageOffreAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Offre disponible</h6>
+            <h4>@ViewBag.nbreOffre <span>offre postés</span>  </h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Candidat intérésser</h6>
+            <h4>@ViewBag.nbreInteresser  <span>candidat intéréssé(s)</span></h4>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Offres résolus</h6>
+            <h4>@ViewBag.OffreResolus </h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Offres non résolus</h6>
+            <h4>@ViewBag.OffreNonResolus </h4>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card mb-0">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Liste des demandes main d'oeuvre urgent  </h4>
+
+            </div>
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="datatable table table-stripped mb-0">
+                        <thead>
+                            <tr>
+                                <th>Client </th>
+                                <th>titre offre</th>
+                                <th>Nombre intérésser</th>
+                                <th>date posté</th>
+                                <th>etat de l'offre</th>
+                                <th></th>
+                                <th>opération</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (WebApplication1.Models.Postuler item in ViewBag.listResult)
+                            {
+                            <tr>
+                                <td>
+                                    <h2 class="table-avatar">
+                                        <a class="avatar avatar-xs" href="profile.html"><img alt="" src="~/Fichier/@item.Inscrire.profil" height="20" width="20"></a>
+                                        <a href="profile.html">@item.Inscrire.nom</a>
+                                    </h2>
+                                </td>
+                                <td>@item.Job.titre</td>
+                                <td><a class="btn-sm btn-warning" href="@Url.Action("listPostulantAdmin", "Admin", new { id=item.Job.id })" data-toggle="tooltip" data-placement="bottom" title="Voir la liste"><span class="color-black22"> @item.nbreApply</span> Application(s)</a></td>
+                                <td>@item.created</td>
+
+                                <td>
+                                    @if (item.approbation.Equals("0"))
+                                    {<button data-toggle="modal" data-target="#modalModel@(item.id)" class="btn-sm btn-danger text-white"> Non approuver</button>}
+
+                                    else if (item.approbation.Equals("1"))
+                                    {<button onclick="changeApprobation(@item.id)" class="btn-sm btn-success text-white"> approuver</button>}
+
+
+                                </td>
+
+                                <td>
+                                    @if (item.Job.dateFinOffre != null)
+                                    {
+                                        if (DateTime.Compare((DateTime)item.Job.dateFinOffre, DateTime.Now) < 0)
+                                        {
+                                            <button class="btn-sm btn-danger" data-toggle="modal" data-target="#modalModel2@(item.id)" title="Republier l'offre ">Expirer</button>
+                                        }
+                                    }
+
+                                </td>
+
+                                <td>
+                                    <div class="dropdown dropdown-action">
+                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="@Url.Action("detailsOffreAdmin", "Admin", new { id=item.Job.id })" data-toggle="tooltip" data-placement="bottom" title="Voir l'offre"><span class="color-black22"> </span> Voir l'offre</a>
+                                            <a class="dropdown-item" href="@Url.Action("Details", "Inscrires", new { id = item.Inscrire.id })"> Détails</a>
+                                            <a class="dropdown-item" href="@Url.Action("DeleteOffre", "Admin", new { id = item.Job.id , page="ManageOffreAdmin"})"> Supprimer</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                                <div class="modal custom-modal fade" id="modalModel@(item.id)" role="dialog">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="form-header">
+                                                    <h3>Note Information !</h3>
+                                                    <p>Veuillez renseignez le taux horaire afin d'approuver cette offre sur niovarJobs  ?</p>
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <div class="col-md-12 mt-2 ">
+                                                        <h4 class="fz18 mb20">Salaire proposé par le client par quinzaine en $</h4>
+                                                        <div class="col-md-offset-12 col-md-12 ">
+                                                            <input id="salClient@(item.id)" type="number" readonly class="form-control" value="@(item.Job.remuneration)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 mt-2 ">
+                                                        <h4 class="fz18 mb20">Salaire  proposé par niovarJobs aux candidats chaque 2 semaine en $ </h4>
+                                                        <div class="col-md-offset-12 col-md-12 ">
+                                                            <input id="remunarationFinal@(item.id)" type="number" class="form-control" value="@(item.Job.remunerationN)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12">
+                                                        <div class="my_profile_input form-group">
+                                                            <label for="exampleFormControlInput3">lieu de l'emploi (*) </label><br>
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="custom-control custom-switch">
+                                                                            <input type="radio" name="masquerEmplacement" value="1" class="custom-control-input" id="masq">
+                                                                            <label class="custom-control-label" for="masq">Afficher l'emplacement exacte</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="custom-control custom-switch">
+                                                                            <input type="radio" name="masquerEmplacement" value="0" class="custom-control-input" id="masq2">
+                                                                            <label class="custom-control-label" for="masq2">Masquer l'emplacement exacte</label>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12">
+                                                        <div class="my_profile_input form-group">
+                                                            <label for="exampleFormControlInput3">Avantages sociaux(*) </label><br>
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    @foreach (WebApplication1.Models.AvantageSociaux data in ViewBag.listAvantageSociaux)
+                                                                    {
+                                                                        <div class="col-md-3">
+                                                                            <div class="custom-control custom-checkbox">
+                                                                                <input type="checkbox" name="listAvantage" value="@data.id" class="custom-control-input " id="chav@(data.id)">
+                                                                                <label class="custom-control-label" for="chav@(data.id)">@data.libelle</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-lg-12">
+                                                        <div class="my_profile_input form-group">
+                                                            <label for="exampleFormControlInput3">Equité en emploi (*) </label><br>
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="custom-control custom-checkbox">
+                                                                            <input type="checkbox" name="equipeEmploi" value="1" class="custom-control-input " id="eqte" required>
+                                                                            <label class="custom-control-label" for="eqte">
+                                                                                Si vous cochez cette case, les chercheurs pourront lire : "Cet employeur souscrit au principe d'équité
+                                                                                en applique un programme d'accès à l'égalité en emploi pour les femmes, les autochtones, les minorités visibles, les minorités ethniques et les personnes handicapées".
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="modal-btn delete-action">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary continue-btn">Non</a>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button onclick="changeApprobation(@item.id)" href="" class="btn-block btn-primary  cancel-btn"> Valider </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal custom-modal fade" id="modalModel2@(item.id)" role="dialog">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="form-header">
+                                                    <h3>Republier une offre </h3>
+                                                </div>
+                                                <div class="mb-12 mb-2">
+                                                    <div class="col-md-12 mt-2 ">
+                                                        <h4 class="fz18 mb20"> Nouvelle date de fin de l'offre : @item.Job.titre</h4>
+                                                        <div class="col-md-offset-12 col-md-12 ">
+                                                            <input id="dateFinOffre@(item.id)" type="date" required class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-btn delete-action mt-2">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary continue-btn">Non</a>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button onclick="republierOffre( @item.id, @item.Job.id)" href="" class="btn-block btn-primary  cancel-btn"> Sauvegarder </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+    var listAvantage='', eqtEmp='', masqueEmpla=0;
+    $(document).ready(function () {
+
+
+    });
+
+    var s='';
+    $(document).on("change", "input[type=checkbox][name=listAvantage]", function () {
+        listAvantage = [];
+
+        $("input:checkbox[name=listAvantage]:checked").each(function () {
+            listAvantage.push($(this).val());
+
+        });
+        s = listAvantage.join(",");
+        console.log("listAvantage "+s);
+
+    });
+
+    $(document).on("change", "input[type=radio][name=masquerEmplacement]", function () {
+        masqueEmpla = this.value;
+        console.log("masqueEmpla", +masqueEmpla);
+    });
+
+    $(document).on("change", "input[type=checkbox][name=equipeEmploi]", function () {
+        $("input:checkbox[name=equipeEmploi]:checked").each(function () {
+            eqtEmp = $(this).val();
+        });
+        console.log("eqtEmp", +eqtEmp);
+    });
+     // changer l'approbation de l'offre poster
+
+    function changeApprobation(id) {
+
+        var remunarationFinal = document.getElementById('remunarationFinal' + id).value;
+
+        if (remunarationFinal == '' || remunarationFinal == null || remunarationFinal == undefined) {
+            alert("Veuillezs enseignez le montant final avant la publication");
+            return;
+            remunarationFinal = 0;
+        }
+
+        var url = "@Url.Action("changeApprobation", "Admin")" + "?id=" + id + "&remunarationFinal=" + remunarationFinal + "&masqueEmpla=" + masqueEmpla + "&eqtEmp=" + eqtEmp + "&json="+s;
+
+        console.log("url= " +url);
+
+        window.location.href = url;
+
+    }
+
+      function republierOffre(idItem, idJob) {
+
+        var dateFinOffre = new Date($('#dateFinOffre' + idItem).val());
+        var curr_date = dateFinOffre.getDate();
+        var curr_month = dateFinOffre.getMonth() + 1; //Months are zero based
+        var curr_year = dateFinOffre.getFullYear();
+        dateFinOffre = curr_year + "-" + curr_month + "-" + curr_date + " 00:00:00";
+
+        if (dateFinOffre == '' || dateFinOffre == null || dateFinOffre == undefined) {
+            alert("Veuillez choisir une date de fin de la publication");
+            return;
+        } else {
+            var url = "@Url.Action("RepublierOffre", "Admin")" + "?idJob=" + idJob + "&dateFinOffre=" + dateFinOffre + "&actionName=ManageOffreAdmin";
+        window.location.href = url;
+        }
+    }
+
+
+</script>

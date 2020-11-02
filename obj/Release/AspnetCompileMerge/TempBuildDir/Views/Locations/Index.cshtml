@@ -1,0 +1,126 @@
+﻿@model IEnumerable<WebApplication1.Models.Location>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+
+    string typeLocation = "location(s)";
+
+    if (ViewBag.type!=null && ViewBag.type == 2)
+    {
+        typeLocation = "réservation(s)";
+    }
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Demande disponible</h6>
+            <h4>@ViewBag.nbreLocation <span>demande de @typeLocation</span>  </h4>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card mb-0">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Liste des demandes de @typeLocation </h4>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="datatable table table-stripped mb-0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Client
+                                </th>
+                                <th>
+                                    Demandé le :
+                                </th>
+                                <th>
+                                    Période
+                                </th>
+                                <th>
+                                    observation
+                                </th>
+                                <th>
+                                   
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach (WebApplication1.Models.CustomLocation item in ViewBag.newlistLocation)
+                            {
+                            <tr>
+                                <td>
+                                    <h2 class="table-avatar">
+                                        <a class="avatar avatar-xs" href="profile.html"><img alt="" src="~/Fichier/@item.inscrire.profil" height="20" width="20"></a>
+                                        <a href="profile.html">@item.inscrire.nom</a>
+                                    </h2>
+                                </td>
+
+                                <td>
+                                    @item.location.created
+                                </td>
+
+                                <td>
+                                    @item.location.periode jrs
+                                </td>
+                                <td>
+                                    @if (item.location.avisCandidat == 0 && item.location.avisClient == 0)
+                                    {
+                                        <p class="badge bg-inverse-default" read title=""><span>En attente de signature<br> du candidat concerné </span></p>
+                                    }
+                                    else if (item.location.avisCandidat == 2 && item.location.avisClient == 0)
+                                    {
+                                        <p class="badge bg-inverse-default" read title=""><span>En attente de signature <br> du client intérrésser </span></p>
+                                    }
+                                    else if (item.location.avisCandidat == 2 && item.location.avisClient == 2)
+                                    {
+                                        <p class="badge bg-inverse-success" read title=""><span>Location accepter par les<br>  02 parties (en poste) </span></p>
+
+                                    }
+                                    else if (item.location.avisClient == 3)
+                                    {
+                                        <p class="badge bg-inverse-success" read title=""><span>Demande annuler/rejetter<br> par le client  </span></p>
+
+                                    }
+                                    else if (item.location.avisCandidat == 3)
+                                    {
+                                        <p class="badge bg-inverse-success" read title=""><span>Demande annuler/rejetter<br> par le candidat  </span></p>
+
+                                    }
+
+                                </td>
+                                <td>
+                                    <div class="dropdown dropdown-action">
+                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="@Url.Action("cvResumeAdmin", "Admin", new { id=item.location.Ins_id })" data-toggle="tooltip" data-placement="bottom" title="consulter le cv du candidat"><span class="color-black22"> </span> Voir CV</a>
+                                            <a class="dropdown-item" href="@Url.Action("documentsCandidat", "Admin", new { id=item.location.Ins_id })"> Voir les documents</a>
+                                            <a class="dropdown-item" href="@Url.Action("Details", "Locations", new { id = item.location.id })"> Détails</a>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

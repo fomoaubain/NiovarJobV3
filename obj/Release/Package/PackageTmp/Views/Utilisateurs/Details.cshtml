@@ -1,0 +1,65 @@
+﻿@model WebApplication1.Models.Utilisateur
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+
+
+<!-- Page Content -->
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12 ">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="page-title">Details</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+
+            <form>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Nom <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.nom)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Courriel</label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.nom)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Crée le  <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.created)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Role</label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.Role.libelle)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+                <p>
+
+                    @Html.ActionLink("Retour à la liste", "Index")
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<WebApplication1.Models.Types>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Liste des grandes Catégories  d'emploi dans le système</h2>
+
+<div class="col-sm-12 text-right">
+    <a href="~/Types/Create" class=" btn-sm btn-primary">Ajouter</a>
+</div>
+
+<div class="card-body">
+
+    <div class="table-responsive">
+        <table class="datatable table table-stripped mb-0">
+            <thead>
+                <tr>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.libelle)
+                    </th>
+
+                    <th>
+                        Ajouté le
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        <img src="~/Fichier/@item.image" width="40" height="40" class="align-self-start mr-3 rounded-circle" alt="e1.png">
+
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.libelle)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.created)
+                    </td>
+                    <td>
+                        <a title="Edit" href="@Url.Action("Edit", "Types", new { id = item.id })" class="btn btn-sm btn-outline-primary">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a title="Details" href="@Url.Action("Details", "Types", new { id = item.id })" class="btn btn-sm btn-outline-info">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a title="Delete" href="@Url.Action("Delete", "Types", new { id = item.id })" class="btn btn-sm btn-outline-danger">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                        <a title="Abonnements" href="@Url.Action("Index", "Categories", new { id = item.id })" class="btn btn-sm btn-outline-primary">
+                            <i class="fa fa-list"></i> Titre emploi
+                        </a>
+
+                    </td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

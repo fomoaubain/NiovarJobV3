@@ -1,0 +1,384 @@
+﻿﻿
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //var baniereIme = Url.Content("~/Assets/images/baniere.jpg");
+    var baniereIme = Url.Content("~/Assets/images/testFile/baniere2.jpg");
+}
+
+<!-- Home Design -->
+<section class="home-six parallax ulockd_bgi3" style="background-image:url(@baniereIme);"> 
+    <div class="container">
+        <div class="row home-content">
+            <div class="col-lg-8">
+                <div class="home-text">
+                    <h1 class="fz40" style="color:white;"> <span class="p-2" > </span></h1>
+                    <p style="color:white;" class="text-white "> <span class="" > </span></p>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="home-job-search-box mt20 mb20">
+                    <div class="form-inline">
+
+                        <div class="search_option_one">
+                            <div class="form-group">
+                                <label for="exampleInputName"><span class="flaticon-search"></span></label>
+                                <input type="text" class="form-control h70" name="search" id="search" placeholder="Saisir votre recherche ici ">
+                            </div>
+                            <ul class="list-group" id="result"></ul>
+                        </div>
+                        <div class="search_option_two">
+                            <div class="form-group">
+                                <label for="exampleInputEmail"><span class="flaticon-location-pin"></span></label>
+                                <input type="text" class="form-control h70" name="ville" id="searchVille" placeholder="Saisir la ville">
+                            </div>
+                            <ul class="list-group" id="resultVille"></ul>
+                        </div>
+                        <div class="search_option_button">
+                            <button onclick="filter()" class="btn btn-thm btn-dark h70">Rechercher</button>
+                        </div>
+                    </div>
+                </div>
+                <p style="color:#f26223"><span class="color-black">Exemple de mots clés :</span> DesignCer,  Developeur,  Web,  IOS,  PHP,  Senior,  Engineer</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Job Categories -->
+
+<section class="popular-job bgc-fa">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="ulockd-main-title">
+                    <h3 class="mt0">Titre d'emploi les plus populaires</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (WebApplication1.Models.Types item in ViewBag.newlistTypes)
+            {
+                <div class="col-sm-6 col-lg-3">
+                    <a href="javascript:void()" onclick="filterCategorie('@item.id')" class="icon_hvr_img_box sbbg1">
+                        <div class="overlay">
+                            <div class="icon"> <img class="img-fluid" height="40" width="60" src="~/Fichier/@item.image" alt="header-logo.png"></div>
+                            <div class="details">
+                                <h5>@item.libelle  </h5>
+                                <p>@item.nbreOffre Offre disponible</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+
+            <div class="col-lg-6 offset-lg-3">
+                <div class="pjc_all_btn text-center">
+                    <a class="btn btn-transparent" href="~/Home/ListeOffre">Parcourir les offres d'emploi disponible <span class="flaticon-right-arrow pl10"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It's Work -->
+<section class="popular-job">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="ulockd-main-title">
+                    <h3 class="mt0">Comment on fonctionne ?</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-4 prpl5">
+                <div class="icon_box_hiw">
+                    <div class="icon"><div class="list_tag float-right"><p>1</p></div><span class="flaticon-unlocked"></span></div>
+                    <div class="details">
+                        <a href="~/Inscrires/Login"><h4>Créer votre compte</h4></a>
+                        <a href="~/Inscrires/Login"> <p>créer votre compte en tant que que freelancer ou une compagnie sur NiovarJob pour benéficier de nos services</p></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 prpl5 mt20-xxsd">
+                <div class="icon_box_hiw">
+                    <div class="icon middle"><div class="list_tag float-right"><p>2</p></div><span class="flaticon-job"></span></div>
+                    <div class="details">
+                        <a href="~/Home/ListeOffre"><h4>Trouver un emploi </h4></a>
+                        <a href="~/Home/ListeOffre"><p>Accédez à cette  rubrique et trouver facilement l'emploie de votre vie.</p></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 prpl5 mt20-xxsd">
+                <div class="icon_box_hiw">
+                    <div class="icon"><div class="list_tag float-right"><p>3</p></div><span class="flaticon-trophy"></span></div>
+                    <div class="details">
+                        <a href="~/Home/ListeOffre"><h4>Postuler à des offres</h4></a>
+                        <a href="~/Home/ListeOffre">
+                            <p>
+                                Vous êtes à la recherche d'un emploi vous pouvez postulé des offres d'emploie sur NiovarJob et changer votre vie
+
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Job List Design -->
+<section class="popular-job bgc-fa pb30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ulockd-main-title">
+                    <h3 class="mt0">Les plus récents</h3>
+                    <a class="text-thm float-right" href="~/Home/ListeOffre"> Plus d'offres <i class="flaticon-right-arrow pl15"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            @foreach (WebApplication1.Models.Postuler item in ViewBag.listPostuler)
+            {
+                <div class="col-sm-12 col-lg-12">
+                    <div class="fj_post">
+                        <div class="details">
+                            <h5 class="job_chedule text-thm mt0">@item.Job.heureTravail</h5>
+                            <div class="thumb fn-smd">
+                                @if (item.Job.immediat.Equals("true"))
+                                {
+                                    <img class="img-fluid" src="~/Assets/images/logo2.png" width="120" height="122" alt="1.jpg">
+                                }
+                                else if ( item.Inscrire.profil != null){
+                                <img class="img-fluid" src="~/Fichier/@item.Inscrire.profil" width="120" height="122" alt="1.jpg">
+                                }
+                               else{
+                                <img class="img-fluid" src="~/Assets/images/team/offreEmplois.png" width="120" height="122" alt="1.jpg">
+                                }
+
+                            </div>
+                            <h4>@item.Job.titre</h4>
+                            <p>
+                                Publié le @item.Job.created
+                                @if (item.Job.immediat.Equals("true"))
+                                {<a class="text-thm" href="#"> par NiovarJobs</a>}
+                                else
+                                { <a class="text-thm" href="#"> par @item.Inscrire.nom</a>}
+
+                            </p>
+                            <ul class="featurej_post">
+                                <li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">@item.Job.ville</a></li>
+                                <li class="list-inline-item">
+                                    <span class="flaticon-price pl20"></span>
+                                    @if (item.Job.immediat.Equals("true"))
+                                    {<a href="#"> @(Convert.ToDecimal(item.Job.remunerationN)/2) $ par semaine</a>}
+                                    else
+                                    {
+                                        if (item.Job.negociable == 0)
+                                        {
+                                            <a href="#"> @(item.Job.remuneration/2) $ par semaine</a>
+                                        }
+                                        else if (item.Job.negociable == 1)
+                                        { <a href="#"> Salaire à négocier</a>}
+                                        else
+                                        {
+                                            <a href="#"> @(item.Job.salaireAnnuel) $ par annnée</a>
+                                        }
+
+
+                                    }
+
+                                </li>
+                            </ul>
+                        </div>
+                        <a class="btn btn-md btn-transparent float-right fn-smd" href="@Url.Action("DetailsOffreHome", "Home", new { id=item.Job.id })">Consulter</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+
+<!-- Browse Local Jobs -->
+<section class="job-location pb30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ulockd-main-title text-center">
+                    <h3 class="mt0"> NioVarJob Comment sa marche !</h3>
+
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-10">
+
+                <iframe width="420" height="315" src="https://www.youtube.com/embed/X2bzLQAVAZ4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<style>
+    #result {
+        position: absolute;
+        width: 49%;
+        max-width: 600px;
+        cursor: pointer;
+        overflow-y: auto;
+        max-height: 300px;
+        box-sizing: border-box;
+        z-index: 1001;
+    }
+
+    #resultVille {
+        position: absolute;
+        width: 33%;
+        max-width: 600px;
+        cursor: pointer;
+        overflow-y: auto;
+        max-height: 300px;
+        box-sizing: border-box;
+        z-index: 1001;
+    }
+
+    .link-class:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<script>
+    function filter() {
+        //recuperation des variables
+        var search = $('#search').val();
+        var searchVille = $('#searchVille').val();
+        var datePostedRadio = $("input[type=radio][name=datePostedRadio]").val();
+
+        console.log("search = " + search);
+        console.log("searchVille = " + searchVille);
+
+        var url ='@Url.Action("ListeOffre", "Home")';
+
+        url = url + '?search=' + search + '&searchVille=' + searchVille;
+
+        console.log(url);
+
+        window.location.href = url;
+    }
+
+    function filterCategorie(arg) {
+        var searchCategorie = arg;
+        var url ='@Url.Action("ListeOffre", "Home")';
+        url = url + '?searchCategorie=' + searchCategorie;
+        window.location.href = url;
+    }
+
+       function filterLocation(arg) {
+           var searchLocation = arg;
+        var url ='@Url.Action("ListeOffre", "Home")';
+       url = url + '?searchLocation=' + searchLocation;
+
+        window.location.href = url;
+        }
+</script>
+
+<!-- script pour le filtre des libbelle des jobs-->
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+        $('#search').keyup(function () {
+            $('#result').html('');
+            $('#state').val('');
+            var searchField = $('#search').val();
+
+            if (searchField.trim()!='') {
+            var expression = new RegExp(searchField, "i");
+
+            $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetAllOffreLibelle", "Home")',
+            dataType: 'json',
+            success: function (data) {
+                console.log("table libelle :"+data);
+                $.each(data, function (key, value) {
+                    console.log("titre = " + value[0].titre);
+                    console.log("id = " + value[0].id);
+                    if (value[0].titre != 'null' && value[0].titre !=' ') {
+                    if (value[0].titre.search(expression) != -1) {
+                        $('#result').append('<li class="list-group-item link-class"> ' + value[0].titre + '</li>');
+                        }
+                    }
+                });
+            },
+            error: function (emp) {
+                $('#result').append('<li class="list-group-item link-class"> Aucun resultat disponible </li>');
+            }
+        });
+
+            }
+        });
+
+        $('#result').on('click', 'li', function () {
+            var click_text = $(this).text().split('|');
+            $('#search').val($.trim(click_text[0]));
+            $("#result").html('');
+        });
+    });
+</script>
+
+
+<!-- script pour le filtre des villes-->
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+        $('#searchVille').keyup(function () {
+            $('#resultVille').html('');
+            $('#state').val('');
+            var searchField = $('#searchVille').val();
+            if (searchField.trim() != '') {
+
+                var expression = new RegExp(searchField, "i");
+                console.log("11--" + expression);
+
+            $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetAllOffreVille", "Home")',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                console.log("22--" + expression);
+                $.each(data, function (key, value) {
+                    console.log("ville = " + value[0].ville);
+                    if (value[0].ville != 'null' && value[0].ville != ' ') {
+                    if (value[0].ville.search(expression) != -1) {
+                        $('#resultVille').append('<li class="list-group-item link-class"> ' + value[0].ville + '</li>');
+                        }
+                    }
+                });
+            },
+            error: function (emp) {
+                $('#resultVille').append('<li class="list-group-item link-class"> Aucun resultat disponible </li>');
+            }
+        });
+
+
+            }
+        });
+
+        $('#resultVille').on('click', 'li', function () {
+            var click_text = $(this).text().split('|');
+            $('#searchVille').val($.trim(click_text[0]));
+            $("#resultVille").html('');
+        });
+    });
+</script>
+
+

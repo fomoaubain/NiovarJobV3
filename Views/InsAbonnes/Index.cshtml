@@ -1,0 +1,183 @@
+﻿@model IEnumerable<WebApplication1.Models.InsAbonne>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Liste des abonnements</h2>
+
+<p style="display: none;">
+    <a style=" margin-left: 18px; " href="@Url.Action("Create", "InsAbonnes")" class="btn btn-primary">
+        <i class="fa fa-plus"></i>
+        <span>
+            <strong>Ajouter</strong>
+        </span>
+    </a>
+</p>
+
+<div class="card-body">
+
+    @using (Html.BeginForm("Index", "InsAbonnes", FormMethod.Get))
+    {
+         
+        <div class="row ">
+            <div class="col-sm-6 col-md-4">
+                <div class="form-focus form-group">
+                    <div class="col-md-12">
+                        <div class="form-group form-focus">
+                            <label class="label">Date debut</label>
+                            <input type="date" value="@(Request["from"])" class="form-control floating" name="from">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="form-focus form-group">
+                    <div class="col-md-12">
+                        <div class="form-group form-focus">
+                            <label class="label">Date de fin</label>
+                            <input type="date" value="@(Request["to"])" class="form-control floating" name="to">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="form-focus form-group">
+                    <div class="col-md-12">
+                        <label class="label">Statut</label>
+                        <select class="form-control" name="status">
+                            <option value="-1">All</option>
+                            <option value="0" @(!String.IsNullOrEmpty(Request["status"]) && 0 == Request["status"].AsInt() ? "selected" : "")>En cours</option>
+                            <option value="1" @(1 == Request["status"].AsInt() ? "selected" : "")>A renouveller</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="row" style="margin-top: 30px;">
+                <div class="col-sm-6 col-md-4">
+                    <div class="form-focus form-group ">
+                        <div class="col-md-12">
+                            <label class="label">Type d'abonnement</label>
+                            <select class="form-control" name="type">
+                                <option value="-1">All</option>
+                                @foreach (WebApplication1.Models.Abonnement row in ViewBag.typeAbonnement)
+                                {
+                                    @:<option value="@row.id" @(row.id == Request["type"].AsInt() ? "selected" : "")>@row.titre</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4">
+                    <div class="form-focus form-group mt-2">
+                        <div class="col-md-12">
+                            <label class="label">Compte client</label>
+                            <select class="browser-default custom-select" name="insc">
+                                <option value="-1">All</option>
+                                @foreach (WebApplication1.Models.Inscrire row in ViewBag.inscrires)
+                                {
+                                    @:<option value="@row.id" @(row.id == Request["insc"].AsInt() ? "selected" : "")>@row.nom (@row.email)</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4">
+                    <button type="submit" class="btn btn-success pull-right"><i class="fa fa-search"></i> Search </button>
+                </div>
+            </div> 
+        }
+        <div class="table-responsive" style="margin-top: 20px;">
+            <table class="datatable table table-stripped mb-0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Abo_id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Ins_id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.libelle)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.dateDebut)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.dateFin)
+                        </th>
+                        <th>
+                            Renouveller après
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.created)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Details", "Abonnements", new { id = item.Abo_id })">
+                                    @Html.DisplayFor(modelItem => item.Abonnement.titre)
+                                </a>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Details", "Inscrires", new { id = item.Ins_id })">
+                                    @item.Inscrire.nom (@item.Inscrire.email)
+                                </a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.libelle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dateDebut)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dateFin)
+                            </td>
+                            <td>
+                                @WebApplication1.Models.Utils.getDayBetween2String(item.dateFin, item.dateDebut) Jour(s)
+                            </td>
+                            <td>
+                                <a title="Click to @(item.status == 1 ? "Block" : "Activate")" href="@Url.Action("EditStatus", "InsAbonnes", new { id = item.id })" class="btn btn-sm btn-@(item.status == 1 ? "success": "danger")">
+                                    <span>
+                                        <strong>@(item.status == 1 ? "Actif" : "Blocker")</strong>
+                                    </span>
+                                </a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.created)
+                            </td>
+                            <td>
+                                <a title="Edit" href="@Url.Action("Edit", "InsAbonnes", new { id = item.id })" class="btn btn-sm btn-outline-primary">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a title="Details" href="@Url.Action("Details", "InsAbonnes", new { id = item.id })" class="btn btn-sm btn-outline-info">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a title="Delete" href="@Url.Action("Delete", "InsAbonnes", new { id = item.id })" class="btn btn-sm btn-outline-danger">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>

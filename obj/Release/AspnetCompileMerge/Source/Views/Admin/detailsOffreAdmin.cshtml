@@ -1,0 +1,265 @@
+﻿@model WebApplication1.Models.Postuler
+@{
+    ViewBag.Title = "detailsOffreAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-wrapper job-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Details sur l'offre d'emploi</h3>
+
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="job-info job-widget">
+                    <h3 class="job-title">@Html.DisplayFor(model => model.Job.titre)</h3>
+                    <span class="job-dept">Client :  @Html.DisplayFor(model => model.Inscrire.nom)</span>
+                    <ul class="job-post-det">
+                        <li><i class="fa fa-calendar"></i> Date posté : <span class="text-blue">@Html.DisplayFor(model => model.Job.created)</span></li>
+                        <li><i class="fa fa-calendar"></i> Date limite / entré en poste: <span class="text-blue">@Html.DisplayFor(model => model.Job.dateEntre)</span></li>
+                        <li><i class="fa fa-calendar"></i> Nombre de poste : <span class="text-blue">@Html.DisplayFor(model => model.Job.nbreEmploye)</span></li>
+                        <li><i class="fa fa-ticket"></i> Jour de Travail : <span class="text-blue">@Html.DisplayFor(model => model.Job.jourTravail)</span></li>
+                    </ul>
+                </div>
+                <div class="job-content job-widget">
+                    <div class="job-desc-title"><h4>Description de l'offre</h4></div>
+                    <div class="job-description">
+                        <p>@Html.Raw(Model.Job.description)</p>
+                    </div>
+                    <div class="job-desc-title"><h4>Tâches et responsabilité </h4></div>
+                    <div class="job-description">
+                        <p> @Html.Raw(Model.Job.responsabilite)</p>
+                    </div>
+                    <div class="job-desc-title"><h4>Compétences  exigés </h4></div>
+                    <div class="job-description">
+                        <p>  @Html.Raw(Model.Job.exigence)</p>
+                    </div>
+                    <h4 class="fz20 mb30">Diplômes nécessaire</h4>
+
+                    @foreach (WebApplication1.Models.DiplomeJob data in ViewBag.listDiplomeJob)
+                    {
+                        <p><span class="flaticon-right-arrow text-thm2"></span> @data.Diplome.libelle </p>
+                    }
+
+                    <h4 class="fz20 mb30">Avantages sociaux</h4>
+                    @foreach (WebApplication1.Models.AvantageSociauxJob data in ViewBag.listAvantageSociauxJob)
+                    {
+                        <p><span class="flaticon-right-arrow text-thm2"></span> @data.AvantageSociaux.libelle </p>
+                    }
+
+                    <h4 class="fz20 mb30">Lieu exacte de l'emploi</h4>
+                    <p class="fwb">
+                        Pays :<span class="color-green">@Model.Job.pays </span>
+                        Province : <span class="color-green">@Model.Job.province </span>
+                        Ville :  <span class="color-green">@Model.Job.ville </span>
+                    </p>
+
+                    @if (Model.Job.masquerEmplacement == 1)
+                    {
+                      
+                        <p class="fwb">
+                            Code postal :
+                            <span class="color-green">
+                                @Model.Job.codePostal
+                            </span>
+                        </p>
+
+                        <p class="fwb">
+                            Adresse postal :
+                            <span class="color-green">
+                                @Model.Job.adressePostal
+                            </span>
+                        </p>
+                    }
+                </div>
+
+                <div class="row personer_information_company">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="icon text-thm"><span class="flaticon-line-chart text-thm2"></span></div>
+                        <div class="details">
+                            <p>Jour de Travail</p>
+                            <p>@Model.Job.jourTravail</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-lg-4">
+                        <div class="icon text-thm"><span class="flaticon-24-hours-support text-thm2"></span></div>
+                        <div class="details">
+                            <p>Quart de travail</p>
+                            <p>@Model.Job.QuartTravail1.libelle</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-lg-4">
+                        <div class="icon text-thm"><span class="flaticon-controls text-thm2"></span></div>
+                        <div class="details">
+                            <p>Statut de la formation</p>
+                            <p> @Model.Job.StatutEmploi.libelle</p>
+                        </div>
+                    </div>
+
+
+                    @if (Model.Job.immediat.Equals("false"))
+                    {
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="icon text-thm"><span class="flaticon-24-hours-support text-thm2"></span></div>
+                            <div class="details">
+                                <p>Date entrée en poste</p>
+                                @if (Model.Job.dateEntre != null)
+                                {
+                                    <p> @Model.Job.dateEntre</p>
+                                }
+                                else
+                                {<p>Dès que possible</p>}
+
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-4 col-lg-4">
+                            <div class="icon text-thm"><span class="flaticon-24-hours-support text-thm2"></span></div>
+                            <div class="details">
+                                <p>Date début</p>
+                                <p> @Model.Job.dateDebut</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-lg-4">
+                            <div class="icon text-thm"><span class="flaticon-24-hours-support text-thm2"></span></div>
+                            <div class="details">
+                                <p>Date fin</p>
+                                <p> @Model.Job.dateFin</p>
+                            </div>
+                        </div>
+                    }
+
+
+                    <div class="col-sm-12 col-lg-12">
+                        <p class="fwb">Connaissances de la langue :<span class="color-green"> @Model.Job.Langue.libelle </span></p>
+                    </div>
+                    <div class="col-sm-4 col-lg-4">
+                        <div class="icon text-thm"><span class="flaticon-businessman-paper-of-the-application-for-a-job text-thm2"></span></div>
+                        <div class="details">
+                            <p>Niveau oral</p>
+                            @foreach (WebApplication1.Models.NiveauLangue data in ViewBag.listNiveauLangue)
+                            {
+                                if (data.id == Model.Job.niveauOrale)
+                                {
+                                    <p>@data.libelle</p>
+                                }
+
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-lg-4">
+                        <div class="icon text-thm"><span class="flaticon-businessman-paper-of-the-application-for-a-job text-thm2"></span></div>
+                        <div class="details">
+                            <p>Niveau écrire</p>
+                            @foreach (WebApplication1.Models.NiveauLangue data in ViewBag.listNiveauLangue)
+                            {
+                                if (data.id == Model.Job.niveauEcrire)
+                                {
+                                    <p>@data.libelle</p>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-12">
+                        @if (Model.Job.equipeEmploi != null && Model.Job.equipeEmploi.Equals("1"))
+                        {
+
+                            <p class="fwb">
+                                Equité en emploi :
+                                <span class="">
+                                    "Cet employeur souscrit au principe d'équité en applique un programme d'accès à l'égalité
+                                    en emploi pour les femmes, les autochtones, les minorités visibles,
+                                    les minorités ethniques et les personnes handicapées"
+                                </span>
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="job-det-info job-widget">
+                    <div class="icon text-thm"><span class="flaticon-24-hours-support text-thm2"></div>
+                    <div class="details">
+                        <p class="color-black22">Date fin de l'offre</p>
+                        <p>@Model.Job.dateFinOffre</p>
+                    </div>
+                    <div class="info-list">
+                        <span><i class="fa fa-bar-chart"></i></span>
+                        <h5>Type d'offre </h5>
+                        <p> @Html.DisplayFor(model => model.Job.heureTravail)</p>
+                    </div>
+                    <div class="info-list">
+                        <span><i class="fa fa-money"></i></span>
+                        <h5>Salaire</h5>
+                        @if (Model.Job.negociable == 0)
+                        {
+                        <p> @Model.Job.remuneration $ par quinzaine</p>
+                        }
+                        else if (Model.Job.negociable == 1)
+                        { <p> Salaire à négocier</p>}
+                        else
+                        {
+                        <p> @(Model.Job.salaireAnnuel) $ par annnée</p>
+                        }
+                       
+                    </div>
+                    <div class="info-list">
+                        <span><i class="fa fa-suitcase"></i></span>
+                        <h5>Experience demandé</h5>
+                        <p>@Html.DisplayFor(model => model.Job.margeExperience)</p>
+                    </div>
+                    <div class="info-list">
+                        <span><i class="fa fa-suitcase"></i></span>
+                        <h5>Niveau d'étude</h5>
+                        <p>@Html.DisplayFor(model => model.Job.niveauEtude)</p>
+                    </div>
+
+                    <div class="info-list">
+                        <span><i class="fa fa-ticket"></i></span>
+                        <h5> Heure de travail</h5>
+                        <p>@Html.DisplayFor(model => model.Job.heureTravailJour) heure / jour</p>
+                    </div>
+                    <div class="info-list">
+                        <span><i class="fa fa-map-signs"></i></span>
+                        <h5>pays et ville de travail</h5>
+                        <p>
+                            Ville : @Html.DisplayFor(model => model.Job.ville) ,
+                            <br>Pays : @Html.DisplayFor(model => model.Job.pays)
+
+                        </p>
+                    </div>
+                    <div class="info-list">
+                        <p>
+                            <h5>Contact client :</h5>
+
+                            <br> Tél : @Html.DisplayFor(model => model.Inscrire.phone)
+                            <br> Email : @Html.DisplayFor(model => model.Inscrire.emailProf)
+                        </p>
+                    </div>
+                    <div class="info-list text-center">
+                        <a class="app-ends" href="#">Date de fin de l'offre  @Html.DisplayFor(model => model.Job.dateEntre)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+    <!-- Apply Job Modal -->
+ 
+    <!-- /Apply Job Modal -->
+
+</div>

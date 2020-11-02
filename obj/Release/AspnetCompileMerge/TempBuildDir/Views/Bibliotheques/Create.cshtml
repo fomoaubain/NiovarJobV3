@@ -1,0 +1,87 @@
+﻿@model WebApplication1.Models.Bibliotheque
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    List<WebApplication1.Models.Bibliotheque> listBibliotheque = ViewBag.listBibliotheque;
+}
+
+<h2 class="text-center mb-2">Liste des images de la bibliothèques</h2>
+
+@using (Html.BeginForm("Create", "Bibliotheques", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.libelle, htmlAttributes: new { @class = "control-label col-md-12" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.libelle, new { htmlAttributes = new { @class = "form-control", @placeholder="saisir le nom de l'image" } })
+            @Html.ValidationMessageFor(model => model.libelle, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="col-lg-12 mt-2">
+        <div class="form-group my_profile_input ">
+            @if (ViewBag.ErrorFile != null)
+            {<p class="badge-danger badge text-white"> @ViewBag.ErrorFile </p><br>}
+            @Html.LabelFor(model => model.chemin, " Choisir l'image correspondant (extention valide : png, jpg) ", htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.chemin, new { htmlAttributes = new { @class = "btn-sm btn-primary", @id = "imgInput", @accept = "profil/x-png,profil/gif,profil/jpeg", @type = "file" } })
+                @Html.ValidationMessageFor(model => model.chemin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Ajouter dans la bibliothèque" class="btn-sm btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+<hr />
+<!-- Page Content -->
+<div class="container">
+
+    <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Liste des images</h1>
+
+    <hr class="mt-2 mb-5">
+
+    <div class="row text-center text-lg-left">
+
+        @if (listBibliotheque.Count > 0)
+        {
+            foreach (WebApplication1.Models.Bibliotheque item in ViewBag.listBibliotheque)
+            {
+        <div class="col-lg-3 col-md-4 col-6">
+            <div class="col-md-12">
+                <a href="@Url.Action("DeleteImage", "Bibliotheques", new { id=item.id })" class="text-center btn-sm btn-danger"> <i class="fa fa-trash"></i> </a>
+            </div>
+            <div class="col-md-12">
+                <p  class="text-center font-weight-bold"> @Model.libelle </p>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="@Href("~/Fichier/"+item.chemin)" class="d-block mb-4 h-100">
+                        <img class="img-fluid img-thumbnail h-25" src="~/Fichier/@item.chemin" alt="">
+                    </a>
+
+                </div>
+            </div>
+        </div>
+            }
+        }
+        else
+        {
+            <p class="text-center">Aucune image enregistrer </p>
+        }
+
+    </div>
+
+</div>
+<!-- /.container -->
+

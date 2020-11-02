@@ -1,0 +1,98 @@
+﻿@model WebApplication1.Models.Galerie
+@{
+    ViewBag.Title = "pageGalerie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    WebApplication1.Models.Inscrire inscrire = ViewBag.inscrire;
+
+    WebApplication1.Models.Page page = ViewBag.page;
+    ViewBag.imageFond = page.profilPage;
+    ViewBag.couleurFond = page.couleurFond;
+
+    List<WebApplication1.Models.Galerie> listGalerie = ViewBag.listGalerie;
+}
+
+
+
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+<div class="container mt-0">
+    @{
+        Html.RenderPartial("Partial_my_page", inscrire);
+    }
+
+
+    @using (Html.BeginForm("pageGalerie", "Pages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+    <div class="row">
+
+        <div class="col-lg-12">
+            <div class="my_profile_input form-groupform-group">
+                <label for="formGroupExampleInput1">Titre de l'image </label><br>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.libelle, new { htmlAttributes = new { @class = "form-control", @placeholder = "Donner un titre de l'image" } })
+                    @Html.ValidationMessageFor(model => model.libelle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="my_resume_textarea mt5">
+                <input type="hidden" value="@page.id" name="Pag_id">
+                <div class="form-group">
+                    <label for="formGroupExampleInput1">Ajouter une image a ma gallerie (*) </label><br>
+                    <div class="col-md-12" style="overflow: hidden;">
+                        @Html.EditorFor(model => model.image, new { htmlAttributes = new { @id = "imgInput", @accept = "profil/x-png,profil/gif,profil/jpeg", @type = "file" } })
+                        @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4 col-lg-4 mt30">
+            <div class="my_profile_input text-left">
+                <input type="submit" value="Sauvegarder l'image" class="btn btn-sm btn-thm" />
+            </div>
+        </div>
+    </div>
+    }
+
+
+<div class="col-md-12">
+        <hr class="mt-2 mb-5">
+
+        <div class="row text-center text-lg-left">
+
+            @if (listGalerie.Count > 0)
+            {
+                foreach (WebApplication1.Models.Galerie item in ViewBag.listGalerie)
+                {
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <div class="col-md-12">
+                            <p class="text-center font-weight-bold text-black">@item.libelle  </p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="#" class="d-block mb-4 h-100">
+                                    <img class="img-fluid img-thumbnail h-25 " src="~/Fichier/@item.image" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-center">Aucune image enregistrer </p>
+            }
+
+        </div>
+
+</div>
+
+</div>
+

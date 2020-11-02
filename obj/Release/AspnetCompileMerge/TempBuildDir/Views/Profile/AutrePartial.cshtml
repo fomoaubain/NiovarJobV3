@@ -1,0 +1,77 @@
+﻿
+@model WebApplication1.Models.CvListObject
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Autre expérience </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("SaveAutre", "Profile", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <label class="control-label col-md-6">Date de début</label>
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="date" name="dateDebut" class="form-control dateDebut" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-6">Date de fin</label>
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="date" name="dateFin" class="form-control dateFin" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="hidden" name="autre.periode" class="form-control periode" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.autre.etablissement,"Entreprise", htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.autre.etablissement, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.autre.etablissement, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.autre.fonction, "Fonction", htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.autre.fonction, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.autre.fonction, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.autre.description, "Description", htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.autre.description, new { @rows = "4", @class = "form-control", @placeholder = "veuillez saisir ici" })
+                            @Html.ValidationMessageFor(model => model.autre.description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-12 text-center">
+                            <input type="submit" value="Ajouter" class="btn btn-thm" />
+                        </div>
+                    </div>
+                </div>
+                }
+
+            </div>
+          
+        </div>
+    </div>
+</div>

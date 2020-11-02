@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bb3a96a26bc94358889680a61ee4e3a6" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="NiovarJobModel.Abonnement" Width="1.5" PointX="9" PointY="54.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.AnneeExp" Width="1.5" PointX="3.75" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.AssocLangueNiveau" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Autre" Width="1.5" PointX="8.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.AvantageSociaux" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.AvantageSociauxJob" Width="1.5" PointX="8.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Avis" Width="1.5" PointX="10.5" PointY="44.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.CatAnneeExp" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Categorie" Width="1.5" PointX="3.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Contrat" Width="1.5" PointX="3.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Diplome" Width="1.5" PointX="9" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.DiplomeJob" Width="1.5" PointX="11.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Document" Width="1.5" PointX="10.5" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Education" Width="1.5" PointX="8.25" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Experience" Width="1.5" PointX="8.25" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.File" Width="1.5" PointX="8.25" PointY="31.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.FraisLocation" Width="1.5" PointX="10.5" PointY="39.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Galerie" Width="1.5" PointX="10.5" PointY="47.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Information" Width="1.5" PointX="8.25" PointY="35.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.InsAbonne" Width="1.5" PointX="11.25" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Inscrire" Width="1.5" PointX="6" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Job" Width="1.5" PointX="6" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Langue" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Location" Width="1.5" PointX="8.25" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.NiveauLangue" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.NiveauScolarite" Width="1.5" PointX="3.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Page" Width="1.5" PointX="8.25" PointY="47.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Paiement" Width="1.5" PointX="10.5" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Parametre" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Postuler" Width="1.5" PointX="8.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.QuartTravail" Width="1.5" PointX="3.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Question" Width="1.5" PointX="10.5" PointY="51.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Reponse" Width="1.5" PointX="12.75" PointY="51.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Role" Width="1.5" PointX="10.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.StatutEmploi" Width="1.5" PointX="3.75" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Suivre" Width="1.5" PointX="10.5" PointY="34.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.TypeOffre" Width="1.5" PointX="3.75" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Types" Width="1.5" PointX="1.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="NiovarJobModel.Utilisateur" Width="1.5" PointX="13" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="NiovarJobModel.FK_INSABONN_ASSOCIATI_ABONNEME" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_CATANNEE_ASSOCIATI_ANNEEEXP" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_ASSOCLAN_ASSOCIATI_LANGUE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_ASSOCLAN_ASSOCIATI_NIVEAULA" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_AUTRE_ASSOCIATI_INSCRIRE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_AVANTAGE_ASSOCIATI_AVANTAGE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_AVANTAGE_ASSOCIATI_JOB" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_AVIS_ASSOCIATI_PAGE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_CATANNEE_ASSOCIATI_CATEGORI" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_CATEGORI_ASSOCIATI_TYPES" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_JOB_ASSOCIATI_CATEGORI" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_JOB_ASSOCIATI_CONTRAT" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_DIPLOMEJ_ASSOCIATI_DIPLOME" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_DIPLOMEJ_ASSOCIATI_JOB" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_DOCUMENT_ASSOCIATI_POSTULER" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_EDUCATIO_ASSOCIATI_INSCRIRE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_EXPERIEN_ASSOCIATI_INSCRIRE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_FILE_ASSOCIATI_INSCRIRE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_FRAISLOC_ASSOCIATI_LOCATION" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_GALERIE_ASSOCIATI_PAGE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_INFORMAT_ASSOCIATI_INSCRIRE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_INSABONN_ASSOCIATI_INSCRIRE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_LOCATION_ASSOCIATI_INSCRIRE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_PAGE_ASSOCIATI_INSCRIRE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_POSTULER_ASSOCIATI_INSCRIRE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_SUIVRE_PEUT_SUIV_INSCRIRE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_JOB_ASSOCIATI_LANGUE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_JOB_ASSOCIATI_NIVEAUSC" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_JOB_ASSOCIATI_QUARTTRA" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_JOB_ASSOCIATI_STATUTEM" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_JOB_ASSOCIATI_TYPEOFFR" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_POSTULER_ASSOCIATI_JOB" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_QUESTION_ASSOCIATI_PAGE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_SUIVRE_EST_SUIVI_PAGE" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_PAIEMENT_ASSOCIATI_POSTULER" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_REPONSE_ASSOCIATI_QUESTION" ManuallyRouted="false" />
+        <AssociationConnector Association="NiovarJobModel.FK_UTILISAT_ASSOCIATI_ROLE" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NiovarJobModel.Bibliotheque" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="NiovarJobModel.FK_ASSOCLAN_ASSOCIATI_JOB" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

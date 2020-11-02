@@ -1,0 +1,371 @@
+﻿@model WebApplication1.Models.CvListObject
+
+@{
+    ViewBag.Title = "cvCandidatLocation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    WebApplication1.Models.Location locationExist = ViewBag.locationExist;
+
+    string textButton = "LOUER";
+    string coulourMarqueur = "forestgreen";
+
+    string titreModal = "location";
+
+    // lorsque type=1 de location normal
+    int typeLocation = 1;
+
+    string dateMinLocation=null;
+
+    if (locationExist != null)
+    {
+        textButton = "RESERVER";
+        coulourMarqueur = "red";
+        titreModal = "réservation";
+
+        if (locationExist.dateFin!=null)
+        {
+            DateTime dateTime = DateTime.Parse(locationExist.dateFin.ToString());
+
+            dateMinLocation = dateTime.Year + "-" + dateTime.Month + "-" + dateTime.Day;
+        }
+
+        // lorsque type=2 il s'agit d'une demande de reservation 
+        typeLocation = 2;
+    }
+
+}
+
+<!-- Candidate Personal Info Details-->
+<section class=" bgc-fa ">
+    <div class="container mt50 mt70">
+        <div class="row candidate_grid">
+            <div class="col-lg-8 col-xl-8">
+                <div class="candidate_personal_info">
+                    <div class="thumb">
+                        <img height="100px" width="100px" class="img-fluid rounded-circle" src="~/Assets/images/team/avatar.png" alt="cs2.jpg">
+                        <div class="cpi_av_rating" style="background-color:@coulourMarqueur;"><span></span></div>
+                    </div>
+                    <div class="details">
+                        <h3>CDT0@(Model.inscrire.id) <small class="verified"></small></h3>
+                        <p> @Model.inscrire.titreEmploi</p>
+                        <ul class="address_list">
+                            <li class="list-inline-item"><a href="#"> @Model.inscrire.pays</a></li>
+                            <li class="list-inline-item"><a href="#"> @Model.inscrire.province</a></li>
+                            <li class="list-inline-item"><a href="#"> @Model.inscrire.ville</a></li>
+                        </ul>
+                        @if (locationExist != null)
+                        {
+                    <p><span class="color-danger font-weight-bold"> Ce candidat est indisponible et pourra être disponible à partir de la date du</span> <span class="color-warning font-weight-bold">" @locationExist.dateFin " !</span> </p>
+
+                        }
+                        else
+                        {
+                            <p><span class="color-green font-weight-bold"> Ce candidat est actuellement disponible !</span> </p>
+
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xl-4">
+                <div class="candidate_personal_overview">
+
+                    @if (ViewBag.page != null  )
+                    {
+                        if (ViewBag.page == 0)
+                        {
+                            
+                            <button class="btn btn-block btn-thm" data-toggle="modal" data-target="#locationModal"><span class="flaticon-ticket mr-2"> @textButton</span> </button>
+
+                        }
+
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="candidate_about_info">
+                            <h4 class="fz20 mb30">A propos de moi</h4>
+                            <p class="mb30"> @Model.information.lettre</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="my_resume_eduarea style2">
+                            <h4 class="title">Education</h4>
+
+                            @if (ViewBag.listEducation == null)
+                            {
+                                <div class="content">
+                                    <p class="t">Aucune donné renseignez</p>
+                                </div>
+                            }
+                            else
+                            {
+                                foreach (WebApplication1.Models.Education data in ViewBag.listEducation)
+                                {
+                                    <div class="content">
+                                        <div class="circle"></div>
+                                        <p class="edu_center">@data.etablissement<small>@data.periode</small></p>
+                                        <h4 class="edu_stats">@data.diplome</h4>
+                                        <p class="mb0">@data.description</p>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="my_resume_eduarea style2">
+                            <h4 class="title"> Experience de travail</h4>
+                            @if (ViewBag.listExperience == null)
+                            {
+                                <div class="content">
+                                    <p class="t">Aucune donné renseignez</p>
+                                </div>
+                            }
+                            else
+                            {
+                                foreach (WebApplication1.Models.Experience data in ViewBag.listExperience)
+                                {
+                                    <div class="content">
+                                        <div class="circle"></div>
+                                        <p class="edu_center">@data.etablissement<small>@data.periode</small></p>
+                                        <h4 class="edu_stats">@data.fonction</h4>
+                                        <p class="mb0">@data.description</p>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="my_resume_eduarea style2">
+                            <h4 class="title">Autres expérience</h4>
+                            @if (ViewBag.listAutre == null)
+                            {
+                                <div class="content">
+                                    <p class="t">Aucune donné renseignez</p>
+                                </div>
+
+                            }
+                            else
+                            {
+                                foreach (WebApplication1.Models.Autre data in ViewBag.listAutre)
+                                {
+                                    <div class="content">
+                                        <div class="circle"></div>
+                                        <p class="edu_center">@data.etablissement<small>@data.periode</small></p>
+                                        <h4 class="edu_stats">@data.fonction</h4>
+                                        <p class="mb0">@data.description</p>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="candidate_working_widget">
+
+                    <div class="icon text-thm"><span class="flaticon-mortarboard"></span></div>
+                    <div class="details">
+                        <h4>Taux horaire payé</h4>
+                        <p> @ViewBag.montant $/heure</p>
+                    </div>
+
+                    <div class="icon text-thm"><span class="flaticon-controls"></span></div>
+                    <div class="details">
+                        <h4>Experience</h4>
+                        <p>@Model.inscrire.anneeExperience</p>
+                    </div>
+
+                    <div class="icon text-thm"><span class="flaticon-mortarboard"></span></div>
+                    <div class="details">
+                        <h4>Compétences</h4>
+                        <p> @Model.information.competence</p>
+                    </div>
+
+
+                </div>
+
+                <div class="col-lg-12 col-xl-12">
+                    <div class="candidate_personal_overview">
+
+                        @if (ViewBag.page != null)
+                        {
+                            if (ViewBag.page == 0)
+                            {
+                                <button class="btn btn-block btn-thm" data-toggle="modal" data-target="#locationModal"><span class="flaticon-ticket mr-2">  @textButton</span> </button>
+
+                            }
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Formulaire de demande de @titreModal </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("Create", "Locations", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    <input type="hidden" name="Ins_id" value="@Model.inscrire.id" class="form-control " required>
+                    <input type="hidden" name="type" value="@typeLocation" class="form-control " required>
+                    <div class="form-group">
+                        <label class="control-label col-md-6">Taux horaire à payer </label>
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="text" name="montant" value="@ViewBag.montant" readonly class="form-control " id="tauxHoraire" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label class="control-label col-md-12">Date de début </label>
+                                <div class="col-md-offset-2 col-md-12">
+                                    <input type="date" onchange="handlerDateDebut('@dateMinLocation');" name="dateDebut" class="form-control" id="dateDebut" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-12">Date de fin  </label>
+                                <div class="col-md-offset-2 col-md-12">
+                                    <input type="date" name="dateFin" onchange="handlerDateFin();" class="form-control" id="dateFin" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-6">Nombre de jour à louer </label>
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="number" value="" name="periode" onkeyup="calcul()" class="form-control " id="nbreJour" readonly required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-12">Nombre d'Heure de travail par jour</label>
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="number" value="" name="heureTravail" onkeyup="calcul()" id="heureTravail" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-6">Total heure de travail</label>
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="text" value="0" id="totalHeure" class="form-control " readonly required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-6">Salaire journalier</label>
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="text" value="0" name="joursal" id="salJour" class="form-control " readonly required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-6">Salaire total à payer</label>
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="text" value="0" name="remuneration" id="salTotal" class="form-control " readonly required>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="submit" value="Soumettre ma demande de @titreModal" class="btn-sm btn-primary" />
+                        </div>
+                    </div>
+                </div>
+                    }
+
+                </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+    function calcul() {
+        var nbreJour = document.getElementById("nbreJour").value;
+        var heureTravail = document.getElementById("heureTravail").value;
+        var tauxHoraire = document.getElementById("tauxHoraire").value;
+
+        console.log("tauxHoraire : " + tauxHoraire);
+        console.log("heureTravail : " + heureTravail);
+        console.log("nbreJour : " + nbreJour);
+
+        if (heureTravail != ' ' && tauxHoraire != ' ') {
+            document.getElementById("salJour").value = heureTravail * tauxHoraire;
+        }
+
+        if (heureTravail != ' ' && tauxHoraire != ' ' && nbreJour != ' ') {
+            
+            document.getElementById("salTotal").value = heureTravail * tauxHoraire * nbreJour;
+            document.getElementById("totalHeure").value = heureTravail * nbreJour;
+        }
+    }
+
+
+    function handlerDateDebut(val) {
+
+        if (val != undefined && val != null && val != "") {
+            var dateDebut = $('#dateDebut').val();
+            dateDebut = new Date($('#dateDebut').val());
+            var dateMinLocation = new Date(val);
+
+            console.log("dateMinLocation : " + dateMinLocation);
+            console.log("dateDebut :" + dateDebut);
+
+            if (dateDebut <= dateMinLocation) {
+                alert("Impossible ! Veuillez choisir une date supérieur a cette date " + val);
+                $('#dateDebut').val("");
+            }
+        }
+        
+    }
+
+    function handlerDateFin() {
+        var dateFin = $('#dateFin').val();
+        var dateDebut = $('#dateDebut').val();
+        dateDebut = new Date($('#dateDebut').val());
+        dateFin = new Date($('#dateFin').val());
+
+        if ($('#dateDebut').val() != "" && $('#dateDebut').val() != null) {
+
+            if (dateDebut >= dateFin) {
+                alert("La date de fin doit être supérieur a la date de début");
+                $('#dateFin').val("");
+                return;
+            }
+
+            const diffTime = Math.abs(dateFin - dateDebut);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+
+            document.getElementById("nbreJour").value = diffDays;
+         
+            calcul();
+
+        } else {
+            alert("Veuillez selectionnez une date de début");
+            $('#dateFin').val("");
+        }   
+    }
+</script>

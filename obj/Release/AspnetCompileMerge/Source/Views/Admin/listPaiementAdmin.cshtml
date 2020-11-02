@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "listPaiementAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>Liste des transactions monétaires sur paiement de main d'oeuvre employés</h2>
+
+<!-- Search Filter -->
+
+<div class="table-responsive mt-4">
+    <table class="datatable table table-stripped mb-0">
+        <thead>
+            <tr>
+                <th>
+                    Client
+                </th>
+                <th>
+                    Candidat
+                </th>
+                <th>
+                    Payé le
+                </th>
+                <th>
+                    Montant a payé
+                </th>
+                <th>
+                    Avance
+                </th>
+                <th>
+                    Reste
+                </th>
+            </tr>
+        </thead>
+
+        @foreach (WebApplication1.Models.Paiement item in ViewBag.listPaiement)
+        {
+            <tr>
+                <td>
+                    @item.getPayeur().nom [@item.getPayeur().email]
+                </td>
+                <td>
+                    @item.getConcerner().nom [@item.getConcerner().email]
+                </td>
+                <td>
+                    @item.created
+                </td>
+                <td>
+                    @item.montant $
+                </td>
+                <td>
+                    @item.avance $
+                </td>
+
+                <td>
+                    @item.reste $
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
+
+

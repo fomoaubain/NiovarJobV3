@@ -1,0 +1,205 @@
+﻿@model WebApplication1.Models.Inscrire
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Détails</h2>
+
+<!-- Page Content -->
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12 ">
+
+            <form>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Type <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.type)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Nom </label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.nom)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Nom representant <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.nomRepresentant)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Prenom representant  </label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.prenomRepresentant)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Code postal <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.codePostal)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Numero poste  </label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.numeroPoste)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Login <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.login)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Courriel  proffessionel</label>
+                            <input class="form-control " value="@Model.email" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Télephone <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.phone)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Site web </label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.website)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Description <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.description)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Facebook </label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.facebook)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Linkedin <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.linkedin)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Pays </label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.pays)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Ville <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.ville)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Province </label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.province)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Adresse <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.adresse)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Titre Emploi </label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.titreEmploi)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Expérience <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.anneeExperience)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Salaire horaire souhaiter</label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.salaireSouhaiter)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Expérience <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.anneeExperience)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Categorie</label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.categorie)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Domaine <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.domaine)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Crée le :</label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.created)" readonly>
+                        </div>
+                    </div>
+                </div>
+                <p>
+
+                    @Html.ActionLink("Retour à la liste", "Index")
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+

@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "SendMail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    String emails = (String)ViewBag.emails;
+}
+
+<!-- Summernote CSS -->
+<link rel="stylesheet" href="~/Assets/css/summernote-bs4.css">
+<style>
+    .bootstrap-tagsinput span[data-role="remove"]:after {
+        content: "x";
+        padding: 0px 2px;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
+<!-- Page Header -->
+<div class="page-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="page-title">Mails</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Administration</a></li>
+                <li class="breadcrumb-item active">Envoi de mail</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /Page Header -->
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <p class="text-center font-weight-bold" id="mailMessage" style="margin-top: 25px; display: none;">
+
+            </p>
+            <div class="card-body" id="mailForm">
+                <div class="form-group">
+                    <input type="text" data-role="tagsinput" placeholder="To" class="form-control" id="to" value="@emails">
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Subject" id="subject" class="form-control">
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input accept="image/*, .doc, .docx, .ppt, .pptx, .pdf, .xlsx" type="file" placeholder="Attachment" id="attachment" name="file" multiple="multiple" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" rows="4" class="form-control summernote" placeholder="Enter your message here"></textarea>
+                </div>
+                <div class="form-group mb-0">
+                    <div class="text-center">
+                        <button onclick="sendMail()" class="btn btn-primary">
+                            <i class="fa fa-spinner fa-spin" id="spinner-send" style="cursor: none; color: white; display: none;"></i>
+                            <span>Send</span>
+                            <i class="fa fa-send m-l-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Summernote JS -->
+<script src="~/Assets/js/summernote-bs4.min.js"></script>
+<script type="text/javascript" src="~/Assets/js/tagsinput.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('input[data-role="tagsinput"]').tagsinput({
+            allowDuplicates: false,
+            trimValue: true,
+            tagClass: 'big',
+        });
+    });
+function sendMail() {
+        $("#errorMessage").hide();
+        $("#okMessage").hide(); 
+        $("#mailMessage").removeClass("text-success text-danger");
+        $("#mailMessage").addClass("text-info");
+        $("#mailMessage").html("<i class='fa fa-spinner fa-spin'></i> Veillez patienter. Mail(s) en cour d'envoi...");
+        $("#spinner-send").show();
+        var formData = new FormData();
+        $to = $("#to").val();
+        $subject = $("#subject").val();
+        $message = $("#message").val();
+        //$attachment = $("#attachment").val();
+
+        console.log("to = "+$to);
+        console.log("subject = "+$subject);
+        console.log("message = " + $message);
+
+        var url = '@Url.Action("SendMailJsonAsync", "Utilisateurs")';//+"?to="+$to+"&subject="+$subject+"&message="+$message;
+       //window.location.href = url; 
+
+        var totalFiles = document.getElementById("attachment").files.length;
+        console.log("totalFiles = "+totalFiles);
+        formData.append("totalFiles", totalFiles);
+        formData.append("to", $to);
+        formData.append("subject", $subject);
+        formData.append("message", $message);
+        //formData.append("attachment", $attachment);
+        var file;
+        for (var i = 0; i < totalFiles; i++) {
+            file = document.getElementById("attachment").files[i];
+            formData.append("file-"+i, file);
+            console.log("file-"+i+" = "+file);
+        }
+        console.log("url = "+url);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            async: true,
+            success: function(response) {
+                console.log(response);
+                $("#spinner-send").hide();
+                $("#mailMessage").show();
+                $("#mailMessage").removeClass("text-success text-danger");
+                if (response.result_code == 1) {
+                    $("#mailMessage").addClass("text-success");
+                    $("#mailMessage").html('<i class="fa fa-check"></i> Mails envoyé(s) avec succèss.');
+                    return;
+                }
+                $("#mailMessage").addClass("text-danger");
+                $("#mailMessage").html("<i class='fa fa-remove'></i> Une erreur est survenu veillez contacter un l'administrateur.");
+            },
+            error: function(error) {
+                $("#spinner-send").hide();
+            },
+        });
+    }
+</script>
+
+
+

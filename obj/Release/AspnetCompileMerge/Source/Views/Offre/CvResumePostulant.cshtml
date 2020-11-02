@@ -1,0 +1,251 @@
+﻿@model WebApplication1.Models.CvListObject
+
+@{
+    ViewBag.Title = "CvResumePostulant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Our Dashbord -->
+    <section>
+        <div class="our-dashbord dashbord ">
+            <div class="container">
+                <div class="row">
+                    @{
+                        Html.RenderPartial("Partial_menu_client");
+                    }
+
+                    <div class="col-sm-12 col-lg-8 col-xl-9">
+
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <h4 class="fz20 mb20"> CV du candidat</h4>
+                            </div>
+                            @if (ViewBag.immediat != null)
+                            {
+                                if (ViewBag.immediat.Equals("false") || ViewBag.etatClient.Equals("2"))
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="">
+                                                <div class="form-group">
+                                                    <h4 class="title">Nom :</h4>
+                                                    <div class="col-md-12">
+                                                        <input type="text" value="@Model.inscrire.nom" class="form-control" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="">
+                                                <div class="form-group">
+                                                    <h4 class="title">Courriel :</h4>
+                                                    <div class="col-md-12">
+                                                        <input type="text" value="@Model.inscrire.email" class="form-control" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="">
+                                                <div class="form-group">
+                                                    <h4 class="title">Téléphone :</h4>
+                                                    <div class="col-md-12">
+                                                        <input type="text" value="@Model.inscrire.phone" class="form-control" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="">
+                                                <div class="form-group">
+                                                    <h4 class="title">Adresse :</h4>
+                                                    <div class="col-md-12">
+                                                        <input type="text" value="@Model.inscrire.adresse" class="form-control" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="">
+                                                <div class="form-group">
+                                                    <h4 class="title">Ville :</h4>
+                                                    <div class="col-md-12">
+                                                        <input type="text" value="@Model.inscrire.ville" class="form-control" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="">
+                                                <div class="form-group">
+                                                    <h4 class="title">Code postal :</h4>
+                                                    <div class="col-md-12">
+                                                        <input type="text" value="@Model.inscrire.codePostal" class="form-control" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="">
+                                    <div class="form-group">
+                                        <h4 class="title">Année d'experience:</h4>
+                                        <div class="col-md-12">
+                                            <input type="text" value="@Model.inscrire.anneeExperience" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-12">
+                                <div class="">
+                                    <div class="form-group">
+                                        <h4 class="title">Lettre</h4>
+                                        <div class="col-md-12">
+                                            @Html.TextAreaFor(model => model.information.lettre, new { @rows = "4", cols = "4", @class = "form-control", @placeholder = "", @readonly = "@readonly" })
+                                            @Html.ValidationMessageFor(model => model.information.lettre, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="my_resume_skill">
+                                    <h4 class="title">Compétences</h4>
+                                    <div class="col-md-12">
+                                        @Html.TextAreaFor(model => model.information.competence, new { @rows = "4", cols = "4", @class = "form-control", @readonly = "@readonly" })
+                                        @Html.ValidationMessageFor(model => model.information.lettre, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="my_resume_eduarea">
+                                    <h4 class="title">Education <small class="float-right"></small></h4>
+
+
+                                    @if (ViewBag.listEducation == null)
+                                    {
+                                        <div class="content">
+                                            <div class="circle"></div>
+                                            <p class="edu_center">Aucun resultat trouvé </p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        foreach (WebApplication1.Models.Education data in ViewBag.listEducation)
+                                        {
+                                            <div class="content">
+                                                <div class="circle"></div>
+                                                <p class="edu_center">@data.etablissement <small>@data.periode</small></p>
+                                                <h4 class="edu_stats">
+                                                    @data.diplome
+
+                                                </h4>
+                                                <p> @data.description</p>
+                                            </div>
+
+                                        }
+                                    }
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 mt-2">
+                                <div class="my_resume_eduarea">
+                                    <h4 class="title">Experiences  proffessionnelles <small class="float-right"></small></h4>
+
+
+                                    @if (ViewBag.listExperience == null)
+                                    {
+                                        <div class="content">
+                                            <div class="circle"></div>
+                                            <p class="edu_center">Aucun resultat trouvé </p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        foreach (WebApplication1.Models.Experience data in ViewBag.listExperience)
+                                        {
+                                            <div class="content">
+                                                <div class="circle"></div>
+                                                <p class="edu_center">@data.etablissement <small>@data.periode</small></p>
+                                                <h4 class="edu_stats">
+                                                    @data.fonction
+
+                                                </h4>
+                                                <p> @data.description</p>
+                                            </div>
+
+                                        }
+                                    }
+
+
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-lg-12 mt-2">
+                                <div class="my_resume_eduarea">
+                                    <h4 class="title"> Autres experiences <small class="float-right"></small></h4>
+
+
+                                    @if (ViewBag.listAutre == null)
+                                    {
+                                        <div class="content">
+                                            <div class="circle"></div>
+                                            <p class="edu_center">Aucun resultat trouvé </p>
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        foreach (WebApplication1.Models.Autre data in ViewBag.listAutre)
+                                        {
+                                            <div class="content">
+                                                <div class="circle"></div>
+                                                <p class="edu_center">@data.etablissement <small>@data.periode</small></p>
+                                                <h4 class="edu_stats">
+                                                    @data.fonction
+
+                                                </h4>
+                                                <p> @data.description</p>
+                                            </div>
+
+                                        }
+                                    }
+
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+           </div>
+
+    </section>
+
+
+
+
+
+
+
+
+
+

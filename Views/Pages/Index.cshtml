@@ -1,0 +1,88 @@
+﻿@model IEnumerable<WebApplication1.Models.Page>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.profilPage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.profil)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.aPropos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pourquoiPostuler)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nomPage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.archived)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Inscrire.type)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.profilPage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.profil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.aPropos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pourquoiPostuler)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomPage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.archived)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.created)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Inscrire.type)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

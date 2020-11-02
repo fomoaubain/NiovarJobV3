@@ -1,0 +1,199 @@
+﻿@model WebApplication1.Models.Abonnement
+@{
+    ViewBag.Title = "Stripe Payments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebApplication1.Models.Inscrire inscrire = (WebApplication1.Models.Inscrire)ViewBag.inscrire;
+    WebApplication1.Models.InsAbonne insAbonne = (WebApplication1.Models.InsAbonne) ViewBag.insAbonne;
+}
+<style>
+    .payment-button {
+        display: block;
+        background: #666ee8;
+        color: #fff;
+        box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+        border-radius: 4px;
+        border: 0;
+        font-weight: 700;
+        width: 100%;
+        height: 40px;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+    .success{
+        border: solid green 1px;
+    }
+    .error{
+        border: solid red 1px;
+    }
+</style>
+
+<section class="our-error bgc-fa">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-lg-4">
+                <img src="https://marketplace.magento.com/media/catalog/product/s/t/stripe-payment_3.png" /> 
+                <div class="card text-center" style="width: 18rem; cursor: pointer">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase" style="font-size: 15px; color: green">@Model.titre</h5>
+                        <h6 class="card-subtitle mb-2 text-warning">@Model.type</h6>
+                        <h5 class="card-title text-uppercase" style="font-size: 15px; color: green">@Model.montant $/mois</h5>
+                        <p class="card-text">@Model.description</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-8">
+                <div class="row  justify-content-center" style="margin-top: 10px;">
+                    @if (ViewBag.hasPaid == null)
+                    {
+                        <p class="text-center">Bientot terminé !!!</p><br />
+                    }
+                    </div>
+                   
+                    @if (ViewBag.hasPaid != null && ViewBag.hasPaid)
+                    {
+
+                        if (insAbonne != null)
+                        {
+                            <div class="alert alert-success" style="margin-top: 70px">
+                                <p class="text-center">Succès ! Votre abonnement @Model.titre a bien été éffectué. Nous vous avons envoyé un mail relatif a cet abonnement. Continuez a nous faire confiance.<br /> <a href="@Url.Action("AbonnementList", "Profile")" class="btn btn-lg btn-thm">Continuer</a></p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning" style="margin-top: 70px; padding: 100px;">
+                                <p class="text-center">Erreur ! Abonnement non éffectué veuillez verifier votre solde et réessayez.<br /> <a href="@Url.Action("Abonnement", "Inscrires")" class="btn btn-lg btn-thm">Réessayer</a></p>
+                            </div>
+                        }
+                    }
+                    else
+                    { 
+                    <form method="POST" action="@Url.Action("Payments", "Inscrires")" id="payment-form" style="margin-top: 60px;">
+                        <h2 class="text-center"><a title="retour aux types d'abonnement" href="@Url.Action("Abonnement", "Inscrires")"><i class="fa fa-backward"></i></a> Informations du paiement</h2>
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label for="card-name">Nom</label>
+                            <input type="text" class="form-control" name="Name" placeholder="Card name" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="card-number">Numéro du compte</label>
+                            <div id="card-number"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="card-cvc">Cvc</label>
+                                    <div id="card-cvc"></div>
+                                </div>
+                                <div class="col-6">
+                                    <label for="card-exp"> Exp</label>
+                                    <div id="card-exp"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin: 15px; color: red;" id="card-errors" role="alert"> </div>
+                        <button type="submit" class="payment-button"><i style="font-size: 20px;" class="fa fa-cc-stripe"></i> Pay now @Model.montant $</button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://js.stripe.com/v3/"></script>
+
+<script>
+    // Create a Stripe client.
+    var stripe = Stripe('pk_test_51Gx6jgIK0UhIWHGbQ9En381vmZHqP6V5SYYFmaqtk4uUmlYXTXtym4U9Lkrs0EUjBIUk3eKNgkYgWDyB49cjZ5t70081Zf54F0');
+
+    // Create an instance of Elements.
+    var elements = stripe.elements();
+
+    // Custom styling can be passed to options when creating an Element.
+    // (Note that this demo uses a wider set of styles than the guide below.)
+    var style = {
+      base: {
+        color: '#32325d',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#aab7c4'
+        },
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a'
+      }
+    };
+
+    // Create an instance of the card Element. 
+    var card = elements.create('cardNumber', {
+        classes: { 
+            base: "form-control",
+            focus: "success",
+            invalid: "error"
+        },
+        style: style
+    });
+    var cvc = elements.create('cardCvc', {
+        classes: { 
+            base: "form-control",
+            focus: "success",
+            invalid: "error"
+        },
+        style: style
+    });
+    var exp = elements.create('cardExpiry', {
+        classes: { 
+            base: "form-control",
+            focus: "success",
+            invalid: "error"
+        },
+        style: style
+    });
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    card.mount('#card-number');
+    cvc.mount('#card-cvc');
+    exp.mount('#card-exp');
+
+    // Handle real-time validation errors from the card Element.
+    card.on('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
+
+    // Handle form submission.
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      stripe.createToken(card).then(function(result) {
+        if (result.error) {
+          // Inform the user if there was an error.
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          // Send the token to your server.
+          stripeTokenHandler(result.token);
+        }
+      });
+    }); 
+
+    function stripeTokenHandler(token) {
+        var form = document.getElementById('payment-form');
+        var hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'stripeToken');
+        hiddenInput.setAttribute('value', token.id);
+        form.appendChild(hiddenInput);
+        form.submit();
+    }
+
+</script> 

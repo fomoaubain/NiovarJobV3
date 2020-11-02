@@ -1,0 +1,23 @@
+﻿@model WebApplication1.Models.Page
+@{
+    ViewBag.Title = "PourquoiPostulerHome";
+    ViewBag.idInsc = Model.Ins_id;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebApplication1.Models.Inscrire inscrire = ViewBag.inscrire;
+    ViewBag.imageFond = Model.profilPage;
+    ViewBag.couleurFond = Model.couleurFond;
+}
+
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+<div class="container mt-0">
+    @{
+        Html.RenderPartial("Partial_my_page_visiteur", inscrire);
+    }
+
+    <h4 class="title">Pourquoi postuler dans notre compagnie</h4>
+    <p> @Html.Raw(Model.pourquoiPostuler)</p>
+
+</div>
+

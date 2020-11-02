@@ -1,0 +1,77 @@
+﻿
+@model WebApplication1.Models.Page
+
+@{
+    ViewBag.Title = "MyPageOffre";
+    WebApplication1.Models.Page page = ViewBag.page;
+    ViewBag.imageFond = page.profilPage;
+    ViewBag.idInsc = page.Ins_id;
+    ViewBag.couleurFond = page.couleurFond;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebApplication1.Models.Inscrire inscrire = ViewBag.inscrire;
+}
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<div class="container mt-0">
+    @{
+        Html.RenderPartial("Partial_my_page_visiteur", inscrire);
+    }
+
+    <h4 class="fz20 mb30">Nos offres d'emploi</h4>
+    @if (ViewBag.listNosOffres == null)
+    {
+        <div class="col-lg-12 text-center">
+            <h4 class="text-blue mb10">Aucune offres  disponible !</h4>
+        </div>
+    }
+    else
+    {
+
+
+        foreach (WebApplication1.Models.Postuler item in ViewBag.listNosOffres)
+        {
+            <div class="col-lg-12">
+                <div class="fj_post style2 one">
+                    <div class="details">
+                        <h5 class="job_chedule text-thm2">@item.Job.heureTravail</h5>
+                        <div class="thumb fn-smd">
+                            @if (item.Job.immediat.Equals("true"))
+                            {
+                                <img class="img-fluid" src="~/Assets/images/logo2.png" width="120" height="122" alt="1.jpg">
+                            }
+                            else if (item.Inscrire.profil != null)
+                            {
+                                <img class="img-fluid" src="~/Fichier/@item.Inscrire.profil" width="120" height="122" alt="1.jpg">
+                            }
+                            else
+                            {
+                                <img class="img-fluid" src="~/Assets/images/team/c1.jpg" width="120" height="122" alt="1.jpg">
+                            }
+                        </div>
+                        <h4>@item.Job.titre</h4>
+                        <p>
+                            Posté le @item.Job.created par
+                            @if (item.Job.immediat.Equals("true"))
+                            {<a class="text-thm" href="#"> par NiovarJobs</a>}
+                            else
+                            { <a class="text-thm" href="#"> par @item.Inscrire.nom</a>}
+                        </p>
+                        <ul class="featurej_post">
+                            <li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">@item.Job.ville</a></li>
+                            <li class="list-inline-item">
+                                <span class="flaticon-price pl20"></span>
+                                @if (item.Job.immediat.Equals("true"))
+                                {<a href="#"> @(Convert.ToDecimal(item.Job.remunerationN)/2) $ par semaine</a>}
+                                else
+                                { <a href="#"> @(item.Job.remuneration/2) $ par semaine</a>}
+                            </li>
+                        </ul>
+                    </div>
+                    <a class="favorit" href="@Url.Action("DetailsOffreHome", "Home", new { id=item.Job.id })"><span class="flaticon-eye"></span></a>
+                </div>
+            </div>
+        }
+    }
+
+</div>
+

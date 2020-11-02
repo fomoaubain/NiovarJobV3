@@ -1,0 +1,35 @@
+﻿@if (Session["type"] != null && (String)Session["type"] == "client")
+{
+     
+    WebApplication1.Models.InsAbonne lastAsbonnement = (WebApplication1.Models.InsAbonne)ViewBag.lastAsbonnement; 
+    <div class="col-12">
+
+        @if (lastAsbonnement == null || lastAsbonnement.status == 0)
+        {
+            <div class="col-lg-12  justify-content-center">
+                <div class="alert alert-warning">
+                    <p class="text-center">Vous n'avez aucun abonnement en cour. Veuillez faire une souscription afin de bénéficier du meilleur de nos services.<br /> 
+                    <a href="@Url.Action("Abonnement", "Inscrires")" class="btn btn-lg btn-thm">Souscrire</a>
+                    </p>
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-12  justify-content-center">
+                <div class="alert alert-success">
+                    <p class="text-center">Details sur l'abonnement en cour...</p>
+                    <p class="text-center text-uppercase">
+                        @lastAsbonnement.Abonnement.titre (@(lastAsbonnement.Abonnement.illimite == 1 ? "Illimité" : lastAsbonnement.etat + " post(s) restant"))<br />
+
+                        @if (lastAsbonnement.Abonnement.illimite != 1)
+                        {
+                            <a class="btn btn-lg btn-thm" href="@Url.Action("Abonnement", "Inscrires")">@(lastAsbonnement == null?"Ajouter une souscription" : lastAsbonnement.etat == 0 ? "Renouveller" : "Changer ou additionner")</a>
+                        }
+                        </p>
+                </div>
+            </div>
+        }
+    </div>
+}

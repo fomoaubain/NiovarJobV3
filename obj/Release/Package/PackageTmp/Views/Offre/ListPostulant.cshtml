@@ -1,0 +1,381 @@
+﻿@model IEnumerable<WebApplication1.Models.Postuler>
+@{
+    ViewBag.Title = "ListPostulant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Our Dashbord -->
+    <section>
+        <div class="our-dashbord dashbord ">
+            <div class="container">
+                <div class="row">
+                    @{
+                        Html.RenderPartial("Partial_menu_client");
+                    }
+                    <div class="col-sm-12 col-lg-8 col-xl-9">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <h4 class="mb20 h4">Liste des postulants</h4>
+                            </div>
+
+                            <div class="col-lg-12 text-center">
+                                <h5 class="mb20 ">Titre du poste : <span class=" text-black-50"> @ViewBag.titreJob </span> </h5>
+                            </div>
+
+                            <div class="col-lg-12">
+                                @if (Model.Count() > 0)
+                                {
+
+
+
+                                    foreach (var item in Model)
+                                    {
+                                        <div class="candidate_list_view">
+                                            <div class="thumb">
+                                                @if (item.Job.immediat.Equals("false"))
+                                                {
+                                                    if (item.Inscrire.profil != null)
+                                                    {
+                                                        <img class="img-fluid rounded-circle" src="~/Fichier/@item.Inscrire.profil" height="103" width="106" alt="c1.jpg">
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="img-fluid rounded-circle" src="~/Assets/images/team/avatar.png" style="height:80px; width:80px;" alt="c1.jpg">
+
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    <img class="img-fluid rounded-circle" src="~/Assets/images/team/avatar.png" style="height:80px; width:80px;" alt="c1.jpg">
+                                                }
+
+                                                <div class="cpi_av_rating"><span></span></div>
+                                            </div>
+                                            <div class="content">
+                                                @if(item.Job.immediat.Equals("true") && item.etatClient.Equals("2"))
+                                                {
+                                                <h4 class="title">@item.Inscrire.login</h4>
+                                                }
+                                                else if(item.Job.immediat.Equals("false"))
+                                                {
+                                                      <h4 class="title">@item.Inscrire.login</h4>
+                                                }
+                                         
+                                                <p>@item.Inscrire.titreEmploi</p>
+                                                <p><span class="flaticon-price"></span>@item.created</p>
+                                                <ul class="address_list">
+
+                                                    <li class="list-inline-item">
+                                                        <a href="#">
+                                                            <h4>Ce candidat est disponible pour vous </h4>
+                                                            <div class="candidate_revew_select text-left mt0">
+                                                                @if (item.Job.immediat.Equals("true"))
+                                                                {
+                                                                    if (item.etatClient.Equals("2"))
+                                                                    {
+                                                                        <ul>
+                                                                            <li class="list-inline-item">
+                                                                                <button style="color:green"> Accepter </button>
+                                                                            </li>
+                                                                        </ul>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <ul>
+                                                                            <li class="list-inline-item">
+                                                                                <select class="selectpicker show-tick" onchange="ClientDecision(@item.id)" id="clDecision">
+                                                                                    <option value="2" @(item.etatClient.Equals("2") ? "selected" : "" )>Accepter</option>
+                                                                                    <option value="3" @(item.etatClient.Equals("3") ? "selected" : "" )>Décliner</option>
+                                                                                    <option value="0" @(item.etatClient.Equals("0") ? "selected" : "" )>En attente</option>
+                                                                                </select>
+                                                                            </li>
+                                                                        </ul>
+                                                                    }
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    <ul>
+                                                                        <li class="list-inline-item">
+                                                                            <select class="selectpicker show-tick" onchange="CandidatDecision(@item.id)" id="cdtDecision">
+                                                                                <option value="1" @(item.etatCandidat.Equals("1") ? "selected" : "" )>En évaluation</option>
+                                                                                <option value="2" @(item.etatCandidat.Equals("2") ? "selected" : "" )>Embaucher</option>
+                                                                                <option value="3" @(item.etatCandidat.Equals("3") ? "selected" : "" )>Décliner</option>
+                                                                                <option value="4" @(item.etatCandidat.Equals("4") ? "selected" : "" )> Entrevus prévus </option>
+                                                                                <option value="0" @(item.etatCandidat.Equals("0") ? "selected" : "" )>En attente d'evaluation</option>
+                                                                            </select>
+                                                                        </li>
+                                                                    </ul>
+
+
+                                                                }
+
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    @if (item.Job.immediat.Equals("true") && item.signatureClient == 1)
+                                                    {
+
+                                                        <li class="list-inline-item text-left">
+                                                            <a class="badge bg-success  text-white" href="@Url.Action("contratClient", "Offre", new { idPostuler=item.id })" data-toggle="tooltip" data-placement="bottom" title="Voir le contrat"> Voir le contrat </a>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <p class="badge bg-gradient-info " data-toggle="tooltip" data-placement="bottom">
+                                                                Salaire/14 jrs : @item.Job.remuneration $ <br>
+                                                              </p>
+                                                        </li>
+
+                                                    }
+
+                                                    @if (item.Job.immediat.Equals("false"))
+                                                    {
+                                                        <li class="list-inline-item">
+
+                                                            @if (item.etatCandidat.Equals("4"))
+                                                            {
+                                                                <button class="btn-sm btn-primary" onclick="showModal(@item.id)"> Détails </button>
+
+                                                            }
+
+                                                        </li>
+
+                                                        <li class="list-inline-item">
+                                                            <a class="btn-sm btn-success text-white" href="@Url.Action("CvDocumentPostulant", "Offre", new { id=item.Inscrire.id })" data-toggle="tooltip" data-placement="bottom" title="Voir les documents du candidat"> Documents </a>
+                                                        </li>
+                                                    }
+
+                                                    <li class="list-inline-item">
+                                                        <a href="#">
+                                                            @if (item.etat.Equals("0"))
+                                                            {
+                                                                <h4><span class="badge bg-success text-white">Nouveau</span></h4>
+                                                            }
+                                                            else
+                                                            {
+                                                                <h4><span class="badge bg-warning text-white">Vu</span></h4>
+                                                            }
+
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <a class="btn btn-transparent float-right fn-smd" href="@Url.Action("CvResumePostulant", "Offre", new { id=item.Inscrire.id, id_job=item.Job_id})">Voir CV </a>
+                                        </div>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalEntrevus@(item.id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Configuration de l'entrevus</h5>
+                                                        <button type="button" class="close" onclick="closeModal(@item.id)" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="col-md-12 mb20">
+                                                            <h6 class="fz18 mb5">Date de l'entrevue (*)</h6>
+                                                            <div class="col-md-offset-12 col-md-12 ">
+                                                                <input type="date" id="dateEntrevue@(item.id)">
+                                                                <span id="valEntrevue@(item.id)">Prévu le : @item.dateEntrevue</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12 mb20 ">
+                                                            <h6 class="fz18 mb5">Heure de l'entrevue (*)</h6>
+                                                            <div class="col-md-offset-12 col-md-12 ">
+                                                                <input type="time" id="heure@(item.id)" name="appt" min="00:00" max="23:59" required value="@(item.heure)">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 mb20 ">
+                                                            <h6 class="fz18 mb5">Durée de l'entrevue (*)</h6>
+                                                            <div class="col-md-offset-12 col-md-12 ">
+                                                                <input type="time" id="duree@(item.id)" name="appt" min="00:00" max="23:59" value="@(item.duree)">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 mb20 ">
+                                                            <h6 class="fz18 mb5">Plate frome de l'entretien (*)</h6>
+                                                            <div class="col-md-offset-12 col-md-12 ">
+                                                                <select class="form-control" id="outils@(item.id)">
+                                                                    @if (item.outils != null)
+                                                                    {
+                                                                        <option value="Skype" @(item.outils.Equals("Skype") ? "selected" : "" )>Skype</option>
+                                                                        <option value="Telegram" @(item.outils.Equals("Telegram") ? "selected" : "" )>Telegram</option>
+                                                                        <option value="Whatsap" @(item.outils.Equals("Whatsap") ? "selected" : "" )>Whatsap</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="" selected>choisir l'outils</option>
+                                                                        <option value="Skype">Skype</option>
+                                                                        <option value="Telegram">Telegram</option>
+                                                                        <option value="Whatsap">Whatsap</option>
+                                                                    }
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 mb20">
+                                                            <h6 class="fz18 mb5">Plus de détails  </h6>
+                                                            <div class="col-md-offset-12 col-md-12 ">
+                                                                <textarea id="details@(item.id)" class="form-control  rounded-0" id="exampleFormControlTextarea2" rows="3">@item.responsableEntrevue</textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 text-center mb-2">
+                                                        <button type="button" class="btn btn-primary" onclick="addEntrevus(@item.id)">Sauvegarder</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="col-lg-12  justify-content-center">
+                                        <div class="alert alert-warning">
+                                            <p class="text-center">Aucun candidat  intéréssé  par votre offre d'emploi  pour  le moment ! </p>
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </section>
+
+
+<!-- script pour le filtre des villes-->
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        function closeModal(id) {
+            $('#modalEntrevus' + id).modal('hide');
+            location.reload();
+        }
+
+        function showModal(id) {
+            $('#modalEntrevus' + id).modal('show');
+
+        }
+
+
+
+
+
+
+        function ClientDecision(idPostuler) {
+            var val = 0;
+            if ($('#clDecision').val() != '') {
+                val = $('#clDecision').val();
+            }
+
+            if (val == 2) {
+                var url = "@Url.Action("contratClient", "Offre")" + "?idPostuler=" + idPostuler;
+                window.location.href = url;
+         
+            } else {
+                   var url = "@Url.Action("TakeDecision", "Offre")" + "?idPostuler=" + idPostuler + "&val=" + val;
+                window.location.href = url;
+            }
+
+
+
+        }
+
+
+        function CandidatDecision(idPostuler) {
+            var val = 0;
+            if ($('#cdtDecision').val() != '') {
+                val = $('#cdtDecision').val();
+            }
+
+            if (val == 4) {
+                $('#modalEntrevus' + idPostuler).modal({ backdrop: 'static', keyboard: false });
+                $('#modalEntrevus' + idPostuler).modal('show');
+
+            } else {
+                 var url = "@Url.Action("TakeDecision", "Offre")" + "?idPostuler=" + idPostuler + "&val=" + val;
+
+                 window.location.href = url;
+            }
+
+            $('#myModal').on('hidden', function () {
+               var url = "@Url.Action("TakeDecision", "Offre")" + "?idPostuler=" + idPostuler + "&val=" + val;
+
+                 window.location.href = url;
+            });
+
+
+
+        }
+
+
+       /* function GetFormattedDate(val) {
+            var todayTime = val;
+            var month = format(todayTime.getMonth() + 1);
+            var day = format(todayTime.getDate());
+            var year = format(todayTime.getFullYear());
+            return month + "/" + day + "/" + year;
+        }*/
+
+        function addEntrevus(id) {
+            var rec = $('#dateEntrevue' + id).val();
+            var now = new Date( $('#dateEntrevue' + id).val());
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var dateEntrevue = (day) + "/" + (month) + "/" + now.getFullYear();
+
+           // var dateEntrevue = [day, month, year].join('/');
+            var heure = document.getElementById('heure' + id).value;
+            var duree = document.getElementById('duree' + id).value;
+            var details = document.getElementById('details' + id).value;
+            var outils = $('#outils' + id).val();
+
+            console.log("dateEntrevue" + dateEntrevue);
+            console.log("heure" + heure);
+            console.log("duree" + duree);
+            console.log("details" + details);
+            console.log("outils" + outils);
+
+            if (rec == '' || rec == NaN) {
+                alert("Veuillez renseignez la date (*)");
+                return;
+            }
+
+
+
+            if (isempty(heure) == true || isempty(duree) == true || isempty(outils) == true || isempty(dateEntrevue) == true ) {
+                alert("Veuillez renseignez tous  les champs heure, durée et outils (*)");
+                return;
+            } else {
+                var url = "@Url.Action("addEntrevue", "Offre")" + "?idPostuler=" + id + "&dateEntrevue=" + dateEntrevue + "&heure=" + heure + "&duree=" + duree + "&details=" + details + "&outils=" + outils;
+
+                 window.location.href = url;
+            }
+
+
+        }
+
+        function isempty(val) {
+            if (val == null || val == '' || val == undefined || val == NaN) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+
+
+    </script>
+
+    }
+

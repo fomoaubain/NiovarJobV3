@@ -1,0 +1,107 @@
+﻿@model IEnumerable<WebApplication1.Models.Abonnement>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Liste des types d'abonnement</h2>
+
+<p>
+    <a style=" margin-left: 18px; " href="@Url.Action("Create", "Abonnements")" class="btn btn-primary">
+        <i class="fa fa-plus"></i>
+        <span>
+            <strong>Ajouter</strong>
+        </span>
+    </a>
+</p>
+
+<div class="card-body">
+
+    <div class="table-responsive">
+        <table class="datatable table table-stripped mb-0">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.titre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.illimite)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.montant)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.nbrePost)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.created)
+                    </th>
+                    <th></th>
+                </tr>
+
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.titre)
+                    </td>
+                    <td>
+                        @(item.illimite == 1 ? "Oui" : "Non")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.montant)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nbrePost)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.description)
+                    </td>
+                    <td>
+                        <a title="Click to @(item.status == 1 ? "Block" : "Activate")" href="@Url.Action("EditStatus", "Abonnements", new { id = item.id })" class="btn btn-sm btn-@(item.status == 1 ? "success": "danger")">
+                            <span>
+                                <strong>@(item.status == 1 ? "Actif" : "Blocker")</strong>
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.created)
+                    </td>
+                    <td>
+                        <a title="Edit" href="@Url.Action("Edit", "Abonnements", new { id = item.id })" class="btn btn-sm btn-outline-primary">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a title="Details" href="@Url.Action("Details", "Abonnements", new { id = item.id })" class="btn btn-sm btn-outline-info">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a title="Delete" href="@Url.Action("Delete", "Abonnements", new { id = item.id })" class="btn btn-sm btn-outline-danger">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                        <a title="Abonnements" href="@Url.Action("Index", "InsAbonnes", new { type = item.id })" class="btn btn-sm btn-outline-primary">
+                            <i class="fa fa-list"></i> Abonnements
+                        </a>
+                    </td>
+                </tr>
+                }
+
+            </tbody> 
+        </table>
+    </div>
+</div>

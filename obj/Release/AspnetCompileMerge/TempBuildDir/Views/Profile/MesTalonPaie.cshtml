@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "MesTalonPaie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Our Dashbord -->
+<section>
+    <div class="our-dashbord dashbord ">
+        <div class="container">
+            <div class="row">
+                @{
+                    Html.RenderPartial("Partial_menu_candidat");
+                }
+                <div class="col-sm-12 col-lg-8 col-xl-9">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h4 class="mb30">Liste de mes talons de paie</h4>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="cnddte_fvrt_job candidate_job_reivew style2">
+                                <div class="table-responsive job_review_table">
+                                    <table class="table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Titre</th>
+                                                <th scope="col">Reçus le  </th>
+                                                <th scope="col">Etat</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (WebApplication1.Models.Document item in ViewBag.listDocuments)
+                                            {
+                                                <tr>
+                                                    <th scope="row">
+                                                        <h4>@item.libelle</h4>
+                                                    </th>
+                                                    <td>@item.created</td>
+                                                    <td>
+                                                        @if (item.etat==0)
+                                                        {<p class="badge bg-warning text-white"> Vu</p>}
+                                                        else
+                                                        { <p class="badge bg-success text-white" data-toggle="tooltip" data-placement="bottom">Nouveau</p>}
+                                                    </td>
+                                                    <td>
+                                                        <ul class="view_edit_delete_list">
+                                                            <li class="list-inline-item" ><button onclick="marqueLu(@item.id)"  data-toggle="tooltip" data-placement="bottom" title="View"><i class="fa fa-download"></i></button></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+    function marqueLu(id) {
+
+        var url = "@Url.Action("marqueLu", "Profile")" + "?id=" + id;
+
+        console.log("url= " + url);
+
+        window.location.href = url;
+
+    }
+
+</script>

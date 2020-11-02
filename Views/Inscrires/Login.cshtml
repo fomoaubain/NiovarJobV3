@@ -1,0 +1,65 @@
+﻿@model WebApplication1.Models.Inscrire
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="our-error bgc-fa">
+    <div class="container">
+        <div class="row  justify-content-center ">
+            <div class="col-lg-6 offset-lg-1 ">
+                <div class="login_form">
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="ui_kit_message_box" id="message2">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                @ViewBag.Message
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    }
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="heading">
+                            <h3 class="text-center">Se connecter</h3>
+                            <p class="text-center">Vous n'avez pas encore de compte ? <a class="text-thm" href="~/Inscrires/Create">Créer un compte !</a></p>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-8" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-8" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" name="rememberMe" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">me rappeler</label>
+                            <a class="tdu text-thm float-right" href="~/Home/verifyEmailExist">Mot de passe oublier ?</a>
+                        </div>
+
+                        <input type="submit" class="btn btn-log btn-block btn-thm" value="Login">
+                        <hr>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+

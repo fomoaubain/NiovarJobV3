@@ -1,0 +1,157 @@
+﻿@model WebApplication1.Models.Location
+@{
+    ViewBag.Title = "mesDemandeLocation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Our Dashbord -->
+<section>
+    <div class="our-dashbord dashbord ">
+        <div class="container">
+            <div class="row">
+                @{
+                    Html.RenderPartial("Partial_menu_client");
+                }
+                <div class="col-sm-12 col-lg-8 col-xl-9">
+                    <div class="row">
+
+                        <div class="col-lg-12 text-center">
+                            <h4 class="mb30">Mes demandes de location d'employé(s)</h4>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                            <div class="icon_boxs">
+                                <div class="icon"><span class="flaticon-work"></span></div>
+                                <div class="details"><h4>@ViewBag.nbreLocation demande(s) de location</h4></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                            <div class="icon_boxs">
+                                <div class="icon style3"><span class="flaticon-work"></span></div>
+                                <div class="details"><h4>@ViewBag.nbreLocationActif demande(s) de location actif(s)</h4></div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <div class="cnddte_fvrt_job candidate_job_reivew style2">
+                                <div class="table-responsive job_review_table">
+                                    <table class="table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Freelancer</th>
+                                                <th scope="col">Periode</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Etat</th>
+                                                <th scope="col">Observation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (WebApplication1.Models.CustomLocation item in ViewBag.newlistLocation)
+                                            {
+
+                                            <tr>
+                                                <th scope="row">
+                                                    <h4>@item.inscrire.login</h4>
+                                                    <p><span class="flaticon-location-pin"></span>@item.inscrire.titreEmploi</p>
+                                                    <ul>
+                                                        <li class="list-inline-item"><a href="#"><span class="flaticon-event"> Démandé  le : </span></a></li>
+                                                        <li class="list-inline-item"><a class="color-black22" href="#"> @item.location.created</a></li>
+                                                        <li class="list-inline-item"><a href="#"><span class="flaticon-event"> Date début   : </span></a></li>
+                                                        <li class="list-inline-item"><a class="color-black22" href="#"> @item.location.dateDebut</a></li>
+                                                        <li class="list-inline-item"><a href="#"><span class="flaticon-event"> Date Fin   : </span></a></li>
+                                                        <li class="list-inline-item"><a class="color-black22" href="#"> @item.location.dateFin</a></li>
+                                                    </ul>
+                                                </th>
+                                                <td>
+                                                    <p>Date debut : @item.location.dateDebut</p>
+                                                    <p>Date fin : @item.location.dateFin</p>
+                                                    <p>@item.location.periode Jrs</p>
+                                                </td>
+
+                                                @if (item.location.status == 1)
+                                                {
+                                                    <td class="text-thm2">
+                                                        <a class="btn-sm btn-success" href="@Url.Action("EditStatus", "Locations", new { id=item.location.id })" data-toggle="tooltip" data-placement="bottom" title="desactiver cette demande">Active</a>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="color-red">
+                                                        <a class="btn-sm btn-danger" href="@Url.Action("EditStatus", "Locations", new { id=item.location.id })" data-toggle="tooltip" data-placement="bottom" title="activer cette demande">   Inactif</a>
+                                                    </td>
+                                                }
+
+                                            <td>
+                                                @if (item.location.avisCandidat == 0 && item.location.avisClient == 0)
+                                                {
+                                                    <p class="badge bg-inverse-default" read title=""><span>En attente de confirmation<br> du candidat concerné </span></p>
+                                                }
+                                                else if (item.location.avisCandidat == 2 && item.location.avisClient == 0)
+                                                {
+                                                    <a href="@Url.Action("contratLocationClient", "Locations", new { id=item.location.id  })" class="btn-sm btn-success" read title="">Confirmer location</a>
+
+                                                }
+                                                else if (item.location.avisCandidat == 2 && item.location.avisClient == 2)
+                                                {
+                                                    <a href="@Url.Action("contratLocationClient", "Locations", new { id=item.location.id  })" class="badge bg-inverse-success" read title="voir le contrat"><span>Employé louer<br> avec succès</span></a>
+
+                                                }
+
+                                                else if (item.location.avisClient == 3)
+                                                {
+                                                    <p  class="badge bg-inverse-danger" read title=""><span>Vous avez rejeter/annuler <br>cette demande de location</span></p>
+
+                                                }
+                                                else if (item.location.avisCandidat==3)
+                                                {
+                                                    <p class="badge bg-inverse-danger" read title=""><span>Demande rejetter <br> par le travailleur dédié</span></p>
+
+                                                }
+
+
+                                            </td>
+
+                                             <td>
+                                                    <ul class="view_edit_delete_list">
+                                                        <li class="list-inline-item"><a href="@Url.Action("cvCandidatLocation", "Locations", new { id=item.inscrire.id , page=1 })" data-toggle="tooltip" data-placement="bottom" title="View"><span class="flaticon-eye"></span></a></li>
+                                                        
+                                                        <li class="list-inline-item"><a href="@Url.Action("deleteLocation", "Locations", new { id=item.location.id })" data-toggle="tooltip" data-placement="bottom" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>
+                                                    </ul>
+                                             </td>
+                                            </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+
+        });
+
+
+
+
+    </script>
+}
+
+
+
+
+

@@ -1,0 +1,237 @@
+﻿@model WebApplication1.Models.Job
+@{
+    ViewBag.Title = "EditPublicationOffre";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class=" ">
+    <div class="our-dashbord dashbord ">
+        <div class="container ">
+            <div class="row">
+                @{
+                    Html.RenderPartial("Partial_menu_client");
+                }
+                <div class="col-sm-12 col-lg-8 col-xl-9">
+                    @using (Html.BeginForm("EditPublicationOffre", "Offre", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.id)
+
+                        <div class="my_profile_form_area">
+                            <div class="row">
+
+                                <div class="col-lg-12 text-center">
+                                    <h4 class="fz20 mb20"> Formulaire de modification d'une offre publié (*) </h4>
+                                </div>
+
+                                <div class="col-lg-12 mt30">
+                                    <div class="my_profile_thumb_edit"></div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="my_profile_input form-groupform-group">
+                                        <label for="formGroupExampleInput1">Titre de l'offre (*)</label><br>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.titre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Saisir le titre de l'offre d'emploi recherhez" } })
+                                            @Html.ValidationMessageFor(model => model.titre, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12">
+                                    <div class="my_resume_textarea mt20">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput1">Description de l'offre (*) </label><br>
+                                            <div class="col-md-12">
+                                                @Html.TextAreaFor(model => model.description, new { @row = "9", @class = "form-control ", @placeholder = "veuillez saisir ici" })
+                                                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="my_resume_textarea mt20">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput1">Responsabilité de l'employé (*)</label><br>
+                                            <div class="col-md-12">
+                                                @Html.TextAreaFor(model => model.responsabilite, new { @row = "9", @class = "form-control ", @placeholder = "veuillez saisir ici" })
+                                                @Html.ValidationMessageFor(model => model.responsabilite, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="my_resume_textarea mt20">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput1">Exigences et competences requises (*)</label><br>
+                                            <div class="col-md-12">
+                                                @Html.TextAreaFor(model => model.exigence, new { @row = "9", @class = "form-control ", @placeholder = "veuillez saisir ici" })
+                                                @Html.ValidationMessageFor(model => model.exigence, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="my_profile_select_box form-group">
+                                        @Html.LabelFor(model => model.pays, "Pays (*)", htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div class="col-md-12">
+                                            <select name="pays" class="browser-default custom-select country" id="countryId" required>
+                                                <option value="">Selectionner le pays</option>
+                                            </select>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.pays, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="my_profile_select_box form-group">
+                                        @Html.LabelFor(model => model.province, "Province (*)", htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div class="col-md-12">
+                                            <select name="province" class="browser-default custom-select state" id="stateId" required>
+                                                <option value="">Selectionner la province</option>
+                                            </select>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.province, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="my_profile_select_box form-group">
+                                        @Html.LabelFor(model => model.ville, "Ville (*)", htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div class="col-md-12">
+                                            <select name="ville" class="browser-default custom-select city" id="cityId" required>
+                                                <option value="">Selectionner la ville</option>
+                                            </select>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.ville, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="my_profile_select_box form-group">
+                                        <label for="formGroupExampleInput1">Type d'offre (*) </label><br>
+                                        <select class="selectpicker" name="typeJob" required>
+                                            <option value="" selected>choisir</option>
+                                            <option @(Model.typeJob!=null && Model.typeJob.Contains("possible")  ? "selected" : "")>Poster a combiner dès que possible</option>
+                                            <option @(Model.typeJob!=null && Model.typeJob.Contains("urgent") ? "selected" : "")>recrutement urgent</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="my_profile_select_box form-group">
+                                        <label for="formGroupExampleInput1">Niveau d'étude (*)</label><br>
+                                        <select class="selectpicker" name="niveauEtude" required>
+                                            <option value="" selected>choisir</option>
+                                            <option @(Model.niveauEtude!=null && Model.niveauEtude.Contains("Collégiale")  ? "selected" : "")>Collégiale</option>
+                                            <option @(Model.niveauEtude!=null && Model.niveauEtude.Contains("Universitaire") ? "selected" : "")>Universitaire</option>
+                                            <option @(Model.niveauEtude!=null && Model.niveauEtude.Contains("Secondaire") ? "selected" : "")>Secondaire</option>
+                                            <option @(Model.niveauEtude!=null && Model.niveauEtude.Contains("Formation") ? "selected" : "")>Formation</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="my_profile_input form-group">
+                                        <label for="exampleFormControlInput3">Date limite d'entrée en poste (*) </label><br>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.dateEntre, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                                            @Html.ValidationMessageFor(model => model.dateEntre, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="my_profile_input form-group">
+                                        <label for="exampleFormControlInput3">Nombre de poste / Nombre d'employé (*)</label><br>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.nbreEmploye, new { htmlAttributes = new { @class = "form-control", @type = "number", @placeholder = "8 employés", @value = "1" } })
+                                            @Html.ValidationMessageFor(model => model.nbreEmploye, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 mt10">
+                                    <div class="my_profile_input text-center">
+                                        <input type="submit" value="Sauvegarder modification" class="btn btn-lg btn-thm" />
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    var edit = true;
+</script>
+<script type="text/javascript" src="~/Scripts/custom.js"></script>
+
+<script type="text/javascript" src="~/Scripts/select2.min.js"></script>
+<link rel="stylesheet" href="~/Content/select2.min.css">
+
+
+
+
+<style type="text/css">
+    .select2-dropdown {
+        top: 22px !important;
+        left: 8px !important;
+    }
+</style>
+
+
+
+<script>
+
+    
+
+    $(".country").select2({
+        placeholder: "Choisir le pays",
+        allowClear: true
+    });
+
+    $(".state").select2({
+        placeholder: "Choisir la province",
+        allowClear: true
+    });
+
+    $(".city").select2({
+        placeholder: "Choisir la ville",
+        allowClear: true
+    });
+
+    var valuePays = '@ViewBag.pays';
+    var valueProvince = '@ViewBag.province';
+    var valueVille = '@ViewBag.ville';
+
+    console.log("valuePays :" + valuePays);
+    console.log("valueProvince :" + valueProvince);
+    console.log("valueVille :" + valueVille);
+
+    if (valuePays == '') {
+        valuePays = null;
+    }
+
+    if (valueProvince == '') {
+        valueProvince = null;
+    }
+
+    if (valueVille == '') {
+        valueVille = null;
+    }
+
+</script>
+
+@section scripts{
+    <script>
+
+    </script>
+}

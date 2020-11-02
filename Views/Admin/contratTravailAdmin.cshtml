@@ -1,0 +1,129 @@
+﻿@model WebApplication1.Models.Postuler
+@{
+    ViewBag.Title = "contratTravailAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content container-fluid">
+
+    <div class="small-container">
+        <div class="inner-header text-center">
+            <h1>Contrat de travail</h1>
+        </div>
+        <div class="inner-content">
+            <h4 class=" text-center">1. Les parties soussignées:</h4>
+            <p>
+                La Société: NIOVARJOBS  <br>
+                demeurant / établi(e) et ayant son siège social à : rue 2020 Quebec , CANADA,<br>
+                représenté(e) par : Mr Smith PDG de NIOVARJOBS ci-après désigné(e) l’employeur;
+            </p>
+            <h4 class=" text-center">  et</h4>
+            <p>
+                Madame / Monsieur  <span class="font-weight-bold"> @Model.Inscrire.nom </span> demeurant à <span class="font-weight-bold">
+    @Model.Inscrire.adresse </span> ci-après désigné(e) „le / la salarié(e)“; ont conclu le présent CONTRAT DE TRAVAIL.
+    </span>
+    <h4 class=" text-center">2. Date d’entrée de service </h4>
+<p>
+                La date du début de l’exécution du présent contrat de travail est fixée au <span class="font-weight-bold">  @Model.Job.dateEntre </span>
+</p>
+            <h4 class=" text-center">3. Nature de l'emploi occupé et description des fonctions / tâches assignées  </h4>
+            <p>
+                Le/la salarié(e) est engagé(e) en qualité de :<span class="font-weight-bold">
+    @Model.Job.titre </span> . Dans l’exercice de cette fonction, le/la salarié(e) est amené(e) à: <span class="font-weight-bold">
+    @Model.Job.description </span> .<br>
+
+    L'employeur se réserve le droit d'affecter le/la salarié(e) à une autre fonction et ce, selon les
+    besoins de l'employeur et en considération de la formation et des qualifications du/de la
+    salarié(e).
+</p>
+            <h4 class=" text-center">4. Lieu de travail   </h4>
+            <p>
+                Le lieu de travail est <span class="font-weight-bold"> @Model.Job.ville </span>, <span class="font-weight-bold">
+    @Model.Job.pays</span>. <br> <br>
+    Ou à défaut de lieu de travail fixe ou prédominant: Le salarié sera occupé à divers endroits et
+    plus particulièrement à l’étranger ainsi qu'au siège ou, le cas échéant, au domicile de
+    l’employeur;
+</p>
+
+            <h4 class=" text-center"> 5. Durée et horaire de travail    </h4>
+            <p>
+                La durée de travail est de <span class="font-weight-bold">
+    @Model.Job.heureTravailJour </span>  heures par jours exclus les heures de pauses, réparties sur <span class="font-weight-bold">
+    @Model.Job.jourTravail </span>  jours
+    ouvrables.
+</p>
+
+            <h4 class=" text-center">   6. Salaire   </h4>
+            <p>
+                Le salaire initial brut est fixé à <input type="number" id="remuneration" value="@Model.remuneration" name=""> $ à l’indice du dollars canadien. Il sera payé à la fin de
+                chaque 2 semaines, déduction faite des charges sociales et fiscales prévues par la loi.
+            </p>
+
+            <p class="mt-4">
+                Le présent contrat de travail est régi par le Code du travail et/ou par les dispositions de la
+                convention collective applicable à l’entreprise.
+            </p>
+            <p class="mt-1">
+                <input type="checkbox" id="checkboxState"> J'ai lu et j'accepte les termes du contrat
+            </p>
+
+            @if (Model.signatures.Equals("0"))
+            {
+                <button class="btn btn-primary" onclick="sendContrat(@Model.id,1)"><span>Confirmer l'envoie du contrat de travail au candidat </span></button><br> <br>
+            }
+            else if (Model.signatures.Equals("1"))
+            {
+                <button class="btn btn-warning"><span>en attente de signature du candidat</span></button> <br> <br>
+            }
+            else if (Model.signatures.Equals("2"))
+            {
+                <button class="btn btn-success"><span>Contrat accepter/approuver  par le candidat  @Model.Inscrire.nom </span></button>
+                <br> <br>
+
+                     <p>Date signature du candidat : @Model.dateSignatures</p>
+
+            }
+            <br>
+            <button class="btn btn-danger" onclick="sendContrat(@Model.id,0)"><span>Annuler l'envoie du contrat</span></button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+     // fonction qui envoie et annule le contrat pour un client
+    function sendContrat(id, val) {
+
+        var remuneration = document.getElementById('remuneration').value;
+
+        if (document.getElementById('checkboxState').checked) {
+
+            if (remuneration == '' || remuneration == null || remuneration == undefined || remuneration <= 0) {
+                alert("Salaire ne doit pas etre null");
+                return;
+        }
+
+
+            var url = "@Url.Action("changeStatutSignatures", "Admin")" + "?id=" + id + "&val=" + val + "&remuneration=" + remuneration;
+
+            console.log("url= " +url);
+
+            window.location.href = url;
+
+        } else {
+            alert("Veuillez confirmez les termes du contrat");
+        }
+
+    }
+
+</script>
+

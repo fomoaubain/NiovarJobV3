@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NiovarJobModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Abonnement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="254" />
+    <Property Name="titre" Type="varchar" MaxLength="254" />
+    <Property Name="description" Type="varchar" MaxLength="254" />
+    <Property Name="montant" Type="float" Nullable="false" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="created" Type="datetime" StoreGeneratedPattern="Computed" />
+    <Property Name="nbrePost" Type="int" Nullable="false" />
+    <Property Name="illimite" Type="int" />
+  </EntityType>
+  <EntityType Name="AnneeExp">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="libelle" Type="varchar" MaxLength="254" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="created" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Autre">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ins_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="etablissement" Type="varchar" MaxLength="254" />
+    <Property Name="fonction" Type="varchar" MaxLength="254" />
+    <Property Name="periode" Type="varchar" MaxLength="254" />
+    <Property Name="description" Type="varchar" MaxLength="254" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+  </EntityType>
+  <EntityType Name="CatAnneeExp">
+    <Key>
+      <PropertyRef Name="Cat_id" />
+      <PropertyRef Name="Ann_id" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Cat_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Ann_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="prixHoraire" Type="int" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="created" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Categorie">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="libelle" Type="varchar" MaxLength="254" />
+    <Property Name="image" Type="varchar" MaxLength="254" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ins_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Job_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Pos_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="254" />
+    <Property Name="libelle" Type="varchar" MaxLength="254" />
+    <Property Name="chemin" Type="varchar" MaxLength="254" />
+    <Property Name="etat" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="archived" Type="int" />
+    <Property Name="created" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Education">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ins_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="etablissement" Type="varchar" MaxLength="254" />
+    <Property Name="diplome" Type="varchar" MaxLength="254" />
+    <Property Name="periode" Type="varchar" MaxLength="254" />
+    <Property Name="description" Type="varchar" MaxLength="254" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+  </EntityType>
+  <EntityType Name="Experience">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ins_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="etablissement" Type="varchar" MaxLength="254" />
+    <Property Name="fonction" Type="varchar" MaxLength="254" />
+    <Property Name="periode" Type="varchar" MaxLength="254" />
+    <Property Name="description" Type="varchar" MaxLength="254" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+  </EntityType>
+  <EntityType Name="File">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ins_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="254" />
+    <Property Name="libelle" Type="varchar" MaxLength="254" />
+    <Property Name="chemin" Type="varchar" MaxLength="254" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="created" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Information">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ins_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="lettre" Type="text" />
+    <Property Name="competence" Type="varchar" MaxLength="254" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+  </EntityType>
+  <EntityType Name="InsAbonne">
+    <Key>
+      <PropertyRef Name="Ins_id" />
+      <PropertyRef Name="Abo_id" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Ins_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Abo_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="libelle" Type="varchar" MaxLength="254" />
+    <Property Name="dateDebut" Type="varchar" MaxLength="254" />
+    <Property Name="dateFin" Type="varchar" MaxLength="254" />
+    <Property Name="etat" Type="int" Nullable="false" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="created" Type="datetime" StoreGeneratedPattern="Computed" />
+    <Property Name="nbrePost" Type="int" />
+  </EntityType>
+  <EntityType Name="Inscrire">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="254" />
+    <Property Name="nom" Type="varchar" MaxLength="250" />
+    <Property Name="login" Type="varchar" MaxLength="250" />
+    <Property Name="email" Type="varchar" MaxLength="254" />
+    <Property Name="password" Type="varchar" MaxLength="254" />
+    <Property Name="phone" Type="varchar" MaxLength="254" />
+    <Property Name="website" Type="varchar" MaxLength="254" />
+    <Property Name="description" Type="text" />
+    <Property Name="facebook" Type="varchar" MaxLength="254" />
+    <Property Name="linkedin" Type="varchar" MaxLength="254" />
+    <Property Name="pays" Type="varchar" MaxLength="254" />
+    <Property Name="ville" Type="varchar" MaxLength="254" />
+    <Property Name="adresse" Type="varchar" MaxLength="254" />
+    <Property Name="longitude" Type="varchar" MaxLength="254" />
+    <Property Name="lat" Type="varchar" MaxLength="254" />
+    <Property Name="titreEmploi" Type="varchar" MaxLength="254" />
+    <Property Name="anneeExperience" Type="varchar" MaxLength="254" />
+    <Property Name="salaireSouhaiter" Type="float" />
+    <Property Name="salaireNegocier" Type="float" />
+    <Property Name="profil" Type="varchar" MaxLength="254" />
+    <Property Name="etat" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="archived" Type="int" />
+    <Property Name="created" Type="datetime" />
+    <Property Name="cpassword" Type="varchar" MaxLength="255" />
+    <Property Name="email_prof" Type="varchar" MaxLength="254" />
+    <Property Name="categorie" Type="varchar" MaxLength="254" />
+    <Property Name="domaine" Type="varchar" MaxLength="254" />
+    <Property Name="code_postal" Type="varchar" MaxLength="254" />
+    <Property Name="nom_representant" Type="varchar" MaxLength="254" />
+    <Property Name="prenom_representant" Type="varchar" MaxLength="254" />
+    <Property Name="numero_poste" Type="varchar" MaxLength="254" />
+    <Property Name="province" Type="varchar" MaxLength="254" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Typ_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Cat_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="titre" Type="varchar" MaxLength="254" />
+    <Property Name="description" Type="text" />
+    <Property Name="dateEntre" Type="varchar" MaxLength="254" />
+    <Property Name="ville" Type="varchar" MaxLength="254" />
+    <Property Name="nbreEmploye" Type="int" />
+    <Property Name="heureTravail" Type="varchar" MaxLength="254" />
+    <Property Name="heureTravailJour" Type="varchar" MaxLength="254" />
+    <Property Name="jourTravail" Type="varchar" MaxLength="254" />
+    <Property Name="remuneration" Type="float" />
+    <Property Name="totalHeureTravail" Type="int" />
+    <Property Name="margeExperience" Type="varchar" MaxLength="254" />
+    <Property Name="typeJob" Type="varchar" MaxLength="254" />
+    <Property Name="etat" Type="varchar" MaxLength="254" />
+    <Property Name="status" Type="int" />
+    <Property Name="created" Type="datetime" />
+    <Property Name="archived" Type="int" />
+    <Property Name="responsabilite" Type="text" />
+    <Property Name="exigence" Type="text" />
+    <Property Name="autre" Type="varchar" MaxLength="254" />
+    <Property Name="pays" Type="varchar" MaxLength="50" />
+    <Property Name="immediat" Type="varchar" MaxLength="250" />
+    <Property Name="province" Type="varchar" MaxLength="254" />
+    <Property Name="remuneration_n" Type="varchar" MaxLength="254" />
+  </EntityType>
+  <EntityType Name="Paiement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ins_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Job_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Pos_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="libelle" Type="varchar" MaxLength="254" />
+    <Property Name="montant" Type="float" />
+    <Property Name="avance" Type="float" />
+    <Property Name="reste" Type="float" />
+    <Property Name="type" Type="varchar" MaxLength="254" />
+    <Property Name="etat" Type="int" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="created" Type="datetime" />
+    <Property Name="user_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Postuler">
+    <Key>
+      <PropertyRef Name="Ins_id" />
+      <PropertyRef Name="Job_id" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Ins_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Job_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="libelle" Type="varchar" MaxLength="254" />
+    <Property Name="datePostule" Type="datetime" />
+    <Property Name="heurePostule" Type="varchar" MaxLength="254" />
+    <Property Name="remuneration" Type="float" />
+    <Property Name="etatAdmin" Type="varchar" MaxLength="254" />
+    <Property Name="etat" Type="varchar" MaxLength="254" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="created" Type="datetime" />
+    <Property Name="etatClient" Type="varchar" MaxLength="50" />
+    <Property Name="etatCandidat" Type="varchar" MaxLength="50" />
+    <Property Name="approbation" Type="varchar" MaxLength="254" />
+    <Property Name="signatures" Type="varchar" MaxLength="254" />
+    <Property Name="situation_travail" Type="varchar" MaxLength="254" />
+    <Property Name="date_embauche" Type="date" />
+    <Property Name="date_signatures" Type="date" />
+    <Property Name="dateEntrevue" Type="datetime" />
+    <Property Name="heure" Type="varchar" MaxLength="254" />
+    <Property Name="responsableEntrevue" Type="varchar" MaxLength="254" />
+    <Property Name="duree" Type="varchar" MaxLength="254" />
+    <Property Name="outils" Type="varchar" MaxLength="254" />
+    <Property Name="signatureClient" Type="int" />
+    <Property Name="dateSignClient" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="libelle" Type="varchar" MaxLength="254" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="created" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Types">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="libelle" Type="varchar" MaxLength="254" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="created" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Utilisateur">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rol_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="nom" Type="varchar" MaxLength="254" />
+    <Property Name="email" Type="varchar" MaxLength="254" />
+    <Property Name="password" Type="varchar" MaxLength="254" />
+    <Property Name="archived" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="created" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_AUTRE_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Autre" Type="Self.Autre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Autre">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CATANNEE_ASSOCIATI_ANNEEEXP">
+    <End Role="AnneeExp" Type="Self.AnneeExp" Multiplicity="1" />
+    <End Role="CatAnneeExp" Type="Self.CatAnneeExp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AnneeExp">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CatAnneeExp">
+        <PropertyRef Name="Ann_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CATANNEE_ASSOCIATI_CATEGORI">
+    <End Role="Categorie" Type="Self.Categorie" Multiplicity="1" />
+    <End Role="CatAnneeExp" Type="Self.CatAnneeExp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorie">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CatAnneeExp">
+        <PropertyRef Name="Cat_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DOCUMENT_ASSOCIATI_POSTULER">
+    <End Role="Postuler" Type="Self.Postuler" Multiplicity="1" />
+    <End Role="Document" Type="Self.Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Postuler">
+        <PropertyRef Name="Ins_id" />
+        <PropertyRef Name="Job_id" />
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="Ins_id" />
+        <PropertyRef Name="Job_id" />
+        <PropertyRef Name="Pos_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EDUCATIO_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Education" Type="Self.Education" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Education">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EXPERIEN_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Experience" Type="Self.Experience" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Experience">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FILE_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="File" Type="Self.File" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="File">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INFORMAT_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Information" Type="Self.Information" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Information">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INSABONN_ASSOCIATI_ABONNEME">
+    <End Role="Abonnement" Type="Self.Abonnement" Multiplicity="1" />
+    <End Role="InsAbonne" Type="Self.InsAbonne" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Abonnement">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="InsAbonne">
+        <PropertyRef Name="Abo_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INSABONN_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="InsAbonne" Type="Self.InsAbonne" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="InsAbonne">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOB_ASSOCIATI_CATEGORI">
+    <End Role="Categorie" Type="Self.Categorie" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorie">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="Cat_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOB_ASSOCIATI_TYPES">
+    <End Role="Types" Type="Self.Types" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Types">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="Typ_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PAIEMENT_ASSOCIATI_POSTULER">
+    <End Role="Postuler" Type="Self.Postuler" Multiplicity="1" />
+    <End Role="Paiement" Type="Self.Paiement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Postuler">
+        <PropertyRef Name="Ins_id" />
+        <PropertyRef Name="Job_id" />
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Paiement">
+        <PropertyRef Name="Ins_id" />
+        <PropertyRef Name="Job_id" />
+        <PropertyRef Name="Pos_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_POSTULER_ASSOCIATI_INSCRIRE">
+    <End Role="Inscrire" Type="Self.Inscrire" Multiplicity="1" />
+    <End Role="Postuler" Type="Self.Postuler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Postuler">
+        <PropertyRef Name="Ins_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_POSTULER_ASSOCIATI_JOB">
+    <End Role="Job" Type="Self.Job" Multiplicity="1" />
+    <End Role="Postuler" Type="Self.Postuler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Postuler">
+        <PropertyRef Name="Job_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UTILISAT_ASSOCIATI_ROLE">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Utilisateur">
+        <PropertyRef Name="Rol_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NiovarJobModelStoreContainer">
+    <EntitySet Name="Abonnement" EntityType="Self.Abonnement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AnneeExp" EntityType="Self.AnneeExp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Autre" EntityType="Self.Autre" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CatAnneeExp" EntityType="Self.CatAnneeExp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categorie" EntityType="Self.Categorie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Education" EntityType="Self.Education" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="File" EntityType="Self.File" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Information" EntityType="Self.Information" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InsAbonne" EntityType="Self.InsAbonne" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Inscrire" EntityType="Self.Inscrire" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Paiement" EntityType="Self.Paiement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Postuler" EntityType="Self.Postuler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Types" EntityType="Self.Types" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AUTRE_ASSOCIATI_INSCRIRE" Association="Self.FK_AUTRE_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Autre" EntitySet="Autre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CATANNEE_ASSOCIATI_ANNEEEXP" Association="Self.FK_CATANNEE_ASSOCIATI_ANNEEEXP">
+      <End Role="AnneeExp" EntitySet="AnneeExp" />
+      <End Role="CatAnneeExp" EntitySet="CatAnneeExp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CATANNEE_ASSOCIATI_CATEGORI" Association="Self.FK_CATANNEE_ASSOCIATI_CATEGORI">
+      <End Role="Categorie" EntitySet="Categorie" />
+      <End Role="CatAnneeExp" EntitySet="CatAnneeExp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DOCUMENT_ASSOCIATI_POSTULER" Association="Self.FK_DOCUMENT_ASSOCIATI_POSTULER">
+      <End Role="Postuler" EntitySet="Postuler" />
+      <End Role="Document" EntitySet="Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EDUCATIO_ASSOCIATI_INSCRIRE" Association="Self.FK_EDUCATIO_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Education" EntitySet="Education" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EXPERIEN_ASSOCIATI_INSCRIRE" Association="Self.FK_EXPERIEN_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Experience" EntitySet="Experience" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FILE_ASSOCIATI_INSCRIRE" Association="Self.FK_FILE_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="File" EntitySet="File" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INFORMAT_ASSOCIATI_INSCRIRE" Association="Self.FK_INFORMAT_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Information" EntitySet="Information" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INSABONN_ASSOCIATI_ABONNEME" Association="Self.FK_INSABONN_ASSOCIATI_ABONNEME">
+      <End Role="Abonnement" EntitySet="Abonnement" />
+      <End Role="InsAbonne" EntitySet="InsAbonne" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INSABONN_ASSOCIATI_INSCRIRE" Association="Self.FK_INSABONN_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="InsAbonne" EntitySet="InsAbonne" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOB_ASSOCIATI_CATEGORI" Association="Self.FK_JOB_ASSOCIATI_CATEGORI">
+      <End Role="Categorie" EntitySet="Categorie" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOB_ASSOCIATI_TYPES" Association="Self.FK_JOB_ASSOCIATI_TYPES">
+      <End Role="Types" EntitySet="Types" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PAIEMENT_ASSOCIATI_POSTULER" Association="Self.FK_PAIEMENT_ASSOCIATI_POSTULER">
+      <End Role="Postuler" EntitySet="Postuler" />
+      <End Role="Paiement" EntitySet="Paiement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_POSTULER_ASSOCIATI_INSCRIRE" Association="Self.FK_POSTULER_ASSOCIATI_INSCRIRE">
+      <End Role="Inscrire" EntitySet="Inscrire" />
+      <End Role="Postuler" EntitySet="Postuler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_POSTULER_ASSOCIATI_JOB" Association="Self.FK_POSTULER_ASSOCIATI_JOB">
+      <End Role="Job" EntitySet="Job" />
+      <End Role="Postuler" EntitySet="Postuler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UTILISAT_ASSOCIATI_ROLE" Association="Self.FK_UTILISAT_ASSOCIATI_ROLE">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Utilisateur" EntitySet="Utilisateur" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

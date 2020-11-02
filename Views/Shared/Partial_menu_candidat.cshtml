@@ -1,0 +1,80 @@
+﻿
+
+<style>
+    .user_profile {
+        background-color: #ffffff;
+        border-radius: 4px;
+        height: 130px;
+        padding: 30px;
+        -webkit-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1);
+        width: 281px;
+        margin-left: 19px;
+        margin-bottom: 5px;
+    }
+
+    .dashbord_nav_list {
+        background-color: #ffffff;
+        border-radius: 4px;
+        padding: 20px;
+        width: 280px;
+        box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+
+<div class="col-sm-12 col-lg-4 col-xl-3 dn-smd">
+    <div class="user_profile">
+        <div class="media">
+            @if (Session["profil"] == null || Session["profil"].Equals(""))
+            {
+                <img src="~/Assets/images/team/avatar.png" class="align-self-start mr-3 rounded-circle" alt="e1.png">
+            }
+            else
+            {
+                <img src="~/Fichier/@Session["profil"]" class="align-self-start mr-3 rounded-circle" alt="e1.png" style="height:80px; width:80px;">
+            }
+
+        <div class="media-body">
+            @if (Session["nom"] == null || Session["nom"].Equals(""))
+            {
+                <h6 class="mt-0">Bienvennue</h6>
+            }
+            else
+            {
+                <h5 class="mt-0">@(Session["nom"].ToString().Length <= 15 ? @Session["nom"] : @Session["nom"].ToString().Substring(0, 15) +"...")</h5>
+
+            }
+
+            @if (Session["adresse"] == null || Session["adresse"].Equals(""))
+            {
+                <h6 class="mt-0">[ Votre adresse  ]</h6>
+            }
+            else
+            {
+                <p>@(Session["adresse"].ToString().Length <= 30 ? @Session["adresse"] : @Session["adresse"].ToString().Substring(0, 30) +"...")</p>
+            }
+
+        </div>
+        </div>
+    </div>
+    <div class="dashbord_nav_list">
+        <ul>
+            <li><a href="~/Profile/CandidatProfile"><span class="flaticon-profile"></span> Mon profile</a></li>
+            <li><a href="~/Offre/MesCandidatures"><span class="flaticon-resume"></span> Mes candidatures</a></li>
+            <li><a href="~/Locations/mesLocationsCandidat"><span class="flaticon-paper-plane"></span> Mes demandes de location </a></li>
+            <li><a href="~/Profile/CvResume"><span class="flaticon-paper-plane"></span>Mon cv</a></li>
+            <li><a href="~/Profile/CvDocument"><span class="flaticon-analysis"></span>Mes documents</a></li>
+            <li><a href="~/Profile/MesTalonPaie"><span class="flaticon-analysis"></span>Mes talons de paie</a></li>
+            <li><a href="~/Profile/EditPassword"><span class="flaticon-locked"></span> Changer mot de passe</a></li>
+            <li><a href="~/Inscrires/Logout"><span class="flaticon-logout"></span> Se déconnecter</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+

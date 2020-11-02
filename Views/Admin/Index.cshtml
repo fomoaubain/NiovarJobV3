@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class=" text-center">Tableau de bord NiovarJobs</h2>
+
+<div class="row mt-5">
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Nombre de client(s) </h6>
+            <h4> @ViewBag.nbreClient</h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Nombre de candidat(s) </h6>
+            <h4> @ViewBag.nbreCandidat</h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Offre emploie actif(s) </h6>
+            <h4> @ViewBag.nbreOffreActif</h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Nombre postulant intérré(s) </h6>
+            <h4> @ViewBag.nbreApplication</h4>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Nombre de catégorie(s) </h6>
+            <h4> @ViewBag.nbreCategorie </h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Nombre de type(s) </h6>
+            <h4> @ViewBag.nbreType </h4>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Nombre de année experience(s) </h6>
+            <h4> @ViewBag.nbreAnneExp </h4>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Nombre d'Utilisateur système(s) </h6>
+            <h4> @ViewBag.nbreUtilisateur </h4>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Nombre d'offre emploi expiré(s) </h6>
+            <h4> @ViewBag.nbreListOffreExpirer  </h4>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Nombre d'offre emploi en cour(s) </h6>
+            <h4> @ViewBag.nbreListOffreEnCour  </h4>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Nombre d'offre emploi qui expire dans 24 Heure </h6>
+            <h4> @ViewBag.nbreListOffreExpire24h  </h4>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Nombre d'employée(s) </h6>
+            <h4> @ViewBag.nbreEmploye  </h4>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Nombre de potentiel nouveau d'employée(s) </h6>
+            <h4> @ViewBag.nbreNewEmploye  </h4>
+        </div>
+    </div>
+</div>

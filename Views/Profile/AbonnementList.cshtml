@@ -1,0 +1,126 @@
+﻿@model IEnumerable<WebApplication1.Models.InsAbonne>
+@{
+    ViewBag.Title = "Profile";
+}
+<!-- Our Dashbord -->
+    <section>
+        <div class="our-dashbord dashbord ">
+            <div class="container">
+                <div class="row">
+                    @{
+                        Html.RenderPartial("Partial_menu_client");
+                    }
+                    <div class="col-sm-12 col-lg-8 col-xl-9">
+                        <div class="row">
+                            @{
+                                Html.RenderPartial("Partial_menu_abonnementIStatus");
+                            }
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class="list-group">
+                                    @foreach (var item in Model)
+                                    {
+                                        <a href="javascript::void();" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">@Html.DisplayFor(modelItem => item.Abonnement.titre)</h5>
+                                                <small></small>
+                                                <span style="line-height: inherit;" class="badge badge-@(item.status == 1 ? "success" : "warning") badge-pill">@(item.status == 1 ? "En cour" : "Terminé") (@(item.Abonnement.illimite == 1 ? "Illimité" : item.etat+" post(s) restant"))</span>
+                                            </div>
+                                            <p class="mb-1">@Html.DisplayFor(modelItem => item.libelle)</p>
+                                            <small>Du @WebApplication1.Models.Utils.dateFullMonth(item.dateDebut) au @WebApplication1.Models.Utils.dateFullMonth(item.dateFin)</small>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+    </section>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="~/Scripts/custom.js"></script>
+
+<script type="text/javascript" src="~/Scripts/select2.min.js"></script>
+<link rel="stylesheet" href="~/Content/select2.min.css">
+
+<script src="//geodata.solutions/includes/countrystatecity.js"></script>
+
+
+
+<style type="text/css">
+    .select2-dropdown {
+        top: 22px !important;
+        left: 8px !important;
+    }
+</style>
+
+<script>
+
+
+    $("#categorie").select2({
+        placeholder: "Choisir la categorie",
+        allowClear: true
+    });
+
+    $("#domaine").select2({
+        placeholder: "Choisir le domaine",
+        allowClear: true
+    });
+
+    $("#country").on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+        var choice = this.value;
+        var stateOptions = " <option selected  value=''>Veuiller choisir la ville</option>";
+        $.getJSON('../Json/cities.json', function (result) {
+            $.each(result, function (i, ville) {
+                if (choice == ville.country) {
+                    //<option value='countrycode'>contryname</option>
+                    stateOptions += "<option value='"
+                        + ville.name +
+                        "'>"
+                        + ville.name +
+                        "</option>";
+                }
+
+            });
+            $('#ville').html(stateOptions);
+        });
+    });
+</script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#imgInput").change(function () {
+            readURL(this);
+        });
+    });
+
+    function closeSplash() {
+        $('#splashMsg').removeClass('bounceInRight').addClass("bounceOutRight");
+    }
+    /*
+     * source : l'id ou la classe qui écoute l'evenement
+     * imgPreviw : le src qui recoit l'affichage
+     * desc : le texte descriptif de l'image
+     *
+     */
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#previewImg').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

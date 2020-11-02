@@ -1,0 +1,21 @@
+﻿@model WebApplication1.Models.Page
+
+@{
+    ViewBag.Title = "AproposHome";
+    ViewBag.idInsc = Model.Ins_id;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebApplication1.Models.Inscrire inscrire = ViewBag.inscrire;
+    ViewBag.couleurFond = Model.couleurFond;
+    ViewBag.imageFond = Model.profilPage;
+}
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <div class="container mt-0">
+        @{
+            Html.RenderPartial("Partial_my_page_visiteur", inscrire);
+        }
+
+        <h4 class="fz20 mb30">A propos de nous</h4>
+        <p class="mb30"> @Html.Raw(Model.aPropos)</p>
+
+    </div>

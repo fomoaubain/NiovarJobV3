@@ -1,0 +1,160 @@
+﻿
+@model WebApplication1.Models.Inscrire
+
+<style>
+    body {
+    }
+
+    .fb-profile img.fb-image-lg {
+        z-index: 0;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .fb-image-profile {
+        margin: -150px 10px 0px 50px;
+        z-index: 9;
+        width: 20%;
+    }
+
+    @@media (max-width:768px) {
+
+        .fb-profile-text > h1 {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .fb-image-profile {
+            margin: -45px 10px 0px 25px;
+            z-index: 9;
+            width: 20%;
+        }
+    }
+</style>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.6/css/bootstrap-colorpicker.css" rel="stylesheet">
+<!------ <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>-->
+<!------ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.6/js/bootstrap-colorpicker.js"></script>
+
+
+
+<div class="fb-profile">
+    @if (ViewBag.imageFond != null)
+    {
+        <img align="left" class="fb-image-lg" id="previewImg" src="~/Fichier/@ViewBag.imageFond" height="200px" alt="Profile image example" />
+
+    }
+    else
+    {
+        if (ViewBag.couleurFond != null)
+        {
+            <div class="w-100" style="height:220px; background-color:@ViewBag.couleurFond;"> </div>
+
+        }
+        else
+        {
+            <div class="w-100" style="height:220px; background-color:#cc6328;"> </div>
+
+        }
+
+    }
+
+
+    @if (Model.profil != null)
+    {
+        <img align="left" class="fb-image-profile thumbnail" src="~/Fichier/@Model.profil" height="220px" alt="Profile image example" />
+
+    }
+    else
+    {
+        <img align="left" class="fb-image-profile thumbnail" src="~/Assets/images/team/avatar.png" height="220px" alt="Profile image example" />
+
+    }
+    <div class="fb-profile-text">
+        <h3 class="font-weight-bold">@Model.nom</h3>
+        <p class="h4 font-weight-bolder">
+            @Model.nomRepresentant   <span class="h5">    Nous suivre : </span>
+            <a href="#" style="color:steelblue;"><i class="fa fa-facebook "></i></a>
+            <a href="#" style="color:steelblue;"><i class="fa fa-twitter"></i></a>
+            <a href="#" style="color:steelblue;"><i class="fa fa-linkedin"></i></a>
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<div class="row">
+    @using (Html.BeginForm("changePhotoFond", "Pages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="col-md-5  mt-4">
+            <div class="form-group my_profile_input ">
+                @if (ViewBag.ErrorFile != null)
+                {<p class="badge-danger badge text-white"> @ViewBag.ErrorFile </p><br>}
+
+                @Html.LabelFor(model => model.profil, "Choisir le fond d'ecran de la compagnie (extention valide : png, jpg)", htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12" style="overflow: hidden;">
+                    @Html.EditorFor(model => model.profil, new { htmlAttributes = new { @id = "imgInput", @accept = "profil/x-png,profil/gif,profil/jpeg", @type = "file" } })
+                    @Html.ValidationMessageFor(model => model.profil, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5  mt-4">
+            @Html.LabelFor(model => model.profil, "Choisir une couleur de fond", htmlAttributes: new { @class = "control-label col-md-12" })
+
+            <div id="cp2" class="input-group colorpicker-component">
+                <input type="text" value="#cc6328" name="couleurFond" class="form-control" placeholder="selectionner une couleur de fond " />
+                <span class="input-group-addon"><i></i></span>
+            </div>
+        </div>
+        <div class="col-md-2 mt-4">
+            <input type="submit" class="btn btn-sm btn-thm" value="Sauvegarder">
+        </div>
+    }
+ </div>
+
+
+
+<!-- Inner Page Breadcrumb -->
+
+<nav aria-label="breadcrumb" class="mt20">
+    <ol class="breadcrumb text-center center-block">
+        <li class=" mt-4 mr-4 title"><a href="~/Pages/pageApropos" class="h5 btn-sm btn-@(ViewBag.Title=="pageApropos" ? "warning" : "primary" ) font-weight-bolder">A propos</a></li>
+        <li class=" mt-4 mr-4 title"><a href="~/Pages/pageGalerie" class="h5 btn-sm btn-@(ViewBag.Title=="pageGalerie" ? "warning" : "primary" ) btn-sm btn-primary font-weight-bolder">Galerie</a></li>
+        <li class=" mt-4 mr-4 title"><a href="~/Pages/pageAvis" class="h5 btn-sm btn-@(ViewBag.Title=="pageAvis" ? "warning" : "primary" ) font-weight-bolder">Avis</a></li>
+        <!--  <li class=" mr-4 title "><a href="~/Pages/pageQuestionReponse" class="h5 btn-sm btn-@(ViewBag.Title=="pageQuestionReponse" ? "warning" : "primary" ) font-weight-bolder">Question/Réponses</a></li>-->
+        <li class="mt-4 mr-4 title "><a href="~/Pages/pagePourquoiPostuler" class="h5 btn-sm btn-@(ViewBag.Title=="pagePourquoiPostuler" ? "warning" : "primary" ) font-weight-bolder">Pourquoi postuler </a></li>
+    </ol>
+</nav>
+
+<script type="text/javascript">
+
+    $('#cp2').colorpicker();
+
+    $(document).ready(function () {
+        $("#imgInput").change(function () {
+            readURL(this);
+        });
+
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#previewImg').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

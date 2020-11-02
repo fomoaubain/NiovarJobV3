@@ -1,0 +1,111 @@
+﻿@model WebApplication1.Models.Avis
+
+@{
+    ViewBag.Title = "pageAvis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    WebApplication1.Models.Inscrire inscrire = ViewBag.inscrire;
+
+    WebApplication1.Models.Page page = ViewBag.page;
+
+    ViewBag.imageFond = page.profilPage;
+
+    ViewBag.couleurFond = page.couleurFond;
+
+    List<WebApplication1.Models.Avis> newListAvis=  ViewBag.newListAvis;
+}
+
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+<div class="container mt-0">
+    @{
+        Html.RenderPartial("Partial_my_page", inscrire);
+    }
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mbp_comment_form">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" value="@page.id" name="Pag_id">
+
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Laissez votre avis ici</label>
+                        <textarea class="form-control" name="libelle" id="exampleFormControlTextarea1" rows="6" required></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-thm" value="Envoyer">
+                }
+            </div>
+
+            <div class="mbp_pagination_comments">
+                <h4 class="title">Liste des avis </h4>
+                @if (newListAvis.Count > 0)
+                {
+                    foreach (WebApplication1.Models.Avis item in ViewBag.newListAvis)
+                    {
+            <div class="mbp_first media">
+                <img src="~/Assets/images/team/avatar.png" class="mr-3 rounded-circle" alt="1.jpg">
+                <div class="media-body">
+                    <h4 class="sub_title mt-0">@item.Pseudo </h4>
+                    <ul>
+                        <li class="list-inline-item">Saisie le</li>
+                        <li class="list-inline-item"><span class="flaticon-event"></span>@item.created</li>
+                    </ul>
+                    @item.libelle
+                </div>
+                @if (item.status == 0)
+                {
+                    <li class="list-inline-item text-right mt-2">
+                        <p>Nombre d'étoile : </p>
+                    </li>
+                    <li class="list-inline-item text-right">
+
+                        <select class="form-control" id="nbreEtoile@(item.id)">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+
+                    </li>
+                    <li class="list-inline-item text-right  mr-2">
+                        <button class="btn btn-block btn-thm" onclick="changeStatus(@item.id)">Approuver </button>
+                    </li>
+                }
+
+                <li class="list-inline-item text-right  mr-2"><a href="@Url.Action("deleteAvis", "Pages", new { id=item.id })" data-toggle="tooltip" data-placement="bottom" title="Suprimer cette avis"><span class="flaticon-rubbish-bin"></span></a></li>
+
+            </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-center">Aucun avis disponible </p>
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    function changeStatus(id) {
+        if ($('#nbreEtoile'+id).val() != '') {
+         var  nbreEtoile = $('#nbreEtoile'+id).val();
+
+
+            var url = "@Url.Action("changeStatusAvis", "Pages")" + "?id=" + id + "&nbreEtoile=" + nbreEtoile;
+
+             console.log("url= " +url);
+
+        window.location.href = url;
+        }
+    }
+
+</script>

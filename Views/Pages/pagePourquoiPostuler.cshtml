@@ -1,0 +1,49 @@
+﻿@model WebApplication1.Models.Page
+@{
+    ViewBag.Title = "pagePourquoiPostuler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebApplication1.Models.Inscrire inscrire = ViewBag.inscrire;
+
+    ViewBag.imageFond = Model.profilPage;
+    ViewBag.couleurFond = Model.couleurFond;
+}
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+<div class="container mt-0">
+    @{
+        Html.RenderPartial("Partial_my_page", inscrire);
+    }
+
+   
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="my_resume_textarea mt5">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput1">Pourquoi postulé pour notre compagnie  (*) </label><br>
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.pourquoiPostuler, new { @row = "20", @class = "form-control summernote", @placeholder = "veuillez saisir ici" })
+                                @Html.ValidationMessageFor(model => model.pourquoiPostuler, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12 mt10">
+                    <div class="my_profile_input text-center">
+                        <input type="submit" value="Sauvegarder" class="btn btn-sm btn-thm" />
+                    </div>
+                </div>
+            </div>
+        }
+    
+        
+
+</div>
+

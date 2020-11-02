@@ -1,0 +1,731 @@
+﻿
+@{
+    ViewBag.Title = "ListeOffre";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Our Candidate List -->
+<section class="our-faq bgc-fa">
+    <div class="container  mt50">
+        <div class="row">
+            <div class="col-lg-3 col-xl-3 dn-smd mt10">
+                <div class="faq_search_widget mb30">
+                    <h4 class="fz20 mb15">Catégorie d'emploi</h4>
+                    <div class="candidate_revew_select">
+                        <select class="browser-default custom-select domaine" onchange="filter()" name="Typ_id" id="">
+                            <option value="" selected>choisir</option>
+                            @foreach (WebApplication1.Models.Types types in ViewBag.listTypes)
+                            {
+                                <option value="@types.id">@types.libelle</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div class="faq_search_widget mb30">
+                    <h4 class="fz20 mb15">Titre d'emploi </h4>
+                    <div class="candidate_revew_select">
+
+                        <select class="browser-default custom-select categoriesSearch" onchange="filter()" name="Cat_id" id="">
+                            <option value="" selected>choisir</option>
+                            @foreach (WebApplication1.Models.Categorie categorie in ViewBag.listCategorie)
+                            {
+                                <option value="@categorie.id">@categorie.libelle</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div class="cl_latest_activity mb30">
+                    <h4 class="fz20 mb15">Année d'experience</h4>
+                    <div class="ui_kit_whitchbox">
+                        <div class="custom-control custom-switch">
+                            <input type="radio" name="anneeExp" value="" class="custom-control-input" id="a2">
+                            <label class="custom-control-label" for="a2">Aucun choix</label>
+                        </div>
+                        @foreach (WebApplication1.Models.AnneeExp item in ViewBag.listAnneeExp)
+                        {
+                            <div class="custom-control custom-switch">
+                                <input type="radio" name="anneeExp" value="@item.libelle" class="custom-control-input" id="@item.id">
+                                <label class="custom-control-label" for="@item.id">@item.libelle</label>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="cl_latest_activity mb30">
+                    <h4 class="fz20 mb15">Temps de travail</h4>
+                    <div class="ui_kit_whitchbox">
+                        <div class="custom-control custom-switch">
+                            <input type="radio" name="type" value="" class="custom-control-input" id="customSwitch0">
+                            <label class="custom-control-label" for="customSwitch0">Aucun choix</label>
+                        </div>
+                        <div class="custom-control custom-switch">
+                            <input type="radio" name="type" value="Temps plein" class="custom-control-input" id="customSwitch1">
+                            <label class="custom-control-label" for="customSwitch1">Temps plein</label>
+                        </div>
+                        <div class="custom-control custom-switch">
+                            <input type="radio" name="type" value="Temps partielle" class="custom-control-input" id="customSwitch2">
+                            <label class="custom-control-label" for="customSwitch2">Temps partielle</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="cl_latest_activity mb30">
+                    <h4 class="fz20 mb15">Date affichage</h4>
+                    <div class="ui_kit_radiobox">
+                        <div class="radio">
+                            <input id="radio_none" name="timePost" type="radio" value="">
+                            <label for="radio_none"><span class="radio-label"></span>Aucun choix</label>
+                        </div>
+                        <div class="radio">
+                            <input id="radio_seven" name="timePost" type="radio" value="1">
+                            <label for="radio_seven"><span class="radio-label"></span> Dernier 24 heures</label>
+                        </div>
+                        <div class="radio">
+                            <input id="radio_eight" name="timePost" type="radio" value="7">
+                            <label for="radio_eight"><span class="radio-label"></span>  7 dernier jours</label>
+                        </div>
+                        <div class="radio">
+                            <input id="radio_nine" name="timePost" type="radio" value="14">
+                            <label for="radio_nine"><span class="radio-label"></span> 14 dernier jours</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-12 col-lg-9 col-xl-9 ">
+
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="col-sm-12 col-lg-12">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6 mb-2">
+                                    <div class="candidate_job_alart_btn">
+                                        <h4 class="fz20 mb15 ">Liste des offres d'emploie</h4>
+                                        <button class="btn btn-thm btns dn db-991 float-right">Afficher le filtre</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-8">
+                                    <div class="faq_search_widget mb30 ">
+                                        <div class="input-group mb-0">
+                                            <input id="" type="text" class="form-control libelleSearch" placeholder="Recherchez ici exemple : ingenieur " aria-label="Recipient's username" aria-describedby="button-addon2">
+                                            <div class="input-group-append">
+                                                <button onclick="filter()" class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="flaticon-search"></span></button>
+                                            </div>
+                                        </div>
+                                        <ul class="list-group result" id=""></ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="faq_search_widget mb30">
+
+                                        <div class="input-group mb-0">
+                                            <input id="" type="text" class="form-control locationSearch" placeholder="Saisir la ville" aria-label="Recipient's username" aria-describedby="button-addon3">
+                                            <div class="input-group-append">
+                                                <button onclick="filter()" class="btn btn-outline-secondary" type="button" id="button-addon3"><span class="flaticon-search"></span></button>
+                                            </div>
+                                        </div>
+                                        <ul class="list-group resultVille" id=""></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="content_details">
+                            <div class="details">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span></span><i>×</i></a>
+
+                                <div class="faq_search_widget mb30">
+                                    <h4 class="fz20 mb15">Catégorie d'emploi</h4>
+                                    <div class="candidate_revew_select">
+                                        <select class="browser-default custom-select domaine2" onchange="filter()" name="Typ_id" id="">
+                                            <option value="" selected>choisir</option>
+                                            @foreach (WebApplication1.Models.Types types in ViewBag.listTypes)
+                                            {
+                                                <option value="@types.id">@types.libelle</option>
+                                            }
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="faq_search_widget mb30">
+                                    <h4 class="fz20 mb15">Titre d'emploi</h4>
+                                    <div class="candidate_revew_select">
+
+                                        <select class="browser-default custom-select categoriesSearch2" onchange="filter()" name="Cat_id" id="">
+                                            <option value="" selected>choisir</option>
+                                            @foreach (WebApplication1.Models.Categorie categorie in ViewBag.listCategorie)
+                                            {
+                                                <option value="@categorie.id">@categorie.libelle</option>
+                                            }
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="cl_latest_activity mb30">
+                                    <h4 class="fz20 mb15">Année d'experience</h4>
+                                    <div class="ui_kit_whitchbox">
+                                        <div class="custom-control custom-switch">
+                                            <input type="radio" name="anneeExp2" value="" class="custom-control-input" id="a1">
+                                            <label class="custom-control-label" for="a1">Aucun choix</label>
+                                        </div>
+                                        @foreach (WebApplication1.Models.AnneeExp item in ViewBag.listAnneeExp)
+                                        {
+                                            <div class="custom-control custom-switch">
+                                                <input type="radio" name="anneeExp2" value="@item.libelle" class="custom-control-input" id="check@(item.id)">
+                                                <label class="custom-control-label" for="check@(item.id)">@item.libelle</label>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="cl_latest_activity mb30">
+                                    <h4 class="fz20 mb15">Temps de travail</h4>
+                                    <div class="ui_kit_whitchbox">
+                                        <div class="custom-control custom-switch">
+                                            <input type="radio" name="type2" value="" class="custom-control-input" id="customSwitch5">
+                                            <label class="custom-control-label" for="customSwitch5">Aucun choix</label>
+                                        </div>
+                                        <div class="custom-control custom-switch">
+                                            <input type="radio" name="type2" value="Temps plein" class="custom-control-input" id="customSwitch3">
+                                            <label class="custom-control-label" for="customSwitch3">Temps plein</label>
+                                        </div>
+                                        <div class="custom-control custom-switch">
+                                            <input type="radio" name="type2" value="Temps partielle" class="custom-control-input" id="customSwitch4">
+                                            <label class="custom-control-label" for="customSwitch4">Temps partielle</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="cl_latest_activity mb30">
+                                    <h4 class="fz20 mb15">Date affichage</h4>
+                                    <div class="ui_kit_radiobox">
+                                        <div class="radio">
+                                            <input id="radio_none2" name="timePost2" type="radio" value="">
+                                            <label for="radio_none2"><span class="radio-label"></span>Aucun choix</label>
+                                        </div>
+                                        <div class="radio">
+                                            <input id="radio_seven2" name="timePost2" type="radio" value="1">
+                                            <label for="radio_seven2"><span class="radio-label"></span> Dernier 24 heures</label>
+                                        </div>
+                                        <div class="radio">
+                                            <input id="radio_eight2" name="timePost2" type="radio" value="7">
+                                            <label for="radio_eight2"><span class="radio-label"></span>  7 dernier jours</label>
+                                        </div>
+                                        <div class="radio">
+                                            <input id="radio_nine2" name="timePost2" type="radio" value="14">
+                                            <label for="radio_nine2"><span class="radio-label"></span> 14 dernier jours</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12" id="job-list">
+                        @foreach (WebApplication1.Models.Postuler item in ViewBag.listPostuler)
+                        {
+                            <div class="col-lg-12 mt30">
+                                <div class="fj_post style2 jlv5">
+                                    <div class="details">
+                                        <h5 class="job_chedule text-thm">@item.Job.heureTravail</h5>
+                                        <div class="thumb fn-smd">
+                                            @if (item.Job.immediat.Equals("true"))
+                                            {
+                                                <img class="img-fluid" src="~/Assets/images/logo2.png" width="120" height="122" alt="1.jpg">
+                                            }
+                                            else if (item.Inscrire.profil != null)
+                                            {
+
+                                                <img class="img-fluid" src="~/Fichier/@item.Inscrire.profil" width="120" height="122" alt="1.jpg">
+                                            }
+                                            else
+                                            {
+                                                <img class="img-fluid" src="~/Assets/images/team/offreEmplois.png" width="120" height="122" alt="1.jpg">
+                                            }
+
+                                        </div>
+                                        <h4>@item.Job.titre</h4>
+                                        <p>
+                                            Publié le @item.Job.created
+                                            @if (item.Job.immediat.Equals("true"))
+                                            {<a class="text-thm" href="#"> par NiovarJobs</a>}
+                                            else
+                                            { <a class="text-thm" href="#"> par @item.Inscrire.nom</a>}
+
+                                        </p>
+                                        <ul class="featurej_post">
+                                            <li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">@item.Job.ville</a></li>
+                                            <li class="list-inline-item">
+                                                <span class="flaticon-price pl20"></span>
+                                                @if (item.Job.immediat.Equals("true"))
+                                                {<a href="#"> @(Convert.ToDecimal(item.Job.remunerationN)/2) $ par semaine</a>}
+                                                else
+                                                {
+                                                    if (item.Job.negociable == 0)
+                                                    {
+                                                        <a href="#"> @(item.Job.remuneration/2) $ par semaine</a>
+                                                    }
+                                                    else if (item.Job.negociable == 1)
+                                                    { <a href="#"> Salaire à négocier</a>}
+                                                    else
+                                                    {
+                                                        <a href="#"> @(item.Job.salaireAnnuel) $ par annnée</a>
+                                                    }
+                                                }
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <ul class="pjlv5">
+
+                                        <li class="list-inline-item">
+                                            <a class="btn btn-transparent" href="@Url.Action("DetailsOffreHome", "Home", new { id=item.Job.id })">Consulter</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+
+
+                    <div class="col-lg-12" id="paginateionContent">
+                        <div class="mbp_pagination">
+                            <ul class="page_navigation">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item"><a class="page-link" href="#">...</a></li>
+                                <li class="page-item"><a class="page-link" href="#">45</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next <span class="flaticon-right-arrow"></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript" src="~/Scripts/select2.min.js"></script>
+<link rel="stylesheet" href="~/Content/select2.min.css">
+
+<style>
+    .select2-dropdown {
+        top: 22px !important;
+        left: 8px !important;
+    }
+
+    #result {
+        position: absolute;
+        width: 90%;
+        max-width: 600px;
+        cursor: pointer;
+        overflow-y: auto;
+        max-height: 300px;
+        box-sizing: border-box;
+        z-index: 1001;
+    }
+
+    #resultVille {
+        position: absolute;
+        width: 91%;
+        max-width: 600px;
+        cursor: pointer;
+        overflow-y: auto;
+        max-height: 300px;
+        box-sizing: border-box;
+        z-index: 1001;
+    }
+
+    .link-class:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<script>
+
+    $(".domaine").select2({
+        placeholder: "Choisir la catégorie",
+        allowClear: true
+    });
+    $(".domaine2").select2({
+        placeholder: "Choisir la catégorie",
+        allowClear: true
+    });
+
+    $(".categoriesSearch").select2({
+        placeholder: "Choisir le titre d'emploi",
+        allowClear: true
+    });
+    $(".categoriesSearch2").select2({
+        placeholder: "Choisir le titre d'emploi",
+        allowClear: true
+    });
+
+     // affiche les titre emplois en fonction de la catégorie choisi
+        $(".domaine").on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+            var id = this.value;
+            console.log("id :" + id);
+            findTitreEmploi(id);
+        });
+
+        $(".domaine2").on('change', function (e) {
+            var optionSelected = $("option:selected", this);
+            var id = this.value;
+
+            findTitreEmploi(id);
+        });
+
+        function findTitreEmploi(val) {
+             var stateOptions = " <option selected  value=''> choisir  titre emploi </option>";
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetAllTitreEmploi", "Offre")',
+            data: { "id": val },
+            dataType: 'json',
+            success: function (data) {
+                console.log("tablaeu:" + data);
+                $.each(data, function (i, titreEmploi) {
+                    stateOptions += "<option value='"
+                        + titreEmploi.id +
+                        "'>"
+                        + titreEmploi.libelle +
+                        "</option>";
+                });
+                $('.categoriesSearch').html(stateOptions);
+                $('.categoriesSearch2').html(stateOptions);
+            },
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+               alert("error :"+ error );
+
+          stateOptions += "<option value=''>" +
+                    "Aucune donné trouvé</option>";
+                $('.categoriesSearch').html(stateOptions);
+                $('.categoriesSearch2').html(stateOptions);
+            }
+        });
+        }
+
+</script>
+
+@section scripts{
+    <script>
+
+
+        function setActivePageBnt(index, page) {
+            return (index == page) ? 'active' : '';
+        }
+        function setDisabledBnt(index, page) {
+            return (index == page) ? 'disabled' : '';
+        }
+        function createPaginationComponent(count, Currentpage, limit) {
+            var html = '<div class="mbp_pagination">' +
+                            '<ul class="page_navigation">'+
+                                '<li class="page-item ' + setDisabledBnt(1, Currentpage) + '">'+
+                                    '<a onclick="filter(' + (Currentpage-1) + ')" class="page-link" href = "javascript::void();" tabindex = "-1" aria - disabled="true" > '+
+                                        '<span class="flaticon-left-arrow" ></span> Previous</a > '+
+                                '</li>';
+                    var nb = Math.round(count / limit);
+                    for (var page = 1; page <= nb; page++) {
+                        html += '<li class="page-item ' + setActivePageBnt(page, Currentpage) + '"><a onclick="filter(' + page + ')" data-value="' + page + '" id="page_btn" class="page-link" href="javascript::void();">' + page + '</a></li>';
+
+                        }
+                        html += '<li class="page-item ' + setDisabledBnt(nb, Currentpage) + '">' +
+                                    '<a onclick="filter(' + (Currentpage + 1) + ')" class="page-link" href="javascript::void();">Next <span class="flaticon-right-arrow"></span></a>' +
+                                '</li>' +
+                            '</ul> ' +
+                        '</div>';
+            return html;
+        }
+
+        $(document).ready(function () {
+         //alert('gvjhv');
+            $("#paginateionContent").html(createPaginationComponent(@ViewBag.count, 1, @ViewBag.limit));
+        });
+
+
+
+        var anneeExp = "";
+        $(document).on("change", "input[type=radio][name=anneeExp]", function () {
+            anneeExp = this.value;
+            filter();
+        });
+
+        $(document).on("change", "input[type=radio][name=anneeExp2]", function () {
+            anneeExp = this.value;
+            filter();
+        });
+
+        var type = "";
+        $(document).on("change", "input[type=radio][name=type]", function () {
+            type = this.value;
+            filter();
+        });
+
+        $(document).on("change", "input[type=radio][name=type2]", function () {
+            type = this.value;
+            filter();
+        });
+
+        var timePost = "";
+        $(document).on("change", "input[type=radio][name=timePost]", function () {
+             timePost = this.value;
+             filter();
+        });
+        $(document).on("change", "input[type=radio][name=timePost2]", function () {
+            timePost = this.value;
+            filter();
+        });
+
+        function filter(page = 1) {
+            //recuperation des variables
+            var libelleSearch = $('.libelleSearch').val();
+            var locationSearch = $('.locationSearch').val();
+
+            var categoriesSearch = '';
+            if ($('.categoriesSearch2').val() != '') {
+              categoriesSearch = $('.categoriesSearch2').val();
+            }
+
+            if ($('.categoriesSearch').val() != '') {
+                categoriesSearch = $('.categoriesSearch').val();
+            }
+
+            var domaine = '';
+            if ($('.domaine2').val() != '') {
+                domaine = $('.domaine2').val();
+            }
+
+            if ($('.domaine').val() != '') {
+                domaine = $('.domaine').val();
+            }
+
+
+
+            var datePostedRadio = $("input[type=radio][name=datePostedRadio]").val();
+
+
+
+            console.log("libelleSearch = " + libelleSearch);
+            console.log("locationSearch = " + locationSearch);
+            console.log("categoriesSearch = " + categoriesSearch);
+            console.log("datePostedRadio = " + datePostedRadio);
+            console.log("anneeExp = " + anneeExp);
+            console.log("type = " + type);
+            console.log("domaine = " + domaine);
+            console.log("page = " + page);
+            console.log("timePost = " + timePost);
+
+            $('#job-list').html('<p style="text-align: center; font-weight: bold; font-size: larger;">Recherche en cour ...</p>');
+            $("#paginateionContent").html("");
+
+            var url = 'ListeOffreJson?libelleSearch=' + libelleSearch + "&locationSearch=" + locationSearch + "&anneeExp=" + anneeExp + "&type=" + type
+                + "&categoriesSearch=" + categoriesSearch + "&domaine=" + domaine + "&page=" + page + "&timePost=" + timePost;
+            console.log("url :" + url);
+
+            $.ajax({
+                type: 'GET',
+                url: 'ListeOffreJson?libelleSearch=' + libelleSearch + "&locationSearch=" + locationSearch + "&anneeExp=" + anneeExp + "&type=" + type
+                    + "&categoriesSearch=" + categoriesSearch + "&domaine=" + domaine + "&page=" + page + "&timePost=" + timePost,
+                dataType: 'json',
+
+                /*type: 'GET',
+                data: { "libelleSearch": libelleSearch, "locationSearch": locationSearch, "categoriesSearch": categoriesSearch },
+                dataType: 'json', */
+
+                success: function (data) {
+                    $('#job-list').html('');
+                    console.log(data);
+                    if (data.datas.length == 0) {
+                        $('#job-list').html('<p style="text-align: center; font-weight: bold; font-size: larger;">Aucun resultat trouvé</p>');
+                        $("#paginateionContent").html("");
+                        return;
+                    }
+                    $.each(data.datas, function (key, item) {
+                        console.log("item = " + item);
+                        createRow(item);
+                    });
+                    $("#paginateionContent").html(createPaginationComponent(data.count, page, data.limit));
+                },
+                error: function (emp) {
+                    $('#job-list').html('<p style="text-align: center; font-weight: bold; font-size: larger;">error de chargement</p>');
+                    var msg = '';
+                    msg = 'Uncaught Error.\n' + emp.responseText;
+                    console.log("error message" + msg);
+
+                    $('#job-list').append('<li class="list-group-item link-class"> Aucun resultat disponible </li>');
+                }
+            });
+        }
+      
+        function createRow(item) {
+            var imgchemin = ' <img class="img-fluid" src="../Assets/images/team/offreEmplois.png" width="120" height="122" alt="1.jpg">';
+            var remuneration = item.remuneration / 2 + '$ par semaine';
+
+            if (item.negociable==1) {
+                remuneration = 'Salaire à négocier';
+            }
+            if (item.negociable == 2) {
+                remuneration = item.salaireAnnuel+ '$ par semaine';
+            }
+         
+            var nom = item.nom;
+            if (nom == null) { nom = '';}
+            if (item.immediat == "true") {
+                imgchemin = ' <img class="img-fluid" src="../Assets/images/logo2.png" width="120" height="122" alt="1.jpg">';
+                nom = 'NiovarJobs';
+                remuneration = item.remuneration_n / 2 + '$ par semaine';
+                                }
+            else if (item.profil != null && item.profil != '' && item.profil != 'null') {
+                console.log("imgchemin :" + item.profil);
+                imgchemin = '<img class="img-fluid" src="../Fichier/' + item.profil + '" width="120" height="122" alt="1.jpg">';
+
+                                }
+            else {
+                imgchemin = ' <img class="img-fluid" src="../Assets/images/team/offreEmplois.png" width="120" height="122" alt="1.jpg">';
+            }
+
+
+
+            var html = '<div class="col-lg-12 mt30">' +
+                '<div class="fj_post style2 jlv5">' +
+                '<div class="details">' +
+                '<h5 class="job_chedule text-thm">' + item.heureTravail + '</h5>' +
+                '<div class="thumb fn-smd">' +
+                imgchemin
+                +'</div>' +
+                '<h4>' + item.titre + '</h4>' +
+                '<p>Publié le ' + item.dateEntre + ' <a class="text-thm" href="#"> par ' + nom  + '</a></p>' +
+                '<ul class="featurej_post">' +
+                '<li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">' + item.ville + '</a></li>' +
+                '<li class="list-inline-item"><span class="flaticon-price pl20"></span> <a href="#"> ' + remuneration + '</a></li>' +
+                '</ul>' +
+                '</div>' +
+                '<ul class="pjlv5">' +
+                '<li class="list-inline-item">' +
+                '<a class="btn btn-transparent" href="@Url.Action("DetailsOffreHome", "Home")?id='+ item.id+'">Consulter</a>' +
+                '</li>' +
+                '</ul>' +
+                '</div>' +
+                '</div>';
+            $('#job-list').append(html);
+        }
+    </script>
+
+
+
+
+    <!-- script pour le filtre des libbelle des jobs-->
+    <script>
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+        $('.libelleSearch').keyup(function () {
+            $('.result').html('');
+            $('#state').val('');
+            var searchField = $('.libelleSearch').val();
+
+            if (searchField.trim()!='') {
+            var expression = new RegExp(searchField, "i");
+
+            $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetAllOffreLibelle", "Home")',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (key, value) {
+                    if (value[0].titre != 'null' || value[0].titre != ' ') {
+                    if (value[0].titre.search(expression) != -1) {
+                        $('.result').append('<li class="list-group-item link-class"> ' + value[0].titre + '</li>');
+                        }
+                    }
+                });
+            },
+            error: function (emp) {
+                $('.result').append('<li class="list-group-item link-class"> Aucun resultat disponible </li>');
+            }
+        });
+
+            }
+        });
+
+        $('.result').on('click', 'li', function () {
+            var click_text = $(this).text().split('|');
+            $('.libelleSearch').val($.trim(click_text[0]));
+            $(".result").html('');
+        });
+    });
+    </script>
+
+
+
+
+    <!-- script pour le filtre des villes-->
+    <script>
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+        $('.locationSearch').keyup(function () {
+            $('.resultVille').html('');
+            $('#state').val('');
+            var searchField = $('.locationSearch').val();
+            if (searchField.trim() != '') {
+
+                var expression = new RegExp(searchField, "i");
+                console.log("11--" + expression);
+
+            $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetAllOffreVille", "Home", new { id = 1, nom = "bkj" })',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                console.log("22--" + expression);
+                $.each(data, function (key, value) {
+                    console.log("ville = " + value[0].ville);
+                    if (value[0].ville != 'null' || value[0].ville != ' ') {
+                    if (value[0].ville.search(expression) != -1) {
+                        $('.resultVille').append('<li class="list-group-item link-class"> ' + value[0].ville + '</li>');
+                        }
+                    }
+                });
+            },
+            error: function (emp) {
+                $('.resultVille').append('<li class="list-group-item link-class"> Aucun resultat disponible </li>');
+            }
+        });
+
+            }
+        });
+
+        $('.resultVille').on('click', 'li', function () {
+            var click_text = $(this).text().split('|');
+            $('.locationSearch').val($.trim(click_text[0]));
+            $(".resultVille").html('');
+        });
+    });
+
+       
+       
+    </script>
+}

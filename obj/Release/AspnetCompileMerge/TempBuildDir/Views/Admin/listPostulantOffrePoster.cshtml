@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "listPostulantOffrePoster";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Leave Statistics -->
+<div class="row">
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>Offre de attente</h6>
+            <h4> @ViewBag.attente</h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>offre en évaluation</h6>
+            <h4> @ViewBag.evaluation</h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>offre accepter/aprouver</h6>
+            <h4> @ViewBag.aprouver</h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-info">
+            <h6>offre rejeté</h6>
+            <h4> @ViewBag.refuser</h4>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card mb-0">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Liste des Candidat intéresser par l'offre [  @ViewBag.titreJob ] </h4>
+
+            </div>
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="datatable table table-stripped mb-0">
+                        <thead>
+                            <tr>
+                                <th>Candidat</th>
+                                <th>Titre de l'offre</th>
+                                <th>Posté le </th>
+                                <th class="text-center">Status</th>
+                                <th class="text-right">Opérations</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <h2 class="table-avatar">
+                                            <a href="profile.html" class="avatar"><img alt="" src="~/Fichier/@item.Inscrire.profil" width="40" height="40"></a>
+                                            <a href="#">@item.Inscrire.nom<span>@item.Inscrire.titreEmploi</span></a>
+                                        </h2>
+                                    </td>
+                                    <td>@item.Job.titre</td>
+                                    <td>@item.created</td>
+                                  
+
+                                    <td class="text-center">
+                                        <div class="dropdown action-label">
+
+                                            <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                @if (item.etatCandidat.Equals("0"))
+                                                {<span> <i class="fa fa-dot-circle-o text-purple"></i> en attente d'évaluation </span> }
+                                                else if (item.etatCandidat.Equals("1"))
+                                                { <span> <i class="fa fa-dot-circle-o text-purple"></i>en évaluation </span> }
+                                                else if (item.etatCandidat.Equals("2"))
+                                                { <span> <i class="fa fa-dot-circle-o text-purple"></i>accepter </span> }
+                                                else if (item.etatCandidat.Equals("3"))
+                                                { <span> <i class="fa fa-dot-circle-o text-purple"></i>refuser </span>}
+                                                else if (item.etatCandidat.Equals("4"))
+                                                { <span> <i class="fa fa-dot-circle-o text-purple"></i>en négociation </span>}
+                                                else if (item.etatCandidat.Equals("5"))
+                                                { <span> <i class="fa fa-dot-circle-o text-purple"></i>contrat terminé </span>}
+
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="dropdown dropdown-action">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="@Url.Action("cvResumeAdmin", "Admin", new { id=item.Inscrire.id })" data-toggle="tooltip" data-placement="bottom" title="consulter le cv du candidat"><span class="color-black22"> </span> Voir CV</a>
+                                                <a class="dropdown-item" href="@Url.Action("documentsCandidat", "Admin", new { id=item.Inscrire.id })"> Voir les documents</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

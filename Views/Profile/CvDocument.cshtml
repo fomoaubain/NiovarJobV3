@@ -1,0 +1,269 @@
+﻿@model WebApplication1.Models.File
+@{
+    ViewBag.Title = "CvDocument";
+
+     List<WebApplication1.Models.File> listFile = ViewBag.listFile;
+
+}
+
+<!-- Our Dashbord -->
+    <section>
+        <div class="our-dashbord dashbord ">
+            <div class="container">
+                <div class="row">
+                    @{
+                        Html.RenderPartial("Partial_menu_candidat");
+                    }
+
+                    <div class="col-lg-8 col-xl-9">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <h4 class="title">Liste de mes documents <small class="float-right"><button type="button" class="btn btn-thm" data-toggle="modal" data-target="#exampleModal4">Nouveau documents <span class="flaticon-right-arrow"></span></button></small></h4>
+                            </div>
+                            <div class="col-lg-12">
+                                @if (ViewBag.ErrorFile != null)
+                                {<p class="badge-danger badge text-white h5"> @ViewBag.ErrorFile </p><br>}
+                            </div>
+
+                            <div class="col-lg-12 mb30">
+                                <div class="candidate_job_reivew cv_manager">
+                                    <div class="table-responsive job_review_table">
+                                        <div class="col-lg-12">
+                                            <h5 class="title">Diplôme(s) </h5>
+                                        </div>
+                                        <table class="table">
+                                            <tbody>
+                                                @if (ViewBag.listFile != null)
+                                                {
+
+                                                    foreach (WebApplication1.Models.File data in ViewBag.listDiplome)
+                                                    {
+                                                        <tr class="mb30">
+                                                            <th scope="row">
+                                                                <ul>
+                                                                    <li class="list-inline-item"><a href="@Href("~/Fichier/"+data.chemin)"><span class="flaticon-doc font"></span></a></li>
+                                                                    <li class="list-inline-item cv_sbtitle"><a href="#">Diplôme</a></li>
+                                                                </ul>
+                                                            </th>
+                                                            <td>
+
+                                                                <li class="list-inline-item cv_sbtitle">Ajouté le @data.created</li>
+
+                                                            </td>
+                                                            <td>
+                                                                <ul class="view_edit_delete_list">
+                                                                    <li class="list-inline-item"><a href="@Url.Action("deleteCvDocument", "Profile", new { id=data.id })" data-toggle="tooltip" data-placement="top" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-lg-12">
+                                                        <h6 class=" color-gray">Aucun document enregistré</h6>
+                                                    </div>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 mb30">
+                                <div class="candidate_job_reivew cv_manager">
+                                    <div class="table-responsive job_review_table">
+                                        <div class="col-lg-12">
+                                            <h5 class="title">CV(s) </h5>
+                                        </div>
+                                        <table class="table">
+                                            <tbody>
+
+                                                @if (ViewBag.listFile != null)
+                                                {
+
+                                                    foreach (WebApplication1.Models.File data in ViewBag.listCv)
+                                                    {
+                                                        <tr class="mb30">
+                                                            <th scope="row">
+                                                                <ul>
+                                                                    <li class="list-inline-item"><a href="@Href("~/Fichier/"+data.chemin)"><span class="flaticon-doc font"></span></a></li>
+                                                                    <li class="list-inline-item cv_sbtitle"><a href="#">CV</a></li>
+                                                                </ul>
+                                                            </th>
+                                                            <td>
+
+                                                                <li class="list-inline-item cv_sbtitle">Ajouté le @data.created</li>
+
+                                                            </td>
+                                                            <td>
+                                                                <ul class="view_edit_delete_list">
+                                                                    <li class="list-inline-item"><a href="@Url.Action("deleteCvDocument", "Profile", new { id=data.id })" data-toggle="tooltip" data-placement="top" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-lg-12">
+                                                        <h6 class=" color-gray">Aucun document enregistré</h6>
+                                                    </div>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 mb30">
+                                <div class="candidate_job_reivew cv_manager">
+                                    <div class="table-responsive job_review_table">
+                                        <div class="col-lg-12">
+                                            <h5 class="title">Autre document(s) </h5>
+                                        </div>
+                                        <table class="table">
+                                            <tbody>
+
+                                                @if (ViewBag.listFile != null)
+                                                {
+                                                    foreach (WebApplication1.Models.File data in ViewBag.listAutre)
+                                                    {
+                                                        <tr class="mb30">
+                                                            <th scope="row">
+                                                                <ul>
+                                                                    <li class="list-inline-item"><a href="@Href("~/Fichier/"+data.chemin)"><span class="flaticon-doc font"></span></a></li>
+                                                                    <li class="list-inline-item cv_sbtitle"><a href="#">@data.libelle</a></li>
+                                                                </ul>
+                                                            </th>
+                                                            <td>
+
+                                                                <li class="list-inline-item cv_sbtitle">Ajouté le @data.created</li>
+
+                                                            </td>
+                                                            <td>
+                                                                <ul class="view_edit_delete_list">
+                                                                    <li class="list-inline-item"><a href="@Url.Action("deleteCvDocument", "Profile", new { id=data.id })" data-toggle="tooltip" data-placement="top" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+
+                                                else
+                                                {
+                                                    <div class="col-lg-12">
+                                                        <h6 class=" color-gray">Aucun document enregistré</h6>
+                                                    </div>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            </div>
+    </section>
+
+<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nouveau document</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 col-xl-12">
+                    @using (Html.BeginForm("CvDocument", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="candidate_resume_uploader ">
+                            <div class="row">
+                               
+                                <div class="col-md-10 col-lg-12" >
+                                    <div class="form-group my_profile_input ">
+                                        <label> Type de document</label>
+                                        <div class="col-md-12">
+                                            <select class="browser-default custom-select domaine" onchange="checkAutre()" name="type" id="typeDoc">
+                                                <option value="autre" selected>choisir</option>
+                                                <option value="diplome">diplôme</option>
+                                                <option value="cv">CV</option>
+                                                <option value="autre">Autre</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-10 col-lg-12" id="divInputLibelle">
+                                    <div class="form-group my_profile_input ">
+                                        <label> Libelle du fichier</label>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.libelle,"libelle du document", new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.libelle, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group my_profile_input ">
+                                        @Html.LabelFor(model => model.chemin, "Choisir un document  (extention valide : .png, .jpg, .txt, .doc, .docx, .pdf) ", htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div class="col-md-4" style="overflow: hidden;">
+                                            @Html.EditorFor(model => model.chemin, new { htmlAttributes = new { @id = "imgInput", @accept = "profil/x-png,profil/gif,profil/jpeg", @type = "file" } })
+                                            @Html.ValidationMessageFor(model => model.chemin, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt12 text-center">
+
+                                    <div class="col-md-offset-2 col-md-20">
+                                        <input type="submit" value="Ajouter" class="btn btn-thm" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+         
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('.upload input[type="file"]').on('change', function () {
+        $('.upload-path').val(this.value.replace('C:\\fakepath\\', ''));
+    });
+
+    function checkAutre() {
+        if ($('#typeDoc').val() != '') {
+         var   typeDoc = $('#typeDoc').val();
+
+            if (typeDoc == 'autre') {
+                $('#divInputLibelle').show();
+            }
+            else {
+                $('#divInputLibelle').hide();
+            }
+        }
+
+    }
+</script>

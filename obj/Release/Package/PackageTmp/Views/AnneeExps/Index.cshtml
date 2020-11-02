@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WebApplication1.Models.AnneeExp>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Liste des années d'expériences dans le système</h2>
+
+<div class="col-sm-12 text-right">
+    <a href="~/AnneeExps/Create" class=" btn-sm btn-primary">Ajouter</a>
+</div>
+
+<div class="card-body">
+
+    <div class="table-responsive">
+        <table class="datatable table table-stripped mb-0">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.libelle)
+                    </th>
+
+                    <th>
+                       Ajouté le
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.libelle)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.created)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Modifier", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("suprimer", "Delete", new { id = item.id })
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

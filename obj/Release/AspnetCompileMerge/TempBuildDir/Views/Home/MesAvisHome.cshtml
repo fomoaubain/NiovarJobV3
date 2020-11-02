@@ -1,0 +1,88 @@
+﻿@model WebApplication1.Models.Avis
+@{
+    ViewBag.Title = "MesAvisHome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    WebApplication1.Models.Inscrire inscrire = ViewBag.inscrire;
+
+    WebApplication1.Models.Page page = ViewBag.page;
+
+    ViewBag.imageFond = page.profilPage;
+
+    ViewBag.idInsc = page.Ins_id;
+    ViewBag.couleurFond = page.couleurFond;
+
+    List<WebApplication1.Models.Avis> newListAvis = ViewBag.newListAvis;
+}
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+<div class="container mt-0">
+    @{
+        Html.RenderPartial("Partial_my_page_visiteur", inscrire);
+    }
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mbp_comment_form">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" value="@page.id" name="Pag_id">
+
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Laissez votre avis ici</label>
+                        <textarea class="form-control" name="libelle" id="exampleFormControlTextarea1" rows="6" required></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-thm" value="Envoyer">
+                }
+            </div>
+
+
+
+            <div class="mbp_pagination_comments">
+                <h4 class="title">Liste des avis </h4>
+                @if (newListAvis.Count > 0)
+                {
+                    foreach (WebApplication1.Models.Avis item in ViewBag.newListAvis)
+                    {
+            <div class="mbp_first media">
+                <img src="~/Assets/images/team/avatar.png" class="mr-3 rounded-circle" alt="1.jpg">
+                <div class="media-body">
+                    <h4 class="sub_title mt-0">@item.Pseudo </h4>
+                    <ul>
+                        <li class="list-inline-item">Saisie le</li>
+                        <li class="list-inline-item"><span class="flaticon-event"></span>@item.created</li>
+                    </ul>
+                    @item.libelle
+                </div>
+                @if (item.nbreEtoile != null)
+                {
+                         <ul class="review float-right">
+                             @for(int i=0; i < item.nbreEtoile; i++)
+                             {
+                                  <li class="list-inline-item "><a href="#"><i class="fa fa-star color-warning"></i></a></li>
+                             }
+                         </ul>
+                  }
+                   
+                </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-center">Aucun avis disponible </p>
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+

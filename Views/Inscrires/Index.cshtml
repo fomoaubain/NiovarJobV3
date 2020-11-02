@@ -1,0 +1,296 @@
+﻿@model IEnumerable<WebApplication1.Models.Inscrire>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>Liste des candidats et clients qui sont dans le système</h2>
+
+<div class="col-sm-12 text-right">
+    <a href="~/Inscrires/Create" class=" btn-sm btn-primary">Ajouter</a>
+</div>
+
+<!-- Search Filter -->
+
+    @using (Html.BeginForm("Index", "Inscrires", FormMethod.Get, new { enctype = "multipart/form-data" }))
+    {
+       
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-focus form-group">
+                        <div class="col-md-12">
+                            <div class="form-group form-focus">
+                                <input type="text" value="@(Request["nom"])" class="form-control floating" name="nom">
+                                <label class="focus-label">Rechercher par nom</label>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-focus form-group">
+                        <div class="col-md-12">
+                            <select onchange="loadCities();" class="browser-default custom-select" name="pays" id="country">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-focus form-group ">
+                        <div class="col-md-12">
+                            <select class="browser-default custom-select" name="ville" id="ville">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-focus form-group mt-2">
+                        <div class="col-md-12">
+                            <select class="browser-default custom-select" id="type" onchange="checkType()" name="type">
+                                <option value="">Tout</option>
+                                <option value="candidat" @(Request["type"] == "candidat" ? "selected" : "")>candidat</option>
+                                <option value="client" @(Request["type"] == "client" ? "selected" : "")>client</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="divExperience" class="col-sm-6 col-md-3" style=" display:none">
+                    <div class="form-focus form-group ">
+                        <div class="col-md-12">
+                            <select class="browser-default custom-select" id="experience" onchange="checkType()" name="experience">
+                                <option value="">Année d'expérience</option>
+
+                                @foreach (WebApplication1.Models.AnneeExp item in ViewBag.listAnneeExp)
+                                {
+                                    <option value="@item.libelle" @(Request["experience"] == @item.libelle ? "selected" : "" )> @item.libelle</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-3">
+                    <input type="submit" value="Search" class="btn btn-success btn-block">
+                </div>
+
+                <div class="col-sm-6 col-md-3">
+                    <a href="@Url.Action("Index", "Inscrires")" class="btn btn-primary btn-block">Actualisé</a>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Search Filter -->
+
+    <div class="table-responsive mt-4">
+        <table class="datatable table table-stripped mb-0">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.nom)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.login)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.status)
+                    </th>
+
+                    <th>Actions</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <h2 class="table-avatar">
+                            <a class="avatar avatar-xs" href="profile.html"><img alt="" src="~/Fichier/@item.profil" height="20" width="20"></a>
+                            <a href="profile.html">@item.nom</a>
+                        </h2>
+
+                    </td>
+                    <td>
+                        <p class="btn-sm btn-primary text-white" data-toggle="tooltip" data-placement="bottom">@item.type</p>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.login)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.email)
+                    </td>
+
+                    <td>
+                        @if (item.status == 1)
+                        {
+                            <a class="btn-sm btn-success" href="@Url.Action("EditStatus", "Inscrires", new { id=item.id })" data-toggle="tooltip" data-placement="bottom" title="Annuler votre approbation pour ce compte"><span class="color-black22"> Approuver</span></a>
+                            //@Html.ActionLink("Approuver", "EditStatus", new { id = item.id })
+                        }
+                        else
+                        {
+                            <a class="btn-sm btn-danger" href="@Url.Action("EditStatus", "Inscrires", new { id=item.id })" data-toggle="tooltip" data-placement="bottom" title="Aprouver ce compte"><span class="color-black22"> Non approuver</span></a>
+                            // @Html.ActionLink("Non approuver", "EditStatus", new { id = item.id })
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                        @Html.ActionLink("suprimer", "Delete", new { id = item.id })
+
+                    </td>
+                    <td>
+
+                        <div class="dropdown dropdown-action">
+                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+
+                                @if (item.type.Equals("client"))
+                                {
+                                    <p class="dropdown-item" data-toggle="modal">RAS</p>
+                                }
+                                else
+                                {
+                                    <a class="dropdown-item" href="@Url.Action("cvResumeAdmin", "Admin", new { id=item.id })"> Voir le CV</a>
+                                    <a class="dropdown-item" href="@Url.Action("documentsCandidat", "Admin", new { id=item.id })"> Voir les documents</a>
+
+                                }
+
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+
+    <script type="text/javascript" src="~/Scripts/select2.min.js"></script>
+    <link rel="stylesheet" href="~/Content/select2.min.css">
+
+
+
+    <style type="text/css">
+        .select2-dropdown {
+            top: 22px !important;
+            left: 8px !important;
+        }
+    </style>
+
+
+
+    <script>
+        $("#country").select2({
+            placeholder: "Choisir le pays",
+            allowClear: true
+        });
+
+        $("#ville").select2({
+            placeholder: "Choisir la ville",
+            allowClear: true
+        });
+
+        function setSelected(req, val) {
+            return req == val ? "selected" : "";
+        }
+
+        $(function () {
+            var countryOptions = " <option selected  value=''>Veuiller choisir le pays</option>";
+            var stateOptions = " <option selected  value=''>Veuiller choisir la ville</option>";
+            var districtOptions;
+            $.getJSON('../Json/countries.json', function (result) {
+
+                $.each(result, function (i, country) {
+                    //<option value='countrycode'>contryname</option>
+                    countryOptions += "<option value='"
+                        + country.code +
+                        "'" + setSelected('@Request["pays"]', country.code) +"> "
+                        + country.name +
+                        "</option>";
+    });
+                $('#country').html(countryOptions);
+                loadCities();
+            });
+
+
+        });
+        function loadCities() {
+            var choice = $("#country").val();
+            console.log(choice);
+            var stateOptions = " <option selected  value=''>Veuiller choisir la ville</option>";
+            $.getJSON('../Json/cities.json', function (result) {
+                $.each(result, function (i, ville) {
+                    if (choice == ville.country) {
+                        //<option value='countrycode'>contryname</option>
+                        stateOptions += "<option value='"
+                            + ville.name +
+                            "'" + setSelected('@Html.Raw(Request["ville"])', ville.name) +">"
+                            + ville.name +
+                            "</option>";
+                    }
+                });
+                $('#ville').html(stateOptions);
+            });
+        }
+
+        /*$("#country").on('change', function (e) {
+            var optionSelected = $("option:selected", this);
+            var choice = this.value;
+            var stateOptions = " <option selected  value=''>Veuiller choisir la ville</option>";
+            $.getJSON('../Json/cities.json', function (result) {
+                $.each(result, function (i, ville) {
+                    if (choice == ville.country) {
+                        //<option value='countrycode'>contryname</option>
+                        stateOptions += "<option value='"
+                            + ville.name +
+                          // "'" + setSelected('@Request["ville"]', ville.name) +">"
+                           // + ville.name +
+                           // "</option>";
+                   // }
+               // });
+               // $('#ville').html(stateOptions);
+//});
+       // });*/
+
+
+// permet de caché et d'afficher certains div en fonction du type cj=hoisi afin de flitrer
+        function checkType() {
+            var type = $('#type').val();
+            
+            if (type == 'client') {
+                $('#divExperience').hide();
+            } else if (type == 'candidat') {
+                $('#divExperience').show();
+            } else if (type == '' || type == undefined) {
+                $('#divExperience').hide();
+            } 
+        }
+
+        $(document).ready(function () {
+          
+            checkType();
+        });
+
+
+
+    </script>
+
+
+

@@ -1,0 +1,127 @@
+﻿@model WebApplication1.Models.Location
+@{
+    ViewBag.Title = "mesLocationsCandidat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Our Dashbord -->
+<section>
+    <div class="our-dashbord dashbord ">
+        <div class="container">
+            <div class="row">
+                @{
+                    Html.RenderPartial("Partial_menu_candidat");
+                }
+                <div class="col-sm-12 col-lg-8 col-xl-9">
+                    <div class="row">
+
+                        <div class="col-lg-12 text-center">
+                            <h4 class="mb30">Mes demandes de location [ @ViewBag.nbreLocation demande] </h4>
+                        </div>
+     
+                        <div class="col-lg-12">
+                            <div class="cnddte_fvrt_job candidate_job_reivew style2">
+                                <div class="table-responsive job_review_table">
+                                    <table class="table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Libelle</th>
+                                                <th scope="col">Période</th>
+                                                <th scope="col">Horaire</th>
+                                                <th scope="col">Salaire</th>
+                                                <th scope="col">Observation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (WebApplication1.Models.Location item in ViewBag.listLocation)
+                                            {
+
+                                            <tr>
+                                                <th scope="row">
+                                                    <h4>@Session["login"]</h4>
+                                                    <p><span class="flaticon-location-pin"></span>Vous êtes demandé pour un travail</p>
+                                                    <ul>
+                                                        <li class="list-inline-item"><a href="#"><span class="flaticon-event"> Démandé  le : </span></a></li>
+                                                        <li class="list-inline-item"><a class="color-black22" href="#"> @item.created</a></li>
+                                                        <li class="list-inline-item"><a href="#"><span class="flaticon-event"> Date début   : </span></a></li>
+                                                        <li class="list-inline-item"><a class="color-black22" href="#"> @item.dateDebut</a></li>
+                                                        <li class="list-inline-item"><a href="#"><span class="flaticon-event"> Date Fin   : </span></a></li>
+                                                        <li class="list-inline-item"><a class="color-black22" href="#"> @item.dateFin</a></li>
+
+                                                    </ul>
+                                                </th>
+                                                <td>
+                                                    <p>Date debut : @item.dateDebut</p>
+                                                    <p>Date fin : @item.dateFin</p>
+                                                    <p>@item.periode Jrs</p>
+                                                </td>
+
+                                                <td class="text-thm2">
+                                                    <p>@item.heureTravail heure/Jrs</p>
+                                                </td>
+                                                <td class="text-thm2">
+                                                    <p>@(Convert.ToDouble(item.remuneration) * (100-ViewBag.pourcentage)/ 100) $</p>
+                                                </td>
+
+                                                <td>
+                                                    @if (item.avisCandidat == 0 && item.avisClient == 0)
+                                                    {
+                                                        <a href="@Url.Action("contratLocationCandidat", "Locations", new { id=item.id  })" class="badge bg-inverse-primary" read title=""><span>Veuillez confirmer<br> cette demande</span></a>
+                                                    }
+                                                    else if (item.avisCandidat == 2 && item.avisClient == 0)
+                                                    {
+                                                        <a href="@Url.Action("contratLocationCandidat", "Locations", new { id=item.id  })" class="badge bg-inverse-warning" read title=""><span>En attente de confirmation<br> de l'intérésser</span></a>
+
+                                                    }
+                                                    else if (item.avisCandidat == 2 && item.avisClient == 2)
+                                                    {
+                                                        <a href="@Url.Action("contratLocationCandidat", "Locations", new { id=item.id  })" class="badge bg-inverse-success" read title=""><span>Demande accepter<br> vous êtes en poste</span></a>
+
+                                                    }
+                                                    else if (item.avisCandidat == 3)
+                                                    {
+                                                        <a href="@Url.Action("contratLocationCandidat", "Locations", new { id=item.id  })" class="badge bg-inverse-danger" read title=""><span>Vous avez refusé<br> cette demande</span></a>
+
+                                                    }
+                                                    else if (item.avisClient == 3)
+                                                    {
+                                                        <p class="badge bg-inverse-danger" read title="Voir le contrat"><span>Cette demande a été <br>annuler par l'employeur</span></p>
+
+                                                    }
+                                                </td>
+                                            </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+
+        });
+
+
+    </script>
+}
+
+
+
+
+
+
+

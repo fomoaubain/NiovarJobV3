@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebApplication1.Models.Abonnement>
+@{
+    ViewBag.Title = "Abonnement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebApplication1.Models.Inscrire inscrire = (WebApplication1.Models.Inscrire)ViewBag.inscrire; 
+    WebApplication1.Models.InsAbonne lastAsbonnement = (WebApplication1.Models.InsAbonne) ViewBag.lastAsbonnement; 
+}
+    <style>
+        .card:hover {
+            background-color: floralwhite;
+        }
+    </style>
+    <section class="our-error bgc-fa">
+        <div class="container">
+            <div class="row  justify-content-center">
+                <p class="text-center">@inscrire.login profitez du meilleur de nos services</p><br />
+            </div>
+      
+            @if (ViewBag.canTakeFree!=null && ViewBag.canTakeFree == true)
+            {
+                <div class="alert alert-warning">
+                    <p class="text-center">Vous ne pouvez choisir un abonnement gratuit que jusqu'au @lastAsbonnement.dateFin.</p>
+
+                </div>
+            }
+            <div class="alert alert-info" style="height: 58px;">
+                <p class="text-center">A quel abonnement souhaitez vous souscrire.</p><br />
+            </div>
+            <div class="row  justify-content-center">
+                @foreach (var item in Model)
+                {
+                    if (ViewBag.canTakeFree != null && ViewBag.canTakeFree == true && item.montant == 0)
+                    {
+                        continue;
+                    }
+                    <div class=" col-xs-12 col-sm-12 col-md-4 col-lg-4" style="margin-top: 15px;">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title text-uppercase" style="font-size: 15px; color: green">@Html.DisplayFor(modelItem => item.titre)</h5>
+                                <h6 class="card-subtitle mb-2 text-warning">@Html.DisplayFor(modelItem => item.type)</h6>
+                                <h5 class="card-title text-uppercase" style="font-size: 15px; color: green">@Html.DisplayFor(modelItem => item.montant) $/mois</h5>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.description)</p>
+                                <a style="background-color: #f26423;color: white;padding: 4px 30px; cursor: pointer" href="@Url.Action("Payments", "Inscrires", new { id = item.id })" class="card-link">Choisir</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            @if (Session["sessionConnect"] == null)
+            {
+                <div style="margin-top: 100px;" class="row  justify-content-center">
+                    <p class="text-center text-warning"><a style="background-color: #000;color: white;padding: 4px 30px;margin-bottom:15px;" href="@Url.Action("Login", "Inscrires")" class="card-link">Passer</a><br />Attention !!! en cliquant sue passer vous ne pourez pas éffectuer de post. il vous sera toujour demandé de souscrire a un abonnement.</p><br />
+                </div> 
+            }
+        </div>
+    </section>

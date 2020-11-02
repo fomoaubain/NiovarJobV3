@@ -1,0 +1,114 @@
+﻿@model WebApplication1.Models.InsAbonne
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details de l'abonnement</h2>
+
+<div> 
+    <hr />
+    <dl class="dl-horizontal row">
+        <div class="col-sm-6 col-md-4">
+            <dt>
+                @Html.DisplayNameFor(model => model.libelle)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.libelle)
+            </dd>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+            <dt>
+                @Html.DisplayNameFor(model => model.dateDebut)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.dateDebut)
+            </dd>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.dateFin)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.dateFin)
+            </dd>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+            <dt>
+                Renouveller après
+            </dt>
+
+            <dd>
+                @WebApplication1.Models.Utils.getDayBetween2String(Model.dateFin, Model.dateDebut) Jour(s)
+            </dd>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.etat)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.etat)
+            </dd>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.status)
+            </dt>
+
+            <dd>
+                @(Model.status == 1 ? "Activé" : "Non Activé")
+            </dd>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.created)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.created)
+            </dd>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+
+            <dt>
+                Type d'abonnement
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Abonnement.titre)
+            </dd>
+
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+            <dt>
+                Compte abonné
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Inscrire.nom)
+            </dd>
+        </div> 
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

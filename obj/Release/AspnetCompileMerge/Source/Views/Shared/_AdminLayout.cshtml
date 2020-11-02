@@ -1,0 +1,495 @@
+﻿
+@{
+
+    List<WebApplication1.Models.Bibliotheque> listBibliotheque = ViewBag.listBibliotheque;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="Smarthr - Bootstrap Admin Template">
+    <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="author" content="Fomo Lehem Aubain">
+    <title> NiovarJobs Dashboard </title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Assets/images/logo2.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/AssetsAdmin/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="~/AssetsAdmin/css/font-awesome.min.css">
+
+    <!-- Lineawesome CSS -->
+    <link rel="stylesheet" href="~/AssetsAdmin/css/line-awesome.min.css">
+
+    <!-- Chart CSS -->
+    <link rel="stylesheet" href="~/AssetsAdmin/plugins/morris/morris.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="~/AssetsAdmin/css/style.css">
+
+    <!-- Datatable CSS -->
+    <link rel="stylesheet" href="~/AssetsAdmin/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AssetsAdmin/css/animate/animate.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="~/AssetsAdmin/js/html5shiv.min.js"></script>
+        <script src="~/AssetsAdmin/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+        <!-- Header -->
+        <div class="header">
+
+            <!-- Logo -->
+            <div class="header-left ">
+                <a href="~/Admin/Index" class="logo">
+                    <img src="~/Assets/images/logo2.png" width="70" height="40" alt="">
+                </a>
+            </div>
+            <!-- /Logo -->
+
+            <a id="toggle_btn" href="javascript:void(0);" style="padding: 0 36px;">
+                <span class="bar-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </a>
+
+            <!-- Header Title -->
+            <div class="page-title-box">
+                <h3>Dashboard NiovarJob</h3>
+            </div>
+            <!-- /Header Title -->
+
+            <a id="mobile_btn" class="mobile_btn " href="#sidebar"><i class="fa fa-bars"></i></a>
+
+            <!-- Header Menu -->
+            <ul class="nav user-menu">
+
+
+
+                <li class="nav-item dropdown has-arrow main-drop">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <span class="user-img">
+                            <img src="~/AssetsAdmin/img/profiles/avatar-21.jpg" alt="">
+                            <span class="status online"></span>
+                        </span>
+                        <span>@Session["nomAdmin"] [@Session["role"]]</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">My Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="~/Utilisateurs/Logout">Se déconnecté</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- /Header Menu -->
+            <!-- Mobile Menu -->
+            <div class="dropdown mobile-user-menu">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="profile.html">My Profile</a>
+                    <a class="dropdown-item" href="~/Utilisateurs/Logout">Se déconnecté</a>
+                </div>
+            </div>
+            <!-- /Mobile Menu -->
+
+        </div>
+        <!-- /Header -->
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li>
+                            <a href="~/Admin/Index"><i class="la la-files-o"></i> <span>Tableau de bord </span> </a>
+                        </li>
+
+                        <li class="menu-title">
+                            <span>Utilisateurs</span>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="la la-user"></i> <span>Utilisateurs</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="~/Utilisateurs/Create">Ajouter</a></li>
+                                <li><a href="~/Utilisateurs/Index">Lister</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="la la-key"></i> <span> Roles</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="~/Roles/Create">Ajouter</a></li>
+                                <li><a href="~/Roles/Index">Lister</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="la la-ticket"></i> <span> Page NiovarJobs</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="~/Pages/Create">Creer page </a></li>
+                                <li><a href="~/Pages/pageApropos">Configurer</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="la la-users"></i> <span> Inscrits</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="~/Inscrires/Index">Lister</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="la la-users"></i> <span> Abonnement</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="~/Abonnements/Index">Types Abonnements</a></li>
+                                <li><a href="~/InsAbonnes/Index">Abonnements</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-title">
+                            <span>Offres</span>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="la la-briefcase"></i>  <span> Gestion des offres </span>  <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="~/Admin/ManageOffrePoster"> Voir les offres</a></li>
+                                <li><a href="~/Offre/publierOffreAdmin"> Publié une offre</a></li>
+                                <li><a href="~/Admin/offreNiovarJobs"> Autre Offres </a></li>
+                            </ul>
+                        </li>
+
+                        <li class="submenu">
+                            <a href="#"><i class="la la-briefcase"></i>  <span> Demande(s)  </span> <span class="badge badge-pill bg-success mr-4">@ViewBag.nbreOffreUrgent</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="~/Admin/ManageOffreAdmin"> Consulter </a></li>
+                            </ul>
+                        </li>
+
+                        <li class="submenu">
+                            <a href="#"><i class="la la-briefcase"></i>  <span> Gestion des locations </span>  <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="@Url.Action("Index", "Locations", new { type=1})"> Voir les demandes</a></li>
+                                <li><a href="@Url.Action("Index", "Locations", new { type=2})"> Voir les reservations</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="submenu">
+                            <a href="#"><i class="la la-briefcase"></i>  <span> Employé(s)  </span> <span class="badge badge-pill bg-success mr-4">@ViewBag.nbreEmployesNew</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="~/Admin/ManageEmploye"> Consulter </a></li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-title">
+                            <span>Facturation</span>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="la la-user-secret"></i> <span> Abonnement</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="~/Abonnements/Index">Types Abonnements</a></li>
+                                <li><a href="~/InsAbonnes/Index">Abonnements</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="la la-ticket"></i> <span> Transactions</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="~/InsAbonnes/Index">Abonnements</a></li>
+                                <li><a href="~/Admin/listFraisLocationAdmin">Locations</a></li>
+                                <li><a href="~/Admin/listPaiementAdmin">Main d'oeuvre</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-title">
+                            <span> Configuration</span>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="la la-cube"></i> <span> Paramètres de l'app</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-dashboard"></i> <span> Année expérience</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/AnneeExps/Index">Lister</a></li>
+                                        <li><a href="~/AnneeExps/Create">Ajouter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-files-o"></i> <span> Catégories</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/Types/Index">Lister</a></li>
+                                        <li><a href="~/Types/Create">Ajouter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-files-o"></i> <span> Type contrat</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/Contrats/Index">Lister</a></li>
+                                        <li><a href="~/Contrats/Create">Ajouter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-files-o"></i> <span> Type diplôme</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/Diplomes/Index">Lister</a></li>
+                                        <li><a href="~/Diplomes/Create">Ajouter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-files-o"></i> <span> Type d'offre</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/TypeOffres/Index">Lister</a></li>
+                                        <li><a href="~/TypeOffres/Create">Ajouter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-files-o"></i> <span> Langues</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/Langues/Index">Lister</a></li>
+                                        <li><a href="~/Langues/Create">Ajouter</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-files-o"></i> <span>Niveaux Langues</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/NiveauLangues/Index">Lister</a></li>
+                                        <li><a href="~/NiveauLangues/Create">Ajouter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-files-o"></i> <span>Statut emploi</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/StatutEmplois/Index">Lister</a></li>
+                                        <li><a href="~/StatutEmplois/Create">Ajouter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-files-o"></i> <span>Quart travail</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/QuartTravails/Index">Lister</a></li>
+                                        <li><a href="~/QuartTravails/Create">Ajouter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-files-o"></i> <span>Niveau scolaire</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/NiveauScolarites/Index">Lister</a></li>
+                                        <li><a href="~/NiveauScolarites/Create">Ajouter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-files-o"></i> <spanBibliotheques>Avantage social</spanBibliotheques> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/AvantageSociauxes/Index">Lister</a></li>
+                                        <li><a href="~/AvantageSociauxes/Create">Ajouter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-files-o"></i> <span> Paramètre</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/Parametres/Index">Lister</a></li>
+                                        <li><a href="~/Parametres/Create">Ajouter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#"><i class="la la-files-o"></i> <span> Bibliothèques images</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display: none;">
+                                        <li><a href="~/Bibliotheques/Create">Lister</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Sidebar -->
+        <!-- Page Wrapper -->
+        <div class="page-wrapper">
+
+            @if (TempData["result_code"] != null)
+            {
+                <div id="splashMsg" class="animated bounceInRight" style="position: absolute; top: 110px; right: 15px; z-index: 1000;">
+                    <span style="border-radius: 0;" Class="alert alert-@(TempData["result_code"].Equals(1) ? "success" : "danger")"><i class="fa fa-@(TempData["result_code"].Equals(1) ? "check" : "ban")"></i> @TempData["message"]</span>
+                    <span onclick="closeSplash();" class="fa fa-times" style="position: absolute; top: -9px; right: 5px; color: #fff;cursor: pointer"></span>
+                </div>
+                TempData.Remove("result_code");
+            }
+            <!-- Page Content -->
+            <div class="content container-fluid">
+
+
+
+                @RenderBody()
+
+
+
+            </div>
+            <!-- /Page Content -->
+            <!-- The Modal bibliotheque -->
+            <div class="modal" id="modalBibliotheque">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Liste des images de la bibliothèques <span><a class=" btn-sm btn-primary" href="~/Bibliotheques/Create">Ajouter une image</a></span> </h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 col-6 mb-2">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a href="#" class="d-block">
+                                                <img class="img-fluid img-thumbnail h-25" height="100px" width="100px" src="~/Assets/images/team/avatar.png" alt="">
+                                            </a>
+                                        </div>
+                                        <input type="hidden" id="nameImage0" value="" />
+                                        <div class="col-md-12">
+                                            <button class="text-center btn-sm btn-danger" onclick="selectImage(0)"> Aucun choix </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @if (listBibliotheque.Count > 0)
+                                {
+                                    foreach (WebApplication1.Models.Bibliotheque item in ViewBag.listBibliotheque)
+                                    {
+                                        <div class="col-lg-3 col-md-4 col-6 mb-2">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <a href="@Href("~/Fichier/"+item.chemin)" class="d-block">
+                                                        <img class="img-fluid img-thumbnail h-25" height="100px" width="100px" src="~/Fichier/@item.chemin" alt="">
+                                                    </a>
+                                                </div>
+                                                <input type="hidden" id="nameImage@(item.id)" value="@item.chemin" />
+
+                                                <div class="col-md-12">
+
+                                                    <button class="text-center btn-sm btn-danger" onclick="selectImage(@item.id)"> Selectionner </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <p class="text-center">Aucune image enregistrer </p>
+                                }
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /Page Wrapper -->
+
+    </div>
+    <!-- /Main Wrapper -->
+    <!-- jQuery -->
+    <script src="~/AssetsAdmin/js/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="~/AssetsAdmin/js/popper.min.js"></script>
+    <script src="~/AssetsAdmin/js/bootstrap.min.js"></script>
+
+    <!-- Slimscroll JS -->
+    <script src="~/AssetsAdmin/js/jquery.slimscroll.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="~/AssetsAdmin/plugins/morris/morris.min.js"></script>
+    <script src="~/AssetsAdmin/plugins/raphael/raphael.min.js"></script>
+    <script src="~/AssetsAdmin/js/chart.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/AssetsAdmin/js/app.js"></script>
+
+    <!-- Datatable JS -->
+    <script src="~/AssetsAdmin/js/jquery.dataTables.min.js"></script>
+    <script src="~/AssetsAdmin/js/dataTables.bootstrap4.min.js"></script>
+
+    <!--Summernote -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+    <script>
+        $('.summernote').summernote({
+            placeholder: 'saisir votre texte ici',
+            tabsize: 2,
+            height: 80,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setTimeout(function () {
+                closeSplash();
+            }, 5000); // <-- time in milliseconds
+            toggleAmount();
+        });
+
+        function closeSplash() {
+            $('#splashMsg').removeClass('bounceInRight').addClass("bounceOutRight");
+        }
+
+        function loadingSpinner(SpinnerId, btnHide) {
+            $("#" + SpinnerId).show();
+            $("#" + btnHide).hide();
+        }
+
+        function toggleAmount() {
+            if ($("#illimite").val() == 1) $("#divnbrePost").hide();
+            else $("#divnbrePost").show();
+        }
+
+
+
+        // fonction permet de selectionner une image dans la galerie
+        function selectImage(id) {
+
+            var val = document.getElementById("nameImage" + id).value;
+
+            if (val != ' ' && val != null && val != undefined) {
+
+                document.getElementById("imageValue").value = val;
+                $('#modalBibliotheque').modal('hide');
+            } else {
+                document.getElementById("imageValue").value = '';
+                $('#modalBibliotheque').modal('hide');
+            }
+
+        }
+    </script>
+
+</body>
+</html>
+
+

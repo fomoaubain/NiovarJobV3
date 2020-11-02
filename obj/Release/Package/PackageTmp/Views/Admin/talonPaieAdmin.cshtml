@@ -1,0 +1,101 @@
+﻿@model WebApplication1.Models.Document
+@{
+    ViewBag.Title = "talonPaieAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+
+
+    <div class="mail-attachments">
+        <p class=" text-center h2"><i class="fa fa-paperclip"></i> <span class="font-weight-bold"> @ViewBag.nbre  </span> Talon de paie envoyés  </p>
+
+        <div class="col-lg-12">
+            <h4 class="title">Mes Documents, Talon de paie <small class="float-right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal4">Nouveau Talon de paie <span class="flaticon-right-arrow"></span></button></small></h4>
+        </div>
+        <ul class="attachments clearfix">
+
+            @if (ViewBag.listDocument == null)
+            {
+                <li>
+                    <div class="col-md-12"> <p class="">Aucun talon de paie disponible</p> </div>
+                </li>
+            }
+            else
+            {
+
+                foreach (WebApplication1.Models.Document data in ViewBag.listDocument)
+                {
+        <li>
+            <div class="attach-file"><i class="fa fa-file-pdf-o"></i></div>
+            <div class="attach-info"> <a href="@Href("~/Fichier/"+data.chemin)" class="attach-filename">@data.libelle</a> <div class="attach-fileize">Ajouté le @data.created</div></div>
+
+            <div class="attach-info"> <a href="@Url.Action("deleteTalonPaie", "Admin", new { id=data.id })" class="btn-sm btn-danger">supprimer</a></div>
+        </li>
+                }
+
+            }
+
+        </ul>
+    </div>
+
+</div>
+
+<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 col-xl-12">
+                    @using (Html.BeginForm("addTalonPaie", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="candidate_resume_uploader ">
+                            <div class="row">
+                                <input type="hidden" name="Pos_id" value="@(ViewBag.idPost)">
+                                <input type="hidden" name="Ins_id" value="@(ViewBag.idIns)">
+                                <input type="hidden" name="Job_id" value="@(ViewBag.idJob)">
+
+                                <div class="col-md-12 mt-2 ">
+                                    <div class="col-md-offset-2 col-md-20 ">
+                                        <input type="text" class="form-control" name="libelle" value="Talon de paie">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group my_profile_input ">
+                                        @Html.LabelFor(model => model.chemin, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.chemin, new { htmlAttributes = new { @class = "btn-sm btn-primary", @id = "imgInput", @accept = "profil/x-png,profil/gif,profil/jpeg", @type = "file" } })
+                                            @Html.ValidationMessageFor(model => model.chemin, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt12 text-center">
+                                    <div class="col-md-offset-2 col-md-20 ">
+                                        <input type="submit" value="Ajouter" class="btn-sm btn-primary" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+

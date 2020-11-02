@@ -1,0 +1,641 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="NiovarJobModelStoreContainer" CdmEntityContainer="NiovarJobEntities">
+    <EntitySetMapping Name="Abonnement">
+      <EntityTypeMapping TypeName="NiovarJobModel.Abonnement">
+        <MappingFragment StoreEntitySet="Abonnement">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="titre" ColumnName="titre" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="montant" ColumnName="montant" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="nbrePost" ColumnName="nbrePost" />
+          <ScalarProperty Name="illimite" ColumnName="illimite" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AnneeExp">
+      <EntityTypeMapping TypeName="NiovarJobModel.AnneeExp">
+        <MappingFragment StoreEntitySet="AnneeExp">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssocLangueNiveau">
+      <EntityTypeMapping TypeName="NiovarJobModel.AssocLangueNiveau">
+        <MappingFragment StoreEntitySet="AssocLangueNiveau">
+          <ScalarProperty Name="Job_id" ColumnName="Job_id" />
+          <ScalarProperty Name="Lan_id" ColumnName="Lan_id" />
+          <ScalarProperty Name="Niv_id" ColumnName="Niv_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Autre">
+      <EntityTypeMapping TypeName="NiovarJobModel.Autre">
+        <MappingFragment StoreEntitySet="Autre">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="etablissement" ColumnName="etablissement" />
+          <ScalarProperty Name="fonction" ColumnName="fonction" />
+          <ScalarProperty Name="periode" ColumnName="periode" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AvantageSociaux">
+      <EntityTypeMapping TypeName="NiovarJobModel.AvantageSociaux">
+        <MappingFragment StoreEntitySet="AvantageSociaux">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AvantageSociauxJob">
+      <EntityTypeMapping TypeName="NiovarJobModel.AvantageSociauxJob">
+        <MappingFragment StoreEntitySet="AvantageSociauxJob">
+          <ScalarProperty Name="Job_id" ColumnName="Job_id" />
+          <ScalarProperty Name="Ava_id" ColumnName="Ava_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Avis">
+      <EntityTypeMapping TypeName="NiovarJobModel.Avis">
+        <MappingFragment StoreEntitySet="Avis">
+          <ScalarProperty Name="nbreEtoile" ColumnName="nbreEtoile" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Pag_id" ColumnName="Pag_id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="iduser" ColumnName="iduser" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatAnneeExp">
+      <EntityTypeMapping TypeName="NiovarJobModel.CatAnneeExp">
+        <MappingFragment StoreEntitySet="CatAnneeExp">
+          <ScalarProperty Name="Cat_id" ColumnName="Cat_id" />
+          <ScalarProperty Name="Ann_id" ColumnName="Ann_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="prixHoraire" ColumnName="prixHoraire" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categorie">
+      <EntityTypeMapping TypeName="NiovarJobModel.Categorie">
+        <MappingFragment StoreEntitySet="Categorie">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Typ_id" ColumnName="Typ_id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contrat">
+      <EntityTypeMapping TypeName="NiovarJobModel.Contrat">
+        <MappingFragment StoreEntitySet="Contrat">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Diplome">
+      <EntityTypeMapping TypeName="NiovarJobModel.Diplome">
+        <MappingFragment StoreEntitySet="Diplome">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DiplomeJob">
+      <EntityTypeMapping TypeName="NiovarJobModel.DiplomeJob">
+        <MappingFragment StoreEntitySet="DiplomeJob">
+          <ScalarProperty Name="Job_id" ColumnName="Job_id" />
+          <ScalarProperty Name="Dip_id" ColumnName="Dip_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Document">
+      <EntityTypeMapping TypeName="NiovarJobModel.Document">
+        <MappingFragment StoreEntitySet="Document">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="Job_id" ColumnName="Job_id" />
+          <ScalarProperty Name="Pos_id" ColumnName="Pos_id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="chemin" ColumnName="chemin" />
+          <ScalarProperty Name="etat" ColumnName="etat" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Education">
+      <EntityTypeMapping TypeName="NiovarJobModel.Education">
+        <MappingFragment StoreEntitySet="Education">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="etablissement" ColumnName="etablissement" />
+          <ScalarProperty Name="diplome" ColumnName="diplome" />
+          <ScalarProperty Name="periode" ColumnName="periode" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Experience">
+      <EntityTypeMapping TypeName="NiovarJobModel.Experience">
+        <MappingFragment StoreEntitySet="Experience">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="etablissement" ColumnName="etablissement" />
+          <ScalarProperty Name="fonction" ColumnName="fonction" />
+          <ScalarProperty Name="periode" ColumnName="periode" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="File">
+      <EntityTypeMapping TypeName="NiovarJobModel.File">
+        <MappingFragment StoreEntitySet="File">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="chemin" ColumnName="chemin" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FraisLocation">
+      <EntityTypeMapping TypeName="NiovarJobModel.FraisLocation">
+        <MappingFragment StoreEntitySet="FraisLocation">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="Ins_id2" ColumnName="Ins_id2" />
+          <ScalarProperty Name="Loc_id" ColumnName="Loc_id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="montant" ColumnName="montant" />
+          <ScalarProperty Name="avance" ColumnName="avance" />
+          <ScalarProperty Name="reste" ColumnName="reste" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="etat" ColumnName="etat" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Galerie">
+      <EntityTypeMapping TypeName="NiovarJobModel.Galerie">
+        <MappingFragment StoreEntitySet="Galerie">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Pag_id" ColumnName="Pag_id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Information">
+      <EntityTypeMapping TypeName="NiovarJobModel.Information">
+        <MappingFragment StoreEntitySet="Information">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="lettre" ColumnName="lettre" />
+          <ScalarProperty Name="competence" ColumnName="competence" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InsAbonne">
+      <EntityTypeMapping TypeName="NiovarJobModel.InsAbonne">
+        <MappingFragment StoreEntitySet="InsAbonne">
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="Abo_id" ColumnName="Abo_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+          <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+          <ScalarProperty Name="etat" ColumnName="etat" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="nbrePost" ColumnName="nbrePost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inscrire">
+      <EntityTypeMapping TypeName="NiovarJobModel.Inscrire">
+        <MappingFragment StoreEntitySet="Inscrire">
+          <ScalarProperty Name="tokenPwdForget" ColumnName="tokenPwdForget" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="website" ColumnName="website" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="facebook" ColumnName="facebook" />
+          <ScalarProperty Name="linkedin" ColumnName="linkedin" />
+          <ScalarProperty Name="pays" ColumnName="pays" />
+          <ScalarProperty Name="ville" ColumnName="ville" />
+          <ScalarProperty Name="adresse" ColumnName="adresse" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="titreEmploi" ColumnName="titreEmploi" />
+          <ScalarProperty Name="anneeExperience" ColumnName="anneeExperience" />
+          <ScalarProperty Name="salaireSouhaiter" ColumnName="salaireSouhaiter" />
+          <ScalarProperty Name="salaireNegocier" ColumnName="salaireNegocier" />
+          <ScalarProperty Name="profil" ColumnName="profil" />
+          <ScalarProperty Name="etat" ColumnName="etat" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="cpassword" ColumnName="cpassword" />
+          <ScalarProperty Name="emailProf" ColumnName="emailProf" />
+          <ScalarProperty Name="categorie" ColumnName="categorie" />
+          <ScalarProperty Name="domaine" ColumnName="domaine" />
+          <ScalarProperty Name="codePostal" ColumnName="codePostal" />
+          <ScalarProperty Name="nomRepresentant" ColumnName="nomRepresentant" />
+          <ScalarProperty Name="prenomRepresentant" ColumnName="prenomRepresentant" />
+          <ScalarProperty Name="numeroPoste" ColumnName="numeroPoste" />
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="countryCode" ColumnName="countryCode" />
+          <ScalarProperty Name="allowNotification" ColumnName="allowNotification" />
+          <ScalarProperty Name="allowNewsletter" ColumnName="allowNewsletter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Job">
+      <EntityTypeMapping TypeName="NiovarJobModel.Job">
+        <MappingFragment StoreEntitySet="Job">
+          <ScalarProperty Name="dateFinOffre" ColumnName="dateFinOffre" />
+          <ScalarProperty Name="salaireAnnuel" ColumnName="salaireAnnuel" />
+          <ScalarProperty Name="negociable" ColumnName="negociable" />
+          <ScalarProperty Name="niveauEcrire" ColumnName="niveauEcrire" />
+          <ScalarProperty Name="niveauOrale" ColumnName="niveauOrale" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Niv_id" ColumnName="Niv_id" />
+          <ScalarProperty Name="Typ_id" ColumnName="Typ_id" />
+          <ScalarProperty Name="Lan_id" ColumnName="Lan_id" />
+          <ScalarProperty Name="Con_id" ColumnName="Con_id" />
+          <ScalarProperty Name="Qua_id" ColumnName="Qua_id" />
+          <ScalarProperty Name="Sta_id" ColumnName="Sta_id" />
+          <ScalarProperty Name="Cat_id" ColumnName="Cat_id" />
+          <ScalarProperty Name="titre" ColumnName="titre" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="dateEntre" ColumnName="dateEntre" />
+          <ScalarProperty Name="ville" ColumnName="ville" />
+          <ScalarProperty Name="nbreEmploye" ColumnName="nbreEmploye" />
+          <ScalarProperty Name="heureTravail" ColumnName="heureTravail" />
+          <ScalarProperty Name="heureTravailJour" ColumnName="heureTravailJour" />
+          <ScalarProperty Name="jourTravail" ColumnName="jourTravail" />
+          <ScalarProperty Name="remuneration" ColumnName="remuneration" />
+          <ScalarProperty Name="totalHeureTravail" ColumnName="totalHeureTravail" />
+          <ScalarProperty Name="margeExperience" ColumnName="margeExperience" />
+          <ScalarProperty Name="typeJob" ColumnName="typeJob" />
+          <ScalarProperty Name="etat" ColumnName="etat" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="niveauEtude" ColumnName="niveauEtude" />
+          <ScalarProperty Name="responsabilite" ColumnName="responsabilite" />
+          <ScalarProperty Name="exigence" ColumnName="exigence" />
+          <ScalarProperty Name="autre" ColumnName="autre" />
+          <ScalarProperty Name="pays" ColumnName="pays" />
+          <ScalarProperty Name="immediat" ColumnName="immediat" />
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="remunerationN" ColumnName="remunerationN" />
+          <ScalarProperty Name="countryCode" ColumnName="countryCode" />
+          <ScalarProperty Name="avantageSociaux" ColumnName="avantageSociaux" />
+          <ScalarProperty Name="equipeEmploi" ColumnName="equipeEmploi" />
+          <ScalarProperty Name="codePostal" ColumnName="codePostal" />
+          <ScalarProperty Name="adressePostal" ColumnName="adressePostal" />
+          <ScalarProperty Name="masquerEmplacement" ColumnName="masquerEmplacement" />
+          <ScalarProperty Name="quartTravail" ColumnName="quartTravail" />
+          <ScalarProperty Name="DateEntreValeur" ColumnName="DateEntreValeur" />
+          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+          <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Langue">
+      <EntityTypeMapping TypeName="NiovarJobModel.Langue">
+        <MappingFragment StoreEntitySet="Langue">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Location">
+      <EntityTypeMapping TypeName="NiovarJobModel.Location">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="Ins_id2" ColumnName="Ins_id2" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="periode" ColumnName="periode" />
+          <ScalarProperty Name="heureTravail" ColumnName="heureTravail" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="montant" ColumnName="montant" />
+          <ScalarProperty Name="signClient" ColumnName="signClient" />
+          <ScalarProperty Name="signCandidat" ColumnName="signCandidat" />
+          <ScalarProperty Name="remuneration" ColumnName="remuneration" />
+          <ScalarProperty Name="dateSgnClt" ColumnName="dateSgnClt" />
+          <ScalarProperty Name="dateSgnCdt" ColumnName="dateSgnCdt" />
+          <ScalarProperty Name="avisClient" ColumnName="avisClient" />
+          <ScalarProperty Name="avisCandidat" ColumnName="avisCandidat" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="etat" ColumnName="etat" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+          <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NiveauLangue">
+      <EntityTypeMapping TypeName="NiovarJobModel.NiveauLangue">
+        <MappingFragment StoreEntitySet="NiveauLangue">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NiveauScolarite">
+      <EntityTypeMapping TypeName="NiovarJobModel.NiveauScolarite">
+        <MappingFragment StoreEntitySet="NiveauScolarite">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Page">
+      <EntityTypeMapping TypeName="NiovarJobModel.Page">
+        <MappingFragment StoreEntitySet="Page">
+          <ScalarProperty Name="couleurFond" ColumnName="couleurFond" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="profilPage" ColumnName="profilPage" />
+          <ScalarProperty Name="profil" ColumnName="profil" />
+          <ScalarProperty Name="aPropos" ColumnName="aPropos" />
+          <ScalarProperty Name="pourquoiPostuler" ColumnName="pourquoiPostuler" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="nomPage" ColumnName="nomPage" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Paiement">
+      <EntityTypeMapping TypeName="NiovarJobModel.Paiement">
+        <MappingFragment StoreEntitySet="Paiement">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="Job_id" ColumnName="Job_id" />
+          <ScalarProperty Name="Pos_id" ColumnName="Pos_id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="montant" ColumnName="montant" />
+          <ScalarProperty Name="avance" ColumnName="avance" />
+          <ScalarProperty Name="reste" ColumnName="reste" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="etat" ColumnName="etat" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parametre">
+      <EntityTypeMapping TypeName="NiovarJobModel.Parametre">
+        <MappingFragment StoreEntitySet="Parametre">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="valeur" ColumnName="valeur" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Postuler">
+      <EntityTypeMapping TypeName="NiovarJobModel.Postuler">
+        <MappingFragment StoreEntitySet="Postuler">
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="Job_id" ColumnName="Job_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="datePostule" ColumnName="datePostule" />
+          <ScalarProperty Name="heurePostule" ColumnName="heurePostule" />
+          <ScalarProperty Name="remuneration" ColumnName="remuneration" />
+          <ScalarProperty Name="etatAdmin" ColumnName="etatAdmin" />
+          <ScalarProperty Name="etat" ColumnName="etat" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="etatClient" ColumnName="etatClient" />
+          <ScalarProperty Name="etatCandidat" ColumnName="etatCandidat" />
+          <ScalarProperty Name="approbation" ColumnName="approbation" />
+          <ScalarProperty Name="signatures" ColumnName="signatures" />
+          <ScalarProperty Name="situationTravail" ColumnName="situationTravail" />
+          <ScalarProperty Name="dateEmbauche" ColumnName="dateEmbauche" />
+          <ScalarProperty Name="dateSignatures" ColumnName="dateSignatures" />
+          <ScalarProperty Name="dateEntrevue" ColumnName="dateEntrevue" />
+          <ScalarProperty Name="heure" ColumnName="heure" />
+          <ScalarProperty Name="responsableEntrevue" ColumnName="responsableEntrevue" />
+          <ScalarProperty Name="duree" ColumnName="duree" />
+          <ScalarProperty Name="outils" ColumnName="outils" />
+          <ScalarProperty Name="signatureClient" ColumnName="signatureClient" />
+          <ScalarProperty Name="dateSignClient" ColumnName="dateSignClient" />
+          <ScalarProperty Name="compagnyId" ColumnName="compagnyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuartTravail">
+      <EntityTypeMapping TypeName="NiovarJobModel.QuartTravail">
+        <MappingFragment StoreEntitySet="QuartTravail">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Question">
+      <EntityTypeMapping TypeName="NiovarJobModel.Question">
+        <MappingFragment StoreEntitySet="Question">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Pag_id" ColumnName="Pag_id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="iduser" ColumnName="iduser" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reponse">
+      <EntityTypeMapping TypeName="NiovarJobModel.Reponse">
+        <MappingFragment StoreEntitySet="Reponse">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Que_id" ColumnName="Que_id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="iduser" ColumnName="iduser" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="NiovarJobModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatutEmploi">
+      <EntityTypeMapping TypeName="NiovarJobModel.StatutEmploi">
+        <MappingFragment StoreEntitySet="StatutEmploi">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suivre">
+      <EntityTypeMapping TypeName="NiovarJobModel.Suivre">
+        <MappingFragment StoreEntitySet="Suivre">
+          <ScalarProperty Name="Ins_id" ColumnName="Ins_id" />
+          <ScalarProperty Name="Pag_id" ColumnName="Pag_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeOffre">
+      <EntityTypeMapping TypeName="NiovarJobModel.TypeOffre">
+        <MappingFragment StoreEntitySet="TypeOffre">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Types">
+      <EntityTypeMapping TypeName="NiovarJobModel.Types">
+        <MappingFragment StoreEntitySet="Types">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="image" ColumnName="image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateur">
+      <EntityTypeMapping TypeName="NiovarJobModel.Utilisateur">
+        <MappingFragment StoreEntitySet="Utilisateur">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Rol_id" ColumnName="Rol_id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="allowNotification" ColumnName="allowNotification" />
+          <ScalarProperty Name="allowNewsletter" ColumnName="allowNewsletter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bibliotheque">
+      <EntityTypeMapping TypeName="NiovarJobModel.Bibliotheque">
+        <MappingFragment StoreEntitySet="Bibliotheque">
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="chemin" ColumnName="chemin" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

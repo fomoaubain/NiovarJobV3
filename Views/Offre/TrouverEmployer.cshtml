@@ -1,0 +1,645 @@
+﻿@model WebApplication1.Models.Job
+@{
+    ViewBag.Title = "TrouverEmployer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="popular-job">
+    <div class="container">
+        <div class="col-sm-12 col-lg-12 col-xl-12">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+           
+            <div class="row">
+                <div class="col-lg-12 text-center mt30">
+                    <h2 class="fz20 mb20">Recherché un employé facilement sur Niovar Job Ici</h2>
+                    <h6 class="fz20 mb10">* votre demande sera traité et vous serez contactez par la suite </h6>
+                </div>
+
+                <input type="hidden" id="" value="true" name="immediat">
+
+                <div class="col-lg-12">
+                    <div class="my_profile_input form-groupform-group">
+                        <label for="formGroupExampleInput1">Titre de l'offre  d'emploi (*)</label><br>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.titre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Saisir le titre de l'offre l'emploi recherché" } })
+                            @Html.ValidationMessageFor(model => model.titre, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-lg-12">
+                    <div class="my_resume_textarea mt20">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput1">Description de l'offre (*) </label><br>
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.description, new { @row = "9", @class = "form-control summernote ", @placeholder = "veuillez saisir ici" })
+                                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="my_resume_textarea mt20">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput1">Responsabilité de l'employé (*) </label><br>
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.responsabilite, new { @row = "9", @class = "form-control summernote", @placeholder = "veuillez saisir ici" })
+                                @Html.ValidationMessageFor(model => model.responsabilite, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 mt5">
+                    <h4 class="text-center">Exigences et compétences réquises (*) </h4>
+                </div>
+                <div class="col-md-6 col-lg-12">
+                    <div class="my_profile_select_box form-group">
+                        <label for="formGroupExampleInput1">Niveau de scolarité</label><br>
+                        <select class="selectpicker" name="Niv_id" required>
+                            <option value="" selected>choisir</option>
+                            @foreach (WebApplication1.Models.NiveauScolarite item in ViewBag.listNiveauScolarite)
+                            {
+                                <option value="@item.id">@item.libelle</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12">
+                    <div class="my_profile_input form-group">
+                        <label for="exampleFormControlInput3">Diplômes nécessaire (*) </label><br>
+                        <div class="col-md-12">
+                            <div class="row">
+                                @foreach (WebApplication1.Models.Diplome item in ViewBag.listDiplome)
+                                {
+                                    <div class="col-md-3">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="listDip" value="@item.id" class="custom-control-input " id="ch@(item.id)">
+                                            <label class="custom-control-label" for="ch@(item.id)">@item.libelle</label>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="my_profile_select_box form-group">
+                        <label for="formGroupExampleInput1">Statut de la formation (*)</label><br>
+                        <select class="selectpicker" name="Sta_id" required>
+                            <option value="" selected>choisir</option>
+                            @foreach (WebApplication1.Models.StatutEmploi item in ViewBag.listStatutEmploi)
+                            {
+                                <option value="@item.id">@item.libelle</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="my_profile_select_box form-group">
+                        <label for="formGroupExampleInput1">Langue (*)</label><br>
+                        <select class="selectpicker" name="Lan_id" onchange="nlgShow()" id="nlgval" required>
+                            <option value="" selected>choisir</option>
+                            @foreach (WebApplication1.Models.Langue item in ViewBag.listLangue)
+                            {
+                                <option value="@item.id">@item.libelle</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12 nlg" style="display:none">
+                    <div class="my_profile_input form-group">
+                        <label for="exampleFormControlInput3">Choisir niveau de la langue parlé </label><br>
+                        <div class="col-md-12">
+                            <div class="row">
+                                @foreach (WebApplication1.Models.NiveauLangue item in ViewBag.listNiveauLangue)
+                                {
+                                    <div class="col-md-3">
+                                        <div class="custom-control custom-switch">
+                                            <input type="radio" name="niveauOrale" value="@item.id" class="custom-control-input" id="nilang@(item.id)">
+                                            <label class="custom-control-label" for="nilang@(item.id)">@item.libelle</label>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12 nlg" style="display:none">
+                    <div class="my_profile_input form-group">
+                        <label for="exampleFormControlInput3">Choisir niveau d'ecriture de la langue </label><br>
+                        <div class="col-md-12">
+                            <div class="row">
+                                @foreach (WebApplication1.Models.NiveauLangue item in ViewBag.listNiveauLangue)
+                                {
+                                    <div class="col-md-3">
+                                        <div class="custom-control custom-switch">
+                                            <input type="radio" name="niveauEcrire" value="@item.id" class="custom-control-input" id="niEcrit@(item.id)">
+                                            <label class="custom-control-label" for="niEcrit@(item.id)">@item.libelle</label>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="my_resume_textarea mt20">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput1">Exigences et competences additionnelles (*)</label><br>
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.exigence, new { @row = "9", @class = "form-control summernote ", @placeholder = "veuillez saisir ici" })
+                                @Html.ValidationMessageFor(model => model.exigence, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sectionAdresse" class="row col-md-12">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="my_profile_input form-group">
+                            <label for="exampleFormControlInput3">Adresse postale (*) </label><br>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.adressePostal, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Adresse postale" } })
+                                @Html.ValidationMessageFor(model => model.adressePostal, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="my_profile_input form-group">
+                            <label for="exampleFormControlInput3">Code postale (*) </label><br>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.codePostal, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Adresse postale" } })
+                                @Html.ValidationMessageFor(model => model.codePostal, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="my_profile_select_box form-group">
+                        @Html.LabelFor(model => model.pays, "Pays (*)", htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            <select name="pays" class="browser-default custom-select country" id="countryId" required>
+                                <option value="">Selectionner le pays</option>
+                            </select>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.pays, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="my_profile_select_box form-group">
+                        @Html.LabelFor(model => model.province, "Province (*)", htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            <select name="province" class="browser-default custom-select state" id="stateId" required>
+                                <option value="">Selectionner la province</option>
+                            </select>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.province, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="my_profile_select_box form-group">
+                        @Html.LabelFor(model => model.ville, "Ville (*)", htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            <select name="ville" class="browser-default custom-select city" id="cityId" required>
+                                <option value="">Selectionner la ville</option>
+                            </select>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ville, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="my_profile_select_box form-group">
+                        <label for="formGroupExampleInput1">Type d'offre (*)</label><br>
+                        <select class="selectpicker" name="Typ_id" required>
+                            <option value="" selected>choisir</option>
+                            @foreach (WebApplication1.Models.TypeOffre item in ViewBag.listTypeOffre)
+                            {
+                                <option value="@item.id">@item.libelle</option>
+                            }
+                        </select>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Typ_id, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="my_profile_select_box form-group">
+                        <label for="formGroupExampleInput1">Type contrat (*)</label><br>
+                        <select class="selectpicker" name="Con_id" required>
+                            <option value="" selected>choisir</option>
+                            @foreach (WebApplication1.Models.Contrat item in ViewBag.listContrat)
+                            {
+                                <option value="@item.id">@item.libelle</option>
+                            }
+                        </select>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Con_id, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="my_profile_input form-group">
+                        <label for="exampleFormControlInput3">Date de début (*) </label><br>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.dateDebut, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            @Html.ValidationMessageFor(model => model.dateDebut, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="my_profile_input form-group">
+                        <label for="exampleFormControlInput3">Date de fin (*) </label><br>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.dateFin, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            @Html.ValidationMessageFor(model => model.dateFin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 ">
+                    <div class=" my_profile_select_box form-group">
+                        <label for="formGroupExampleInput1">Choisir votre catégorie ou domaine  d'activité (*) </label><br>
+                        <div class="col-md-12">
+                            <select class="browser-default custom-select" name="Typ_id" id="categorie" required>
+                                <option value="" selected>choisir catégorie</option>
+                                @foreach (WebApplication1.Models.Types types in ViewBag.listTypes)
+                                {
+                                    <option value="@types.id">@types.libelle</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6  ">
+                    <div class="my_profile_select_box form-group">
+                        <label for="formGroupExampleInput1">Choisir votre titre d'emploi (*)</label><br>
+                        <div class="col-md-12">
+                            <select class="browser-default custom-select" name="Cat_id" id="titreEmploi" required>
+                                <option value="" selected>choisir titre emploi</option>
+                            </select>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Cat_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="my_profile_select_box form-group">
+                        <label for="exampleFormControlInput3">Quart de travail (*)</label><br>
+                        <select class="selectpicker" name="Qua_id" required>
+                            <option value="" selected>choisir</option>
+                            @foreach (WebApplication1.Models.QuartTravail types in ViewBag.listQuartTravail)
+                            {
+                                <option value="@types.id">@types.libelle</option>
+                            }
+                        </select>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Qua_id, "", new { @class = "text-danger" })
+                </div>
+
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="my_profile_select_box form-group">
+                        <label for="exampleFormControlInput3">Horaire de travail (*) </label><br>
+                        <select class="selectpicker" name="heureTravail" required>
+                            <option value="" selected>choisir</option>
+                            <option>Temps plein</option>
+                            <option>Temps partielle</option>
+                             <option>Temps plein et  partielle</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="my_profile_input form-group">
+                        <label for="exampleFormControlInput3">Nombre de poste / Nombre d'employé (*)</label><br>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.nbreEmploye, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "any", @min = "0", @max = "100", @placeholder = "8 employés", @value = "1", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.nbreEmploye, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="my_profile_input form-group">
+                        <label for="exampleFormControlInput3">Horaire de travail par jour (NB: exclus les heures libres) (*)</label><br>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.heureTravailJour, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "any", @min = "0", @max = "24", @placeholder = "8 Heures", @id = "heureTravail", @value = "1", @onkeyup = "calcul()", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.heureTravailJour, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 mt5">
+                    <h4 class="text-center">Remunération (*) </h4>
+                </div>
+                <div class="col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4 text-center justify-content-center">
+                            <h5 class="fz16 mb20 mt20">Année d'experience (*)</h5>
+                            @Html.ValidationMessageFor(model => model.margeExperience, "", new { @class = "text-danger" })
+                            <div id="resultat">
+
+                                <h6 class="color-silver">Veuillez choisir la catégorie de l'emploi</h6>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4 ">
+                            <h5 class="fz16 mb20 mt20 text-center">Jour de travail</h5>
+                            <div class="ui_kit_checkbox justify-content-center">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" name="workDay" value="Dimanche" class="custom-control-input form-check-jour" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">Dimanche</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" name="workDay" value="Lundi" class="custom-control-input form-check-jour" id="customCheck2">
+                                    <label class="custom-control-label" for="customCheck2">Lundi</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" name="workDay" value="Mardi" class="custom-control-input form-check-jour" id="customCheck3">
+                                    <label class="custom-control-label" for="customCheck3">Mardi</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" name="workDay" value="Mercredi" class="custom-control-input form-check-jour" id="customCheck4">
+                                    <label class="custom-control-label" for="customCheck4">Mercredi</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" name="workDay" value="Jeudi" class="custom-control-input form-check-jour" id="customCheck5">
+                                    <label class="custom-control-label" for="customCheck5">Jeudi</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" name="workDay" value="vendredi" class="custom-control-input form-check-jour" id="customCheck6">
+                                    <label class="custom-control-label" for="customCheck6">vendredi</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" name="workDay" value="Samedi" class="custom-control-input form-check-jour" id="customCheck7">
+                                    <label class="custom-control-label" for="customCheck7">Samedi</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 text-center justify-content-center">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="my_profile_input form-group">
+                                    <label for="exampleFormControlInput3">Taux horaire à payer en $  </label><br>
+                                    <div class="col-md-12">
+                                        <input type="text" value="0" id="tauxHoraire" class="btn btn-lg btn-thm" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12">
+                                <div class="my_profile_input form-group">
+                                    <label for="exampleFormControlInput3">Taux Journalier à payer en $  </label><br>
+                                    <div class="col-md-12">
+                                        <input type="text" value="0" id="tauxJournalier" class="btn btn-lg btn-thm" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12">
+                                <div class="my_profile_input form-group">
+                                    <label for="exampleFormControlInput3">Taux hebdomadaire  à payer en $ </label><br>
+                                    <div class="col-md-12">
+                                        <input type="text" id="tauxHebdomadaire" value="0" class="btn btn-lg btn-thm" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12">
+                                @Html.ValidationMessageFor(model => model.remuneration, "", new { @class = "text-danger" })
+                                <div class="my_profile_input form-group">
+                                    <label for="exampleFormControlInput3">Taux à la quinzaine  à payer en $ (*)   </label><br>
+                                    <div class="col-md-12">
+                                         @Html.EditorFor(m => m.remuneration, new { htmlAttributes = new { @class = "btn btn-lg btn-thm", @step = "any", @value = "0", @min = "0.0", @id = "tauxQuinzaine", @readonly = "true" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12">
+                    <div class="my_profile_input form-group">
+                        <div class="col-md-12">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="" value="" class="custom-control-input " id="condt" required>
+                                <label class="custom-control-label" for="condt">
+                                    En cochant cette case, vous acceptez les termes et conditions d'utilisation.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12 mt10">
+                    <div class="my_profile_input text-center">
+                        <input type="submit" value="Soumettre votre demande de main d'oeuvre" class="btn btn-lg btn-thm" />
+                    </div>
+                </div>
+
+
+            </div>
+            
+            }
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="~/Scripts/custom.js"></script>
+
+<script type="text/javascript" src="~/Scripts/select2.min.js"></script>
+<link rel="stylesheet" href="~/Content/select2.min.css">
+<script src="//geodata.solutions/includes/countrystatecity.js"></script>
+
+
+
+<style type="text/css">
+    .select2-dropdown {
+        top: 22px !important;
+        left: 8px !important;
+    }
+</style>
+
+
+<script>
+
+      var valuePays = null;
+    var valueProvince =null;
+    var valueVille = null;
+
+    $("#categorie").select2({
+        placeholder: "Choisir la categorie",
+        allowClear: true
+    });
+
+    $("#titreEmploi").select2({
+        placeholder: "Choisir  titre d'emploi",
+        allowClear: true
+    });
+
+    $(".country").select2({
+        placeholder: "Choisir le pays",
+        allowClear: true
+    });
+
+    $(".state").select2({
+        placeholder: "Choisir la province",
+        allowClear: true
+    });
+
+    $(".city").select2({
+        placeholder: "Choisir la ville",
+        allowClear: true
+    });
+
+     $("#categorie").on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+        var id = this.value;
+        var stateOptions = " <option selected  value=''> choisir  titre emploi </option>";
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetAllTitreEmploi", "Offre")',
+            data: { "id": id },
+            dataType: 'json',
+            success: function (data) {
+                console.log("tablaeu:" + data);
+                $.each(data, function (i, titreEmploi) {
+                    stateOptions += "<option value='"
+                        + titreEmploi.id +
+                        "'>"
+                        + titreEmploi.libelle +
+                        "</option>";
+                });
+                $('#titreEmploi').html(stateOptions);
+            },
+            error: function (emp) {
+                stateOptions += "<option value=''>" +
+                    "Aucune donné trouvé</option>";
+                $('#titreEmploi').html(stateOptions);
+            }
+        });
+    });
+
+
+    $("#titreEmploi").on('change', function (e) {
+            var optionSelected = $("option:selected", this);
+            var choice = this.value;
+            if (choice != null || choice != '') {
+
+                findAll(choice);
+            }
+        });
+
+        function findAll(ch) {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetAll", "Offre")',
+            data: { "id": ch },
+            dataType: 'json',
+            success: function (data) {
+                console.log("liste année expérience :"+data);
+             GetAllUsingAjax(ch, data);
+            },
+            error: function (emp) {
+                alert('error 1');
+            }
+        });
+        }
+
+
+
+
+
+    function GetAllUsingAjax(id, obj) {
+        console.log("Categorie " + id);
+        console.log("annee d'experience "+obj);
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetAllAnneeExperience","Offre")',
+            data: { "id": id },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                var rows = "";
+                $.each(data, function (i, item) {
+                    $.each(obj, function (j, element) {
+                        if (item.Ann_id == element.id) {
+                            rows += " <div class='radio'>" +
+                                "<input type='radio' name='margeExperience' value='" + element.libelle +"' >" +
+                                "<label ><span class='radio-label'></span>" + element.libelle + " </label></div >" +
+                                "<input type='hidden' id='" + element.libelle + "' value='" + item.prixHoraire + "' >";
+                        }
+                    });
+                });
+                $('#resultat').html(rows);
+            },
+            error: function (emp) {
+                alert('error 2');
+            }
+        });
+    }
+
+    $(document).on("change", "input[type=radio][name=margeExperience]", function () {
+        var ac = this.value;
+        var inputVal = document.getElementById(ac).value;
+        document.getElementById("tauxHoraire").value = inputVal;
+
+        document.getElementById("tauxJournalier").value = inputVal * document.getElementById("heureTravail").value;
+
+        if ($('.form-check-jour').is(':checked')) {
+            $(".form-check-jour").prop("checked", false);
+        }
+
+        document.getElementById("tauxHebdomadaire").value = 0;
+        document.getElementById("tauxQuinzaine").value = 0;
+    });
+
+    $(document).on("change", "input[type=checkbox][name=workDay]", function () {
+        tab = [];
+
+        $("input:checkbox[name=workDay]:checked").each(function () {
+        tab.push($(this).val());
+    });
+
+        var heureTravail = document.getElementById("heureTravail").value;
+        var prixHoraire = document.getElementById("tauxHoraire").value;
+        document.getElementById("tauxJournalier").value = prixHoraire * heureTravail;
+        document.getElementById("tauxHebdomadaire").value = prixHoraire * heureTravail * tab.length;
+        document.getElementById("tauxQuinzaine").value = prixHoraire * heureTravail * tab.length*2;
+      });
+
+
+    function calcul() {
+        tab = [];
+
+        $("input:checkbox[name=workDay]:checked").each(function () {
+            tab.push($(this).val());
+        });
+
+        var heureTravail = document.getElementById("heureTravail").value;
+        var prixHoraire = document.getElementById("tauxHoraire").value;
+        document.getElementById("tauxJournalier").value = prixHoraire * heureTravail;
+        document.getElementById("tauxHebdomadaire").value = prixHoraire * heureTravail * tab.length;
+        document.getElementById("tauxQuinzaine").value = prixHoraire * heureTravail * tab.length * 2;
+    }
+
+    // fonction qui cache ou affiche le niveau d'ecriture et de langue du formulaire
+    function nlgShow() {
+        var val = $('#nlgval').val();
+
+        if (val != '' && val != null && val != undefined) {
+            $('.nlg').show();
+
+        } else {
+            $('.nlg').hide();
+        }
+
+    }
+
+</script>

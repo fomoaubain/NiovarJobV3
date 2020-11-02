@@ -1,0 +1,39 @@
+﻿@model WebApplication1.Models.AnneeExp
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<!-- Page Content -->
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12 ">
+
+            <form>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Libelle <span class="text-danger"></span></label>
+                            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.libelle)" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Crée le </label>
+                            <input class="form-control " value="@Html.DisplayFor(model => model.created)" type="text" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <p>
+
+                    @Html.ActionLink("Retour à la liste", "Index")
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->

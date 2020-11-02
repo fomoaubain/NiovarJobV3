@@ -1,0 +1,159 @@
+﻿@model IEnumerable<WebApplication1.Models.Utilisateur>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Liste des utilisateurs du système</h2>
+
+<p>
+    <a style=" margin-left: 18px; " href="@Url.Action("Create", "Utilisateurs")" class="btn btn-primary">
+        <i class="fa fa-plus"></i>
+        <span>
+            <strong>Ajouter</strong>
+        </span>
+    </a>
+</p>
+
+<div class="card-body">
+    @if (ViewBag.Message != null)
+    {
+        <div class="ui_kit_message_box" id="message2">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                @ViewBag.Message
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    }
+
+    <div class="table-responsive">
+        <div class="btn btn-thm btn-outline-info" style="cursor: pointer; margin-bottom: 15px;" onclick="document.getElementById('checkAll').click()">
+            <input type="checkbox" id="checkAll" />  <b>Tout sélectionner</b>
+        </div>
+        <table class="datatable table table-stripped mb-0">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.nom)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.email)
+                    </th>
+
+                    <th>
+                       rôle
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.status)
+                    </th>
+
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input class="cb-element" type="checkbox" name="user_email" value="@item.email" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.email)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Role.libelle)
+                        </td>
+                        <td>
+
+                            <a title="Click to @(item.status == 1 ? "Block" : "Activate")" href="@Url.Action("EditStatus", "Utilisateurs", new { id = item.id })" class="btn btn-sm btn-@(item.status == 1 ? "success": "danger")">
+                                <span>
+                                    <strong>@(item.status == 1 ? "Actif" : "Blocker")</strong>
+                                </span>
+                            </a>
+                        </td>
+
+                        <td>
+                            <a title="Edit" href="@Url.Action("Edit", "Utilisateurs", new { id = item.id })" class="btn btn-sm btn-outline-primary">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a title="Details" href="@Url.Action("Details", "Utilisateurs", new { id = item.id })" class="btn btn-sm btn-outline-info">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a title="Delete" href="@Url.Action("Delete", "Utilisateurs", new { id = item.id })" class="btn btn-sm btn-outline-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                            <button title="Send mail" onclick="sendMail('@item.email')" class="btn btn-sm btn-outline-info">
+                                <i class="fa fa-mail-forward"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        <hr />
+        <div id="optionDiv">
+            <button onclick="sendMail();" class="btn btn-outline-primary" id="send-mail"><i class="fa fa-mail-forward"></i> Send mail</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+
+    $( function() {
+        $('#checkAll').on('change', function () {
+            $(this).next().text($(this).is(':checked') ? 'Tout desélectionner' : 'Tout sélectionner');
+            $isChecked = $(this).is(':checked');
+            console.log('isChecked  = ' + $isChecked);
+            $('.cb-element').each(function () {
+                this.checked = $isChecked;
+            });
+        });
+        $('.cb-element').on('change', function () {
+            $isAllChecked = ($('.cb-element').length == $('.cb-element:checked').length);
+            console.log('isAllChecked  = ' + $isAllChecked);
+            if ($isAllChecked) {
+                $('#checkAll').attr('checked', true);
+                $('#checkAll').next().text('Tout desélectionner')
+            }
+            else {
+                $('#checkAll').attr('checked', false);
+                $('#checkAll').next().text('Tout sélectionner');
+            }
+        });
+    });
+
+    function sendMail(email = null) {
+        var url = "@Url.Action("SendMail", "Utilisateurs")";
+        var value = "";
+        var form = '<form id="mailForm" action="' + url + '" method="POST">';
+        if (email == null) {
+            $('.cb-element').each(function () {
+                if ($(this).is(':checked')) {
+                    value += (value.length == 0 ? '' : ',') + $(this).attr('value');
+                }
+            });
+        }
+        else {
+            value = email;
+        }
+        form += '<input name="emails" type="text" value="' + value + '"/>';
+        form += '</form>';
+        $('body').append(form);
+        $('#mailForm').submit();
+    }
+
+</script>

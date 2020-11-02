@@ -1,0 +1,317 @@
+﻿@model IEnumerable<WebApplication1.Models.Postuler>
+@{
+    ViewBag.Title = "listPostulantAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Leave Statistics -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="stats-info">
+                <h6>Offre de attente</h6>
+                <h4> @ViewBag.attente</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-info">
+                <h6>offre en évaluation</h6>
+                <h4> @ViewBag.evaluation</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-info">
+                <h6>offre accepter/aprouver</h6>
+                <h4> @ViewBag.aprouver</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-info">
+                <h6>offre rejeté</h6>
+                <h4> @ViewBag.refuser</h4>
+            </div>
+        </div>
+
+     
+   
+       
+    </div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card mb-0">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Liste des Candidat intéresser par l'offre [  @ViewBag.titreJob ] </h4>
+
+            </div>
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="datatable table table-stripped mb-0">
+                        <thead>
+
+                            <tr>
+                                <th>Candidat</th>
+                                <th>Titre de l'offre</th>
+                                <th>Posté le </th>
+                                <th>Contrat</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Paiement</th>
+                                <th class="text-right">Opérations</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <h2 class="table-avatar">
+                                            <a href="profile.html" class="avatar"><img alt="" src="~/Fichier/@item.Inscrire.profil" width="40" height="40"></a>
+                                            <a href="#">@item.Inscrire.nom<span>@item.Inscrire.titreEmploi</span></a>
+                                        </h2>
+                                    </td>
+                                    <td>@item.Job.titre</td>
+                                    <td>@item.created</td>
+                                    <td>
+                                        @if (item.etatCandidat.Equals("2") && item.etatClient.Equals("2"))
+                                        {
+                                            if (item.signatures.Equals("0"))
+                                            {
+                                                <a href="@Url.Action("contratTravailAdmin", "Admin", new { id=item.id, idIns=item.Inscrire.id,  idJob=item.Job.id })" class="badge bg-inverse-warning" title="Envoyer le contrat de travil au candidat"><span>Candidature accepté par le client <br>Envoyer le contrat de travail au candidat</span></a>
+                                            }
+                                            else if (item.signatures.Equals("1"))
+                                            {
+                                                <p class="badge bg-inverse-warning" title="Envoyer le contrat au client"><span>en attente de signature du candidat</span></p>
+                                            }
+                                            else if (item.signatures.Equals("2"))
+                                            {
+                                                <p class="badge bg-inverse-success" title="Envoyer le contrat au client"><span>Contrat accepter par le candidat</span></p>
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            if (item.etatCandidat.Equals("2") && item.etatClient.Equals("0"))
+                                            {
+                                                <p class="badge bg-inverse-default" read title="Envoyer le contrat au client"><span>candidature envoyé et en attente <br> d'approbation par le client </span></p>
+                                            }
+                                            else if (item.etatCandidat.Equals("2") && item.etatClient.Equals("3"))
+                                            {
+                                                <p class="badge bg-inverse-danger" read title="Envoyer le contrat au client"><span>candidature à été <br> refusé par le client </span></p>
+                                            }
+                                            else
+                                            {
+                                                <p class="badge bg-inverse-default" read title="Envoyer le contrat au client"><span>indisponible</span></p>
+
+                                            }
+
+                                        }
+                                    </td>
+
+                                    <td class="text-center">
+                                        <div class="dropdown action-label">
+
+                                            <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                @if (item.etatCandidat.Equals("0"))
+                                                {<span> <i class="fa fa-dot-circle-o text-purple"></i> en attente d'évaluation </span> }
+                                                else if (item.etatCandidat.Equals("1"))
+                                                { <span> <i class="fa fa-dot-circle-o text-purple"></i>en évaluation </span> }
+                                                else if (item.etatCandidat.Equals("2"))
+                                                { <span> <i class="fa fa-dot-circle-o text-purple"></i>accepter </span> }
+                                                else if (item.etatCandidat.Equals("3"))
+                                                { <span> <i class="fa fa-dot-circle-o text-purple"></i>refuser </span>}
+                                                else if (item.etatCandidat.Equals("5"))
+                                                { <span> <i class="fa fa-dot-circle-o text-purple"></i>contrat terminé </span>}
+
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <button value="0" onclick="document.getElementById('choice@(item.id)').value='0'" class="dropdown-item" data-toggle="modal" data-target="#modalModel@(item.id)"><i class="fa fa-dot-circle-o text-purple"></i> en attente d'évaluation </button>
+                                                <button value="1" onclick="document.getElementById('choice@(item.id)').value='1'" class="dropdown-item" data-toggle="modal" data-target="#modalModel@(item.id)"><i class="fa fa-dot-circle-o text-info"></i> en évaluation </button>
+                                                <button value="2" onclick="acceptJob(@item.id)" class="dropdown-item" data-toggle="modal" data-target="#modalModel@(item.id)"><i class="fa fa-dot-circle-o text-success"></i> accepter</button>
+                                                <button value="3" onclick="document.getElementById('choice@(item.id)').value='3'" class="dropdown-item" data-toggle="modal" data-target="#modalModel@(item.id)"><i class="fa fa-dot-circle-o text-danger"></i> refuser</button>
+
+                                                <button value="5" onclick="document.getElementById('choice@(item.id)').value='5'" class="dropdown-item" data-toggle="modal" data-target="#modalModel@(item.id)"><i class="fa fa-dot-circle-o text-danger"></i> contrat terminé </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @if (item.etatCandidat.Equals("2") && item.etatClient.Equals("2"))
+                                        {
+                                          /*  if (item.Paiement.FirstOrDefault(p => p.Pos_id == item.id && p.Ins_id == item.Ins_id && p.Job_id == item.Job_id).reste <= 0)
+                                            {
+                                                <button onclick="showEtatPaiement(@item.id)" class="badge bg-success text-white" >Effectué</button>
+
+                                            }
+                                            else
+                                            {
+                                                <button onclick="showEtatPaiement(@item.id)" class="badge bg-warning text-white" > Partiel</button>
+
+                                            }*/
+                                        }
+                                        else
+                                        {
+                                            <p  class="badge bg-danger text-white" title="Envoyer le contrat au client">Indisponible</p>
+
+                                        }
+                                    </td>
+                                    <td>
+
+                                        <div class="dropdown dropdown-action">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="@Url.Action("cvResumeAdmin", "Admin", new { id=item.Inscrire.id })" data-toggle="tooltip" data-placement="bottom" title="consulter le cv du candidat"><span class="color-black22"> </span> Voir CV</a>
+                                                <a class="dropdown-item" href="@Url.Action("documentsCandidat", "Admin", new { id=item.Inscrire.id })"> Voir les documents</a>
+
+
+                                                @if (item.etatCandidat.Equals("2") && item.etatClient.Equals("2"))
+                                                {
+                                                    <a class="dropdown-item" href="@Url.Action("talonPaieAdmin", "Admin", new { idPost=item.id,  idIns=item.Inscrire.id,  idJob=item.Job.id   })" data-toggle="tooltip" data-placement="bottom" title="Envoyer talon de paie"><span class="color-black22"> </span>Talon de paie</a>
+                                                }
+
+                                                @if (item.etatCandidat.Equals("2") && item.etatClient.Equals("2"))
+                                                {
+                                                    <a class="dropdown-item" href="@Url.Action("contratTravailAdmin", "Admin", new { id=item.id, idIns=item.Inscrire.id,  idJob=item.Job.id })" data-toggle="tooltip" data-placement="bottom" title="consulter le contrat de travail"><span class="color-black22"> </span>Contrat de travail</a>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <div class="modal custom-modal fade" id="modalModel@(item.id)" role="dialog">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="form-header">
+                                                    <h3>Note Information !</h3>
+                                                    <p>êtes vous sûr de vouloir éffectuer cette action  ?</p>
+                                                </div>
+
+                                                <input type="hidden" id="choice@(item.id)" value="0" name="etatCandidat">
+
+                                                <div id="layout_@(item.id)" style="display:none;" class="mb-4">
+                                                    <div class="col-md-12 mt-2 ">
+                                                        <h4 class="fz18 mb20">Salaire proposé par le client chaque 2 semaine</h4>
+                                                        <div class="col-md-offset-12 col-md-12 ">
+                                                            <input id="salClient@(item.id)" type="number" readonly class="form-control" value="@(item.Job.remuneration)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 mt-2 ">
+                                                        <h4 class="fz18 mb20">Salaire final négocier à payer chaque 2 semaine</h4>
+                                                        <div class="col-md-offset-12 col-md-12 ">
+                                                            <input id="salFinal@(item.id)" type="number" class="form-control" value="@(item.Job.remunerationN)">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="modal-btn delete-action">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary continue-btn">Non</a>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button onclick="changeStatus(@item.id, @item.Job.id)" href="" class="btn-block btn-primary  cancel-btn"> Oui </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal custom-modal fade" id="paiementModal@(item.id)" role="dialog">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="form-header">
+                                                    <h3>Information sur le paiement éffectué par le client pour ce candidat</h3>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    @if (item.etatCandidat.Equals("2") && item.etatClient.Equals("2")) { 
+                                                        <p>Salaire Total : @item.Job.remuneration $</p>
+                                                   // <p>Avance :  @item.Paiement.FirstOrDefault(p => p.Pos_id == item.id && p.Ins_id == item.Ins_id && p.Job_id == item.Job_id).avance $ </p>
+                                                   // <p> Reste :  @item.Paiement.FirstOrDefault(p => p.Pos_id == item.id && p.Ins_id == item.Ins_id && p.Job_id == item.Job_id).reste $ </p>
+                                                    }
+                                                </div>
+                                                <div class="modal-btn delete-action">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary continue-btn">Fermé</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+    function showEtatPaiement(id) {
+        $('#paiementModal' + id).modal('show');
+    }
+
+    // fonction qui affiche la div contenant le formulaire dans le popup lorsque l'admin clique sur l'etat accepté
+
+    function acceptJob(id) {
+
+        document.getElementById('choice' + id).value = '2';
+        $("#layout_"+id).show();
+    }
+     // changer l'etat de la candidature d'un candidat
+    function changeStatus(id, idJob) {
+
+        var inputVal = document.getElementById('choice' + id).value;
+        var salFinal = document.getElementById('salFinal' + id).value;
+
+        if (salFinal == '' || salFinal == null || salFinal == undefined) {
+            salFinal = 0;
+        }
+
+        var url = "@Url.Action("EditEtatCandidat", "Admin")" + "?id=" + id + "&idJob=" + idJob + "&status=" + inputVal + "&salFinal=" + salFinal;
+
+        console.log("url= " +url);
+
+        window.location.href = url;
+    }
+
+
+    function republierOffre(idItem, idJob) {
+
+        var dateFinOffre = new Date($('#dateFinOffre' + idItem).val());
+        var curr_date = dateFinOffre.getDate();
+        var curr_month = dateFinOffre.getMonth() + 1; //Months are zero based
+        var curr_year = dateFinOffre.getFullYear();
+        dateFinOffre = curr_year + "-" + curr_month + "-" + curr_date + " 00:00:00";
+
+        if (dateFinOffre == '' || dateFinOffre == null || dateFinOffre == undefined) {
+            alert("Veuillez choisir une date de fin de la publication");
+            return;
+        } else {
+            var url = "@Url.Action("RepublierOffre", "Admin")" + "?idJob=" + idJob + "&dateFinOffre=" + dateFinOffre;
+        window.location.href = url;
+        }
+    }
+
+
+</script>
